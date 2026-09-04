@@ -25,15 +25,15 @@ export default function CinematicHero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-[#050505]/20 to-transparent"></div>
       </motion.div>
 
-      {/* Aesthetic 48px Pixel Grid Block Matrix Layer */}
+      {/* Aesthetic 300px Pixel Grid Block Matrix Layer */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.5] z-0 mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.55] z-0 mix-blend-overlay"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.2) 3px, transparent 3px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 3px, transparent 3px)
+            linear-gradient(to right, rgba(255, 255, 255, 0.25) 4px, transparent 4px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 4px, transparent 4px)
           `,
-          backgroundSize: '48px 48px',
+          backgroundSize: '300px 300px',
         }}
       />
 
