@@ -16,7 +16,8 @@ export default function CinematicHero() {
         <img
           src="/hero.jpg"
           alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 grayscale brightness-[1.5] contrast-[1.35] saturate-0 transition-all duration-700"
+          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 grayscale brightness-[2.1] contrast-[1.45] saturate-0 transition-all duration-700"
+          style={{ imageRendering: 'pixelated' }}
         />
 
         {/* Minimal Gradient Overlay */}
@@ -24,12 +25,15 @@ export default function CinematicHero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-[#050505]/20 to-transparent"></div>
       </motion.div>
 
-      {/* Low-Resolution Analog Film Grain & Halftone Grid Texture Layer */}
+      {/* Larger Aesthetic Pixel Grid Block Layer */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.15] z-0 mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.4] z-0 mix-blend-overlay"
         style={{
-          backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px), url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          backgroundSize: '4px 4px, 200px 200px',
+          backgroundImage: `
+            linear-gradient(to right, rgba(255, 255, 255, 0.15) 2px, transparent 2px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 2px, transparent 2px)
+          `,
+          backgroundSize: '14px 14px',
         }}
       />
 
