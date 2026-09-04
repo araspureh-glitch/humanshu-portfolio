@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import { Button } from '@/components/ui/button'
+import Hero from '../components/Hero'
 import { Link } from 'react-router-dom'
 
 function Home() {
@@ -27,43 +27,13 @@ function Home() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0c0c0e] text-slate-100 font-sans selection:bg-emerald-500 selection:text-black">
+    <div className="min-h-screen bg-[#09090b] text-slate-100 font-sans selection:bg-emerald-500 selection:text-black">
       <Header />
+      <Hero />
 
-      {/* Background Glows */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 -left-40 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 -right-40 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="relative max-w-6xl mx-auto px-6 pt-28 pb-16 flex flex-col justify-between min-h-screen">
-        {/* Hero Section */}
-        <section className="py-12 border-b border-neutral-800/80">
-          <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 rounded-full mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Frontend Developer & UI Architect
-            </span>
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent leading-[1.1]">
-              Humanshu
-            </h1>
-            <p className="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl leading-relaxed">
-              Crafting performant, visually impressive, and modern web experiences using React, Vite, and Tailwind CSS.
-            </p>
-            
-            <div className="mt-8 flex flex-wrap gap-4 items-center">
-              <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs uppercase font-bold tracking-wider rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/25 active:scale-95 cursor-pointer">
-                <Link to="/work">View My Work ↗</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-neutral-800 bg-neutral-900/80 hover:bg-neutral-800 text-slate-200 font-mono text-xs uppercase tracking-wider rounded-xl cursor-pointer">
-                <Link to="/about">About Me</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-
+      <div className="relative max-w-6xl mx-auto px-6 pb-16 flex flex-col justify-between">
         {/* Featured Projects Grid */}
-        <section className="py-12 border-b border-neutral-800/80">
+        <section className="py-16 border-b border-neutral-800/80">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-400">Featured Projects</h2>
             <Link to="/work" className="text-xs font-mono text-emerald-400 hover:underline">View All ↗</Link>
@@ -98,7 +68,7 @@ function Home() {
         </section>
 
         {/* Skills Section */}
-        <section className="py-12">
+        <section className="py-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-6">Skills & Technologies</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {skills.map((skill, idx) => (
