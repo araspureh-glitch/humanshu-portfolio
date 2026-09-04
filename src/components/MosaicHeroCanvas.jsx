@@ -40,7 +40,7 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
         // Offscreen sampling canvas
         const offCanvas = document.createElement('canvas')
         const offCtx = offCanvas.getContext('2d')
-        const tileSize = 15 // Tile size in pixels
+        const tileSize = 7 // Reduced finer tile size in pixels
 
         const cols = Math.ceil(width / tileSize)
         const rows = Math.ceil(height / tileSize)
@@ -72,8 +72,8 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
         ctx.fillStyle = '#050505'
         ctx.fillRect(0, 0, width, height)
 
-        const padding = 1.5 // Tile border gap
-        const cornerRadius = 2.5
+        const padding = 0.8 // Fine tile border gap
+        const cornerRadius = 1.2
 
         for (let r = 0; r < rows; r++) {
           for (let c = 0; c < cols; c++) {
