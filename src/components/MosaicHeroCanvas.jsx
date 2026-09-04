@@ -18,9 +18,19 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect()
+      const target = document.elementFromPoint(e.clientX, e.clientY)
+      const isHoveringElement = !!(
+        target && (
+          target.tagName === 'A' ||
+          target.tagName === 'BUTTON' ||
+          target.closest('a') ||
+          target.closest('button')
+        )
+      )
       mouse = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
+        isHoveringElement,
       }
     }
 
@@ -89,12 +99,15 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
             brightness = Math.pow(brightness, 0.7) * 1.85
             if (brightness > 1) brightness = 1
 
-            // Interactive mouse proximity shimmer effect
+            // Interactive mouse proximity shimmer effect aligned precisely with cursor size
             const px = c * tileSize + tileSize / 2
             const py = r * tileSize + tileSize / 2
             const dist = Math.hypot(mouse.x - px, mouse.y - py)
-            if (dist < 130) {
-              const boost = (1 - dist / 130) * 0.35
+            const activeHoverRadius = mouse.isHoveringElement ? 85 : 45
+
+            if (dist < activeHoverRadius) {
+              const intensity = Math.pow(1 - dist / activeHoverRadius, 1.8)
+              const boost = intensity * 0.65
               brightness = Math.min(1, brightness + boost)
             }
 
