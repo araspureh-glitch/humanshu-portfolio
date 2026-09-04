@@ -1,117 +1,126 @@
 import Header from '../components/Header'
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 function Home() {
+  const projects = [
+    {
+      title: "Interactive AI Agent Workspace",
+      description: "A futuristic web dashboard built with React and Tailwind CSS featuring dynamic task execution and real-time state visualization.",
+      tags: ["React", "Tailwind CSS", "Vite", "AI Workflow"]
+    },
+    {
+      title: "Design System Storybook",
+      description: "Comprehensive UI component library showcasing customizable, accessible, and themeable React components.",
+      tags: ["React", "Storybook", "Tailwind CSS", "UI/UX"]
+    },
+    {
+      title: "Full-Stack Portfolio Portal",
+      description: "Personal portfolio website featuring dark glassmorphism aesthetics, responsive layouts, and interactive project showcases.",
+      tags: ["JavaScript", "Tailwind v4", "Vite", "Responsive"]
+    }
+  ]
+
+  const skills = [
+    "JavaScript (ES6+)", "React.js", "Tailwind CSS v4", "HTML5 & CSS3", 
+    "Vite & Build Tools", "Git & GitHub", "REST APIs", "UI/UX Architecture"
+  ]
+
   return (
-    <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#0c0c0e] text-slate-100 font-sans selection:bg-emerald-500 selection:text-black">
       <Header />
 
-      {/* Main Split Layout */}
-      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-20">
-        
-        {/* Left Side: Light/Cream Architecture Section */}
-        <section className="lg:col-span-6 bg-[#f4f3ee] text-[#18181b] p-8 sm:p-14 lg:p-20 flex flex-col justify-between border-r border-[#e2e0d7]">
-          <div className="pt-8 lg:pt-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e8e6dc] border border-[#d6d3c4] text-xs font-mono tracking-wider text-[#404045] uppercase mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-              Agent-Ready Starter Kit
-            </div>
+      {/* Background Glows */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-40 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 -right-40 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
+      </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.08] text-black">
-              The Content Architecture
+      <div className="relative max-w-6xl mx-auto px-6 pt-28 pb-16 flex flex-col justify-between min-h-screen">
+        {/* Hero Section */}
+        <section className="py-12 border-b border-neutral-800/80">
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 rounded-full mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Frontend Developer & UI Architect
+            </span>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent leading-[1.1]">
+              Humanshu
             </h1>
-
-            <p className="mt-6 text-lg text-[#4a4a52] leading-relaxed max-w-xl font-normal">
-              A structured, opinionated CMS framework engineered for modern web teams. Built for Sanity CMS, Astro, and Next.js with modular page building blocks.
+            <p className="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl leading-relaxed">
+              Crafting performant, visually impressive, and modern web experiences using React, Vite, and Tailwind CSS.
             </p>
-
-            <div className="mt-10 flex flex-wrap gap-4 items-center font-mono text-xs">
-              <Button asChild size="lg" className="rounded-lg bg-black text-white hover:bg-neutral-800 font-mono tracking-wider">
-                <a href="https://www.contentarchitecture.dev" target="_blank" rel="noreferrer">
-                  EXPLORE STARTER ↗
-                </a>
+            
+            <div className="mt-8 flex flex-wrap gap-4 items-center">
+              <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs uppercase font-bold tracking-wider rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/25 active:scale-95 cursor-pointer">
+                <Link to="/work">View My Work ↗</Link>
               </Button>
-              <Button variant="outline" size="lg" className="rounded-lg border-[#d2cfc3] bg-[#e6e4da] text-[#27272a] hover:bg-[#dedbc8] font-mono tracking-wider">
-                <a href="#features">
-                  SYSTEM SPEC
-                </a>
+              <Button asChild variant="outline" size="lg" className="border-neutral-800 bg-neutral-900/80 hover:bg-neutral-800 text-slate-200 font-mono text-xs uppercase tracking-wider rounded-xl cursor-pointer">
+                <Link to="/about">About Me</Link>
               </Button>
-            </div>
-          </div>
-
-          <div className="mt-16 pt-8 border-t border-[#dedbc8] grid grid-cols-2 gap-6 font-mono text-xs text-[#52525b]">
-            <div>
-              <span className="block text-black font-semibold uppercase mb-1">Stack</span>
-              Sanity, Next.js, Astro, Tailwind
-            </div>
-            <div>
-              <span className="block text-black font-semibold uppercase mb-1">Target</span>
-              Production Web Apps & CMS
             </div>
           </div>
         </section>
 
-        {/* Right Side: Dark Monochrome Tiled Background Section */}
-        <section className="lg:col-span-6 bg-[#0c0c0e] text-neutral-100 p-8 sm:p-14 lg:p-20 relative overflow-hidden flex flex-col justify-between">
-          
-          {/* Tilted Repeating Background Text matching minimal.gallery screenshot */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.06] select-none overflow-hidden flex flex-wrap -rotate-12 scale-125 font-mono text-sm tracking-widest leading-relaxed text-white">
-            {Array.from({ length: 40 }).map((_, i) => (
-              <span key={i} className="mr-8 mb-6">
-                THE CONTENT ARCHITECTURE THE ARCHITECTURE CMS FRAMEWORK
-              </span>
+        {/* Featured Projects Grid */}
+        <section className="py-12 border-b border-neutral-800/80">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-400">Featured Projects</h2>
+            <Link to="/work" className="text-xs font-mono text-emerald-400 hover:underline">View All ↗</Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {projects.map((item, idx) => (
+              <div 
+                key={idx} 
+                className="group relative bg-[#141417] border border-neutral-800/90 hover:border-emerald-500/40 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-emerald-500/5"
+              >
+                <div>
+                  <h3 className="text-lg font-bold text-slate-100 group-hover:text-emerald-400 transition-colors font-mono">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-slate-400 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-neutral-800/60">
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-
-          {/* Interactive Showcase Cards */}
-          <div className="relative z-10 pt-8 lg:pt-16 space-y-6">
-            <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
-              <span className="text-xs font-mono tracking-widest text-neutral-400 uppercase">Architecture Layers</span>
-              <span className="text-xs font-mono text-emerald-400">STATUS: READY</span>
-            </div>
-
-            {/* Feature Card 1 */}
-            <div className="bg-[#151518]/90 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-sm hover:border-neutral-700 transition">
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="font-mono text-base font-bold text-white uppercase tracking-wide">01 // Modular Schema</h3>
-                <span className="text-xs px-2 py-0.5 rounded bg-neutral-800 font-mono text-neutral-400">SANITY</span>
-              </div>
-              <p className="text-neutral-400 text-sm leading-relaxed">
-                Structured content models with zero-bleed boundaries. Easily compose pages with dynamic block components.
-              </p>
-            </div>
-
-            {/* Feature Card 2 */}
-            <div className="bg-[#151518]/90 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-sm hover:border-neutral-700 transition">
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="font-mono text-base font-bold text-white uppercase tracking-wide">02 // Fetch Engine</h3>
-                <span className="text-xs px-2 py-0.5 rounded bg-neutral-800 font-mono text-neutral-400">GROQ / ASTRO</span>
-              </div>
-              <p className="text-neutral-400 text-sm leading-relaxed">
-                Optimized data-fetching pipeline with instant preview resolution and automatic TypeScript type generation.
-              </p>
-            </div>
-
-            {/* Feature Card 3 */}
-            <div className="bg-[#151518]/90 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-sm hover:border-neutral-700 transition">
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="font-mono text-base font-bold text-white uppercase tracking-wide">03 // Agent Ready</h3>
-                <span className="text-xs px-2 py-0.5 rounded bg-neutral-800 font-mono text-neutral-400">AI TOOLS</span>
-              </div>
-              <p className="text-neutral-400 text-sm leading-relaxed">
-                LLM-friendly architecture docs and MCP integration to let AI coding agents build new pages seamlessly.
-              </p>
-            </div>
-          </div>
-
-          <div className="relative z-10 mt-16 pt-6 border-t border-neutral-800 flex items-center justify-between text-xs font-mono text-neutral-500">
-            <span>CONTENTARCHITECTURE.DEV</span>
-            <span>MINIMAL GALLERY FEATURED</span>
-          </div>
-
         </section>
 
-      </main>
+        {/* Skills Section */}
+        <section className="py-12">
+          <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-6">Skills & Technologies</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {skills.map((skill, idx) => (
+              <div 
+                key={idx} 
+                className="p-3.5 bg-[#141417] border border-neutral-800/80 rounded-xl text-center font-mono text-xs text-slate-300 hover:border-emerald-500/40 transition-colors"
+              >
+                {skill}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-8 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
+          <p>© {new Date().getFullYear()} Humanshu. All rights reserved.</p>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Available for opportunities
+          </div>
+        </footer>
+      </div>
     </div>
   )
 }

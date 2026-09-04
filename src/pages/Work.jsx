@@ -1,74 +1,86 @@
 import Header from '../components/Header'
+import { Button } from '@/components/ui/button'
 
 function Work() {
-  const showcaseProjects = [
+  const projects = [
     {
-      title: "Sanity Studio Modular Builder",
-      category: "CMS Architecture",
-      desc: "Flexible component library mapping Sanity document blocks straight to Astro and Next.js frontend components.",
-      tag: "Sanity v3"
+      title: "Interactive AI Agent Workspace",
+      description: "A futuristic web dashboard built with React and Tailwind CSS featuring dynamic task execution and real-time state visualization.",
+      tags: ["React", "Tailwind CSS", "Vite", "AI Workflow"],
+      link: "https://github.com/araspureh-glitch/humanshu-portfolio"
     },
     {
-      title: "High-Speed GROQ Fetcher",
-      category: "Data Layer",
-      desc: "Zero-overhead content querying system with real-time visual editing overlays.",
-      tag: "GROQ"
+      title: "Design System Storybook",
+      description: "Comprehensive UI component library showcasing customizable, accessible, and themeable React components.",
+      tags: ["React", "Storybook", "Tailwind CSS", "UI/UX"],
+      link: "https://github.com/araspureh-glitch/humanshu-portfolio"
     },
     {
-      title: "Agent MCP Server for CMS",
-      category: "AI Integration",
-      desc: "Protocol bridge connecting AI coding subagents directly to schema inspection and generation tools.",
-      tag: "MCP Spec"
+      title: "Full-Stack Portfolio Portal",
+      description: "Personal portfolio website featuring dark glassmorphism aesthetics, responsive layouts, and interactive project showcases.",
+      tags: ["JavaScript", "Tailwind v4", "Vite", "Responsive"],
+      link: "https://github.com/araspureh-glitch/humanshu-portfolio"
     }
   ]
 
   return (
-    <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#0c0c0e] text-slate-100 font-sans selection:bg-emerald-500 selection:text-black">
       <Header />
 
-      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-20">
-        {/* Left Side Header */}
-        <section className="lg:col-span-5 bg-[#f4f3ee] text-[#18181b] p-8 sm:p-14 lg:p-20 flex flex-col justify-between border-r border-[#e2e0d7]">
-          <div className="pt-8 lg:pt-16">
-            <span className="inline-block px-3 py-1 rounded-full bg-[#e8e6dc] border border-[#d6d3c4] text-xs font-mono tracking-wider text-[#404045] uppercase mb-6">
-              Portfolio & Showcase
+      <div className="max-w-6xl mx-auto px-6 pt-28 pb-16 min-h-screen flex flex-col justify-between">
+        <div>
+          {/* Header */}
+          <div className="py-10 border-b border-neutral-800/80">
+            <span className="inline-block px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 rounded-full mb-4">
+              Portfolio & Case Studies
             </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black">
-              Work & Modules
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white font-mono">
+              My Work
             </h1>
-            <p className="mt-6 text-base text-[#4a4a52] leading-relaxed">
-              Explore key architectural modules and production projects built with The Content Architecture design system.
+            <p className="mt-4 text-slate-400 max-w-xl text-base leading-relaxed">
+              A curated collection of web applications, component libraries, and frontend interfaces built with React, Vite, and modern styling tools.
             </p>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-[#dedbc8] text-xs font-mono text-[#52525b]">
-            <span>SYSTEM VERSION 2.4 // 2026</span>
-          </div>
-        </section>
-
-        {/* Right Side Work Grid */}
-        <section className="lg:col-span-7 bg-[#0c0c0e] text-neutral-100 p-8 sm:p-14 lg:p-20 relative overflow-hidden">
-          {/* Tilted Background Pattern */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.05] select-none overflow-hidden flex flex-wrap -rotate-12 scale-125 font-mono text-sm tracking-widest leading-relaxed text-white">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <span key={i} className="mr-8 mb-6">THE REPO WORK SHOWCASE MODULES</span>
-            ))}
-          </div>
-
-          <div className="relative z-10 pt-8 lg:pt-16 space-y-6 max-w-2xl">
-            {showcaseProjects.map((item, idx) => (
-              <div key={idx} className="bg-[#151518]/90 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-sm hover:border-neutral-700 transition">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-xs font-mono text-neutral-400 uppercase">{item.category}</span>
-                  <span className="text-xs font-mono px-2 py-0.5 rounded bg-neutral-800 text-emerald-400">{item.tag}</span>
+          {/* Projects Grid */}
+          <div className="py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {projects.map((item, idx) => (
+              <div 
+                key={idx} 
+                className="bg-[#141417] border border-neutral-800/90 hover:border-emerald-500/40 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between hover:shadow-xl hover:shadow-emerald-500/5"
+              >
+                <div>
+                  <h2 className="text-xl font-bold font-mono text-white mb-3">{item.title}</h2>
+                  <p className="text-sm text-slate-400 leading-relaxed mb-6">{item.description}</p>
                 </div>
-                <h2 className="text-xl font-bold font-mono text-white mb-2">{item.title}</h2>
-                <p className="text-sm text-neutral-400 leading-relaxed">{item.desc}</p>
+                <div>
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {item.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Button asChild variant="outline" size="sm" className="w-full border-neutral-800 bg-neutral-900 text-xs font-mono tracking-wider hover:bg-neutral-800 text-emerald-400 cursor-pointer">
+                    <a href={item.link} target="_blank" rel="noreferrer">
+                      View Code ↗
+                    </a>
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
-        </section>
-      </main>
+        </div>
+
+        {/* Footer */}
+        <footer className="py-8 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
+          <p>© {new Date().getFullYear()} Humanshu. All rights reserved.</p>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Available for opportunities
+          </div>
+        </footer>
+      </div>
     </div>
   )
 }

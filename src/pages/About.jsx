@@ -1,70 +1,74 @@
 import Header from '../components/Header'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 function About() {
   return (
-    <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#0c0c0e] text-slate-100 font-sans selection:bg-emerald-500 selection:text-black">
       <Header />
 
-      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-20">
-        {/* Left Side: About Philosophy */}
-        <section className="lg:col-span-6 bg-[#f4f3ee] text-[#18181b] p-8 sm:p-14 lg:p-20 flex flex-col justify-between border-r border-[#e2e0d7]">
-          <div className="pt-8 lg:pt-16">
-            <span className="inline-block px-3 py-1 rounded-full bg-[#e8e6dc] border border-[#d6d3c4] text-xs font-mono tracking-wider text-[#404045] uppercase mb-6">
-              Philosophy & Spec
+      <div className="max-w-4xl mx-auto px-6 pt-28 pb-16 min-h-screen flex flex-col justify-between">
+        <div>
+          {/* Header */}
+          <div className="py-10 border-b border-neutral-800/80">
+            <span className="inline-block px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 rounded-full mb-4">
+              Background & Experience
             </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black">
-              About The Architecture
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white font-mono">
+              About Me
             </h1>
-            <p className="mt-6 text-base text-[#4a4a52] leading-relaxed max-w-lg">
-              The Content Architecture was created to bridge structured Headless CMS content models with high-efficiency static and server-side rendering pipelines.
-            </p>
-            <p className="mt-4 text-sm text-[#52525b] leading-relaxed max-w-lg">
-              Featured on Minimal Gallery, this setup emphasizes clean separation of concerns, minimalist typography, and seamless developer experience.
+            <p className="mt-4 text-slate-400 text-lg leading-relaxed">
+              I am a passionate Frontend Developer dedicated to creating clean, performant, and intuitive web applications.
             </p>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-[#dedbc8] text-xs font-mono text-[#52525b]">
-            <span>FOUNDER & AUTHOR: EDOARDO LUNARDI</span>
-          </div>
-        </section>
+          {/* Bio & Details */}
+          <div className="py-10 space-y-8 text-slate-300 leading-relaxed text-sm sm:text-base">
+            <div className="bg-[#141417] border border-neutral-800/90 rounded-2xl p-6 sm:p-8 space-y-4">
+              <h2 className="text-xl font-bold font-mono text-white">What I Do</h2>
+              <p className="text-slate-400">
+                I specialize in modern React architectures, component-driven UI libraries, and responsive interface engineering. My goal is to build web experiences that combine rich aesthetics with scalable code structure.
+              </p>
+            </div>
 
-        {/* Right Side Specs */}
-        <section className="lg:col-span-6 bg-[#0c0c0e] text-neutral-100 p-8 sm:p-14 lg:p-20 relative overflow-hidden flex flex-col justify-between">
-          <div className="absolute inset-0 pointer-events-none opacity-[0.05] select-none overflow-hidden flex flex-wrap -rotate-12 scale-125 font-mono text-sm tracking-widest leading-relaxed text-white">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <span key={i} className="mr-8 mb-6">ABOUT SPEC CONTENT MANAGEMENT ASTRO NEXTJS</span>
-            ))}
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-[#141417] border border-neutral-800/90 rounded-2xl p-6">
+                <h3 className="text-base font-bold font-mono text-white mb-3">Frontend Development</h3>
+                <p className="text-xs text-slate-400 font-mono leading-relaxed">
+                  React.js, ES6+ JavaScript, Tailwind CSS v4, HTML5, CSS3, Vite, Single Page Applications & Routing.
+                </p>
+              </div>
 
-          <div className="relative z-10 pt-8 lg:pt-16 space-y-6">
-            <div className="bg-[#151518]/90 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-sm">
-              <h3 className="font-mono text-xs text-neutral-400 uppercase tracking-widest mb-4">Core Principles</h3>
-              <ul className="space-y-3 font-mono text-sm text-neutral-300">
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Single Source of Truth for Content Schema
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Composable Component-Driven Page Builders
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Strict TypeScript Type-Safety & Code Gen
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Zero-Bloat Minimalist UI/UX Guidelines
-                </li>
-              </ul>
+              <div className="bg-[#141417] border border-neutral-800/90 rounded-2xl p-6">
+                <h3 className="text-base font-bold font-mono text-white mb-3">UI/UX Architecture</h3>
+                <p className="text-xs text-slate-400 font-mono leading-relaxed">
+                  Design Systems, Storybook, Component Libraries, Dark Mode, Glassmorphism, Micro-Animations.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 flex flex-wrap gap-4 items-center">
+              <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs uppercase font-bold tracking-wider rounded-xl cursor-pointer">
+                <a href="mailto:araspurehumanshu@gmail.com">
+                  Get In Touch ↗
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="border-neutral-800 bg-neutral-900 text-slate-200 font-mono text-xs uppercase tracking-wider rounded-xl cursor-pointer">
+                <Link to="/work">Browse Portfolio</Link>
+              </Button>
             </div>
           </div>
+        </div>
 
-          <div className="relative z-10 mt-16 pt-6 border-t border-neutral-800 text-xs font-mono text-neutral-500">
-            <span>MINIMAL GALLERY ARCHIVE // CONTENTARCHITECTURE.DEV</span>
+        {/* Footer */}
+        <footer className="py-8 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
+          <p>© {new Date().getFullYear()} Humanshu. All rights reserved.</p>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Available for opportunities
           </div>
-        </section>
-      </main>
+        </footer>
+      </div>
     </div>
   )
 }
