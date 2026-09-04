@@ -2,30 +2,30 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 
 export default function CinematicHero() {
   const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 800], [0, 150])
-  const opacity = useTransform(scrollY, [0, 400], [1, 0.2])
+  const y = useTransform(scrollY, [0, 800], [0, 120])
+  const opacity = useTransform(scrollY, [0, 400], [1, 0.3])
 
   return (
     <section className="relative w-full h-screen min-h-[700px] bg-[#050505] text-[#F5F5F5] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-28 pb-10">
       
-      {/* Hero Background Image with Parallax & Dark Film Treatment */}
+      {/* High-Resolution Portrait Background Image */}
       <motion.div 
         style={{ y, opacity }}
         className="absolute inset-0 w-full h-full pointer-events-none select-none -z-10"
       >
         <img
           src="/hero.jpg"
-          alt="Humanshu Araspure"
-          className="w-full h-full object-cover object-[70%_25%] sm:object-right-top grayscale contrast-125 brightness-[0.42] saturate-0 transition-all duration-700"
+          alt="Humanshu Araspure - UI/UX Designer"
+          className="w-full h-full object-cover object-[65%_25%] lg:object-[80%_25%] contrast-110 brightness-[0.55] transition-all duration-700"
         />
 
-        {/* Cinematic Vignette & Gradient Overlays */}
+        {/* Cinematic Multi-Layer Gradient Overlays for Readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/70 to-transparent"></div>
-        <div className="absolute inset-0 bg-[#050505]/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/75 to-transparent"></div>
+        <div className="absolute inset-0 bg-[#050505]/20"></div>
       </motion.div>
 
-      {/* Very subtle noise texture layer */}
+      {/* Subtle Noise Grain Texture Layer */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03] -z-10 mix-blend-overlay"
         style={{
@@ -56,15 +56,15 @@ export default function CinematicHero() {
           className="md:col-span-6 flex flex-col md:items-end justify-between space-y-2 text-right font-mono text-[10px] sm:text-[11px] text-[#8A8A8A] tracking-widest uppercase"
         >
           <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             <span className="text-white font-medium">UI / UX DESIGNER</span>
           </div>
-          <p className="text-neutral-500">Based in India — 20.5937° N, 78.9629° E</p>
+          <p className="text-neutral-400">Based in India — 20.5937° N, 78.9629° E</p>
         </motion.div>
 
       </div>
 
-      {/* LOWER SECTION: Main Headline & Scroll Indicator */}
+      {/* LOWER SECTION: Main Editorial Headline & Scroll Explorer */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-4">
         
         {/* Lower Left: Large Editorial Headline */}
