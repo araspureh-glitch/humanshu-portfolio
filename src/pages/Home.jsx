@@ -1,4 +1,5 @@
 import Nav from '../components/Nav'
+import { Button } from '@/components/ui/button'
 
 function Home() {
   return (
@@ -25,21 +26,16 @@ function Home() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4 items-center font-mono text-xs">
-              <a 
-                href="https://www.contentarchitecture.dev" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="px-6 py-3.5 rounded-lg bg-black text-white font-medium hover:bg-neutral-800 transition shadow-lg flex items-center gap-2"
-              >
-                <span>EXPLORE STARTER</span>
-                <span>↗</span>
-              </a>
-              <a 
-                href="#features" 
-                className="px-6 py-3.5 rounded-lg bg-[#e6e4da] border border-[#d2cfc3] text-[#27272a] font-medium hover:bg-[#dedbc8] transition"
-              >
-                SYSTEM SPEC
-              </a>
+              <Button asChild size="lg" className="rounded-lg bg-black text-white hover:bg-neutral-800 font-mono tracking-wider">
+                <a href="https://www.contentarchitecture.dev" target="_blank" rel="noreferrer">
+                  EXPLORE STARTER ↗
+                </a>
+              </Button>
+              <Button variant="outline" size="lg" className="rounded-lg border-[#d2cfc3] bg-[#e6e4da] text-[#27272a] hover:bg-[#dedbc8] font-mono tracking-wider">
+                <a href="#features">
+                  SYSTEM SPEC
+                </a>
+              </Button>
             </div>
           </div>
 
