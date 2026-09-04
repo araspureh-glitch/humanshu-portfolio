@@ -1,4 +1,4 @@
-import Nav from '../components/Nav'
+import Header from '../components/Header'
 
 function Work() {
   const showcaseProjects = [
@@ -24,9 +24,9 @@ function Work() {
 
   return (
     <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-black selection:text-white">
-      <Nav />
+      <Header />
 
-      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-24 lg:pt-0">
+      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-20">
         {/* Left Side Header */}
         <section className="lg:col-span-5 bg-[#f4f3ee] text-[#18181b] p-8 sm:p-14 lg:p-20 flex flex-col justify-between border-r border-[#e2e0d7]">
           <div className="pt-8 lg:pt-16">

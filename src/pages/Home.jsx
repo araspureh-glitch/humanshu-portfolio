@@ -1,13 +1,13 @@
-import Nav from '../components/Nav'
+import Header from '../components/Header'
 import { Button } from '@/components/ui/button'
 
 function Home() {
   return (
     <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-black selection:text-white">
-      <Nav />
+      <Header />
 
       {/* Main Split Layout */}
-      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-24 lg:pt-0">
+      <main className="min-h-screen grid grid-cols-1 lg:grid-cols-12 pt-20">
         
         {/* Left Side: Light/Cream Architecture Section */}
         <section className="lg:col-span-6 bg-[#f4f3ee] text-[#18181b] p-8 sm:p-14 lg:p-20 flex flex-col justify-between border-r border-[#e2e0d7]">
