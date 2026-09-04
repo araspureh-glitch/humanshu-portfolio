@@ -1,4 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
+import MosaicHeroCanvas from './MosaicHeroCanvas'
 
 export default function CinematicHero() {
   const { scrollY } = useScroll()
@@ -8,37 +9,20 @@ export default function CinematicHero() {
   return (
     <section className="relative w-full h-screen min-h-[700px] bg-[#050505] text-[#F5F5F5] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-28 pb-10">
       
-      {/* High-Resolution Portrait Background Image */}
+      {/* Interactive Mosaic Pixel Tile Canvas Layer matching reference image */}
       <motion.div 
         style={{ y, opacity }}
-        className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
+        className="absolute inset-0 w-full h-full z-0"
       >
-        <img
-          src="/hero.jpg"
-          alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 grayscale brightness-[2.2] contrast-[1.5] saturate-0 transition-all duration-700"
-          style={{ imageRendering: 'pixelated' }}
-        />
+        <MosaicHeroCanvas imageSrc="/hero.jpg" />
 
-        {/* Minimal Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/10 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-[#050505]/20 to-transparent"></div>
+        {/* Minimal Gradient Overlay for Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/30 to-transparent pointer-events-none"></div>
       </motion.div>
 
-      {/* Aesthetic 300px Pixel Grid Block Matrix Layer */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.55] z-0 mix-blend-overlay"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.25) 4px, transparent 4px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 4px, transparent 4px)
-          `,
-          backgroundSize: '300px 300px',
-        }}
-      />
-
       {/* UPPER SECTION: Intro Text & Right Positioning */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-4 sm:pt-8">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-4 sm:pt-8 pointer-events-none">
         
         {/* Upper Left: Small Intro Text */}
         <motion.div 
@@ -69,7 +53,7 @@ export default function CinematicHero() {
       </div>
 
       {/* LOWER SECTION: Main Editorial Headline & Scroll Explorer */}
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-4">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-4 pointer-events-none">
         
         {/* Lower Left: Large Editorial Headline */}
         <motion.div 
@@ -78,7 +62,7 @@ export default function CinematicHero() {
           transition={{ duration: 1.2, delay: 0.3 }}
           className="lg:col-span-9"
         >
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[90px] font-extralight text-[#F5F5F5] tracking-tight leading-[0.95] max-w-4xl font-sans drop-shadow-lg">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[90px] font-extralight text-[#F5F5F5] tracking-tight leading-[0.95] max-w-4xl font-sans drop-shadow-2xl">
             Designing digital experiences that people actually want to use.
           </h1>
         </motion.div>
@@ -88,7 +72,7 @@ export default function CinematicHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="lg:col-span-3 flex lg:justify-end items-center"
+          className="lg:col-span-3 flex lg:justify-end items-center pointer-events-auto"
         >
           <a 
             href="#work" 
@@ -106,7 +90,7 @@ export default function CinematicHero() {
       </div>
 
       {/* Fine Horizontal Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-10 pointer-events-none" />
     </section>
   )
 }
