@@ -16,19 +16,20 @@ export default function CinematicHero() {
         <img
           src="/hero.jpg"
           alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 brightness-115 contrast-105 transition-all duration-700"
+          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 grayscale brightness-[1.5] contrast-[1.35] saturate-0 transition-all duration-700"
         />
 
-        {/* Minimal Gradient Overlay for Readable Text without dimming photo */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/30 to-transparent"></div>
+        {/* Minimal Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/10 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-[#050505]/20 to-transparent"></div>
       </motion.div>
 
-      {/* Subtle Noise Grain Texture Layer */}
+      {/* Low-Resolution Analog Film Grain & Halftone Grid Texture Layer */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03] z-0 mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.15] z-0 mix-blend-overlay"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px), url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundSize: '4px 4px, 200px 200px',
         }}
       />
 
