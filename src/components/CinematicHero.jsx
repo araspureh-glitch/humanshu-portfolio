@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 export default function CinematicHero() {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 800], [0, 120])
-  const opacity = useTransform(scrollY, [0, 400], [1, 0.3])
+  const opacity = useTransform(scrollY, [0, 400], [1, 0.4])
 
   return (
     <section className="relative w-full h-screen min-h-[700px] bg-[#050505] text-[#F5F5F5] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-28 pb-10">
@@ -11,23 +11,22 @@ export default function CinematicHero() {
       {/* High-Resolution Portrait Background Image */}
       <motion.div 
         style={{ y, opacity }}
-        className="absolute inset-0 w-full h-full pointer-events-none select-none -z-10"
+        className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
       >
         <img
           src="/hero.jpg"
           alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[55%_25%] sm:object-[78%_25%] contrast-125 brightness-[0.75] transition-all duration-700"
+          className="w-full h-full object-cover object-[55%_25%] sm:object-[75%_20%] opacity-90 contrast-115 brightness-90 transition-all duration-700"
         />
 
-        {/* Cinematic Multi-Layer Gradient Overlays for Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/70 to-transparent"></div>
-        <div className="absolute inset-0 bg-[#050505]/15"></div>
+        {/* Cinematic Subtle Gradient Overlays for High Text Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent"></div>
       </motion.div>
 
       {/* Subtle Noise Grain Texture Layer */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03] -z-10 mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.03] z-0 mix-blend-overlay"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
@@ -74,7 +73,7 @@ export default function CinematicHero() {
           transition={{ duration: 1.2, delay: 0.3 }}
           className="lg:col-span-9"
         >
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[90px] font-extralight text-[#F5F5F5] tracking-tight leading-[0.95] max-w-4xl font-sans">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[90px] font-extralight text-[#F5F5F5] tracking-tight leading-[0.95] max-w-4xl font-sans drop-shadow-lg">
             Designing digital experiences that people actually want to use.
           </h1>
         </motion.div>
@@ -102,7 +101,7 @@ export default function CinematicHero() {
       </div>
 
       {/* Fine Horizontal Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10" />
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-10" />
     </section>
   )
 }
