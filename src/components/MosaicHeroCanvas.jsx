@@ -14,7 +14,7 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
     img.src = imageSrc
 
     let animationFrameId
-    let mouse = { x: -1000, y: -1000 }
+    let mouse = { x: -1000, y: -1000, isHoveringElement: false }
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect()
@@ -35,22 +35,30 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
     }
 
     const handleMouseLeave = () => {
-      mouse = { x: -1000, y: -1000 }
+      mouse = { x: -1000, y: -1000, isHoveringElement: false }
     }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseleave', handleMouseLeave)
 
     img.onload = () => {
       const render = () => {
         const width = canvas.offsetWidth
         const height = canvas.offsetHeight
-        if (width === 0 || height === 0) return
+        if (width === 0 || height === 0) {
+          animationFrameId = requestAnimationFrame(render)
+          return
+        }
 
-        canvas.width = width
-        canvas.height = height
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width
+          canvas.height = height
+        }
 
         // Offscreen sampling canvas
         const offCanvas = document.createElement('canvas')
         const offCtx = offCanvas.getContext('2d')
-        const tileSize = 7 // Reduced finer tile size in pixels
+        const tileSize = 8 // Tile size in pixels
 
         const cols = Math.ceil(width / tileSize)
         const rows = Math.ceil(height / tileSize)
@@ -68,7 +76,7 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
 
         if (imgAspect > canvasAspect) {
           drawWidth = rows * imgAspect
-          offsetX = (cols - drawWidth) * 0.72 // Align face towards right
+          offsetX = (cols - drawWidth) * 0.72
         } else {
           drawHeight = cols / imgAspect
           offsetY = (rows - drawHeight) * 0.2
@@ -103,11 +111,11 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
             const px = c * tileSize + tileSize / 2
             const py = r * tileSize + tileSize / 2
             const dist = Math.hypot(mouse.x - px, mouse.y - py)
-            const activeHoverRadius = mouse.isHoveringElement ? 85 : 45
+            const activeHoverRadius = mouse.isHoveringElement ? 90 : 50
 
             if (dist < activeHoverRadius) {
-              const intensity = Math.pow(1 - dist / activeHoverRadius, 1.8)
-              const boost = intensity * 0.65
+              const intensity = Math.pow(1 - dist / activeHoverRadius, 1.5)
+              const boost = intensity * 0.8
               brightness = Math.min(1, brightness + boost)
             }
 
@@ -139,18 +147,12 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
             }
           }
         }
+
+        animationFrameId = requestAnimationFrame(render)
       }
 
       render()
-      window.addEventListener('resize', render)
-
-      return () => {
-        window.removeEventListener('resize', render)
-      }
     }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
       cancelAnimationFrame(animationFrameId)
