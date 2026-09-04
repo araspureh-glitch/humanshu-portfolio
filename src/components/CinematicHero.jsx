@@ -16,7 +16,7 @@ export default function CinematicHero() {
         <img
           src="/hero.jpg"
           alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 grayscale brightness-[2.1] contrast-[1.45] saturate-0 transition-all duration-700"
+          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 grayscale brightness-[2.2] contrast-[1.5] saturate-0 transition-all duration-700"
           style={{ imageRendering: 'pixelated' }}
         />
 
@@ -25,15 +25,15 @@ export default function CinematicHero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-[#050505]/20 to-transparent"></div>
       </motion.div>
 
-      {/* Larger Aesthetic Pixel Grid Block Layer */}
+      {/* Aesthetic 48px Pixel Grid Block Matrix Layer */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.4] z-0 mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.5] z-0 mix-blend-overlay"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.15) 2px, transparent 2px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 2px, transparent 2px)
+            linear-gradient(to right, rgba(255, 255, 255, 0.2) 3px, transparent 3px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 3px, transparent 3px)
           `,
-          backgroundSize: '14px 14px',
+          backgroundSize: '48px 48px',
         }}
       />
 
