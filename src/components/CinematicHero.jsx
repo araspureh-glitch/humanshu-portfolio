@@ -16,12 +16,12 @@ export default function CinematicHero() {
         <img
           src="/hero.jpg"
           alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[55%_25%] sm:object-[75%_20%] opacity-90 contrast-115 brightness-90 transition-all duration-700"
+          className="w-full h-full object-cover object-[60%_25%] sm:object-[75%_20%] opacity-100 brightness-115 contrast-105 transition-all duration-700"
         />
 
-        {/* Cinematic Subtle Gradient Overlays for High Text Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent"></div>
+        {/* Minimal Gradient Overlay for Readable Text without dimming photo */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-[#050505]/30 to-transparent"></div>
       </motion.div>
 
       {/* Subtle Noise Grain Texture Layer */}
