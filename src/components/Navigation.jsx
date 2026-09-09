@@ -33,7 +33,6 @@ export default function Navigation({ introComplete = true }) {
     { name: 'Home', id: 'home', path: '/' },
     { name: 'Work', id: 'work', path: '/work' },
     { name: 'About', id: 'about', path: '/about' },
-    { name: 'Experience', id: 'experience', path: '/experience' },
     { name: 'Contact', id: 'contact', path: '/contact' },
   ]
 

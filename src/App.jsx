@@ -4,7 +4,6 @@ import Home from './pages/Home'
 import Work from './pages/Work'
 import ProjectDetail from './pages/ProjectDetail'
 import About from './pages/About'
-import Experience from './pages/Experience'
 import Contact from './pages/Contact'
 
 // Route Change Analytics Tracker for GA4
@@ -42,7 +41,6 @@ function App() {
         <Route path="/work" element={<Work />} />
         <Route path="/project/:slug" element={<ProjectDetail />} />
         <Route path="/about" element={<About />} />
-        <Route path="/experience" element={<Experience />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
