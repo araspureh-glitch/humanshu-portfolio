@@ -16,6 +16,7 @@ function About() {
       <BackgroundAudio videoId="16jA-6hiSUo" />
       <main>
         <AboutSection />
+        <ExperienceSection />
         <SkillsSection />
         <PhilosophySection />
       </main>
