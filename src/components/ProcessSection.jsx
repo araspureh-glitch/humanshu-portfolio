@@ -48,10 +48,10 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.35 }}
               className="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-4 sm:gap-6 group hover:bg-white/[0.02] transition-colors px-2 sm:px-4 rounded-xl"
             >
               <div className="md:col-span-2 font-mono text-xs text-[#8A8A8A] tracking-widest">

@@ -1,85 +1,138 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
-export default function Navigation() {
-  const [timeIST, setTimeIST] = useState('')
+export default function Navigation({ introComplete = true }) {
+  const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('work')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
-    const updateTime = () => {
-      const options = {
-        timeZone: 'Asia/Kolkata',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40)
+
+      const sections = ['work', 'about', 'experience', 'contact']
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= 200 && rect.bottom >= 200) {
+            setActiveSection(sectionId)
+            break
+          }
+        }
       }
-      const timeStr = new Intl.DateTimeFormat('en-US', options).format(new Date())
-      setTimeIST(`${timeStr} IST`)
     }
 
-    updateTime()
-    const timer = setInterval(updateTime, 1000)
-    return () => clearInterval(timer)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const navItems = [
+    { name: 'Home', id: 'home', path: '/' },
+    { name: 'Work', id: 'work', path: '/work' },
+    { name: 'About', id: 'about', path: '/about' },
+    { name: 'Experience', id: 'experience', path: '/experience' },
+    { name: 'Contact', id: 'contact', path: '/contact' },
+  ]
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 sm:px-12 py-6 flex items-center justify-between text-xs font-mono tracking-widest uppercase mix-blend-difference text-neutral-200 pointer-events-none">
-      
-      {/* Left: Custom Monogram/Logo */}
-      <div className="pointer-events-auto">
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={introComplete ? { y: 0, opacity: 1 } : { y: -40, opacity: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      className={`fixed top-0 left-0 right-0 z-40 w-full py-4 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#050505]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-2xl'
+          : 'bg-gradient-to-b from-[#050505]/90 via-[#050505]/40 to-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-xs font-mono tracking-widest uppercase">
+        
+        {/* Left: Minimal Editorial Brand Logo */}
         <Link 
           to="/" 
-          className="group flex items-center gap-2 text-sm font-extrabold tracking-tighter text-white hover:opacity-70 transition-opacity"
+          onClick={() => setMobileMenuOpen(false)}
+          className="group flex items-center gap-2 text-sm tracking-tight text-white hover:opacity-80 transition-opacity"
         >
-          <span className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center font-mono text-xs">
-            HA
+          <span className="font-sans font-medium tracking-wider text-white text-sm uppercase">
+            HUMANSHU <span className="text-neutral-500 font-mono text-[10px] lowercase tracking-normal">°26</span>
           </span>
         </Link>
-      </div>
 
-      {/* Center: Work / About / Playground */}
-      <nav className="pointer-events-auto hidden md:flex items-center gap-8 text-[#8A8A8A] text-[11px]">
-        <Link 
-          to="/" 
-          className={`hover:text-white transition-colors ${location.pathname === '/' ? 'text-white font-bold' : ''}`}
-        >
-          Work
-        </Link>
-        <span className="text-neutral-700">/</span>
-        <Link 
-          to="/about" 
-          className={`hover:text-white transition-colors ${location.pathname === '/about' ? 'text-white font-bold' : ''}`}
-        >
-          About
-        </Link>
-        <span className="text-neutral-700">/</span>
-        <a 
-          href="#work" 
-          className="hover:text-white transition-colors"
-        >
-          Playground
-        </a>
-      </nav>
+        {/* Center Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8 text-[11px] text-neutral-400">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path
 
-      {/* Right: Live IST Clock + Let's Talk CTA */}
-      <div className="pointer-events-auto flex items-center gap-6 text-[11px]">
-        {/* Live IST Time */}
-        <div className="hidden lg:flex items-center gap-2 text-[#8A8A8A]">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>{timeIST || '03:15 AM IST'}</span>
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`relative flex items-center gap-2 transition-colors duration-200 py-1 ${
+                  isActive ? 'text-white font-medium' : 'hover:text-neutral-200'
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavDot"
+                    className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span>{item.name}</span>
+              </Link>
+            )
+          })}
+        </nav>
+
+        {/* Right Desktop CTA + Mobile Toggle */}
+        <div className="flex items-center gap-3">
+          <Link 
+            to="/contact" 
+            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-[11px] font-mono tracking-widest uppercase"
+          >
+            <span>Let's talk</span>
+            <span className="text-xs">↗</span>
+          </Link>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white font-mono text-[11px] uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <span>{mobileMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}</span>
+          </button>
         </div>
 
-        {/* Let's Talk CTA */}
-        <a 
-          href="mailto:humanshu.araspure@gmail.com" 
-          className="relative group px-4 py-2 rounded-full border border-white/20 hover:border-white text-white transition-all duration-300 hover:bg-white hover:text-black flex items-center gap-1.5"
-        >
-          <span>Let's talk</span>
-          <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">↗</span>
-        </a>
       </div>
 
-    </header>
+      {/* Mobile Auto-Layout Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-[#070709]/95 border-b border-white/[0.08] backdrop-blur-2xl px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
+          <div className="flex flex-col space-y-3 font-mono text-xs text-neutral-300">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 border-b border-white/5 text-neutral-300 hover:text-white uppercase tracking-widest"
+              >
+                <span>{item.name}</span>
+                <span className="text-neutral-400">→</span>
+              </Link>
+            ))}
+            <Link 
+              to="/contact" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-2 w-full py-3 rounded-full bg-white text-black font-bold tracking-widest block text-center uppercase text-xs shadow-lg hover:bg-neutral-200 transition-colors"
+            >
+              Let's talk ↗
+            </Link>
+          </div>
+        </div>
+      )}
+    </motion.header>
   )
 }

@@ -38,7 +38,7 @@ export default function Hero() {
             <Button 
               asChild
               size="lg"
-              className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs uppercase font-bold tracking-wider px-7 py-6 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-emerald-500/20 active:scale-95 cursor-pointer shadow-md"
+              className="bg-emerald-500 text-slate-950 font-mono text-xs uppercase font-bold tracking-wider px-7 py-6 rounded-xl cursor-pointer shadow-md"
             >
               <Link to="/work" className="flex items-center gap-2">
                 <span>See selected work</span>
@@ -61,11 +61,11 @@ export default function Hero() {
 
         {/* Right Column */}
         <div className="lg:col-span-5 flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden border border-neutral-800/90 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group bg-neutral-900">
+          <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden border border-neutral-800/90 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-neutral-900">
             <img 
               src="/hero.jpg" 
               alt="Humanshu - UI/UX Designer" 
-              className="w-full h-full object-cover object-center grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700 ease-out"
+              className="w-full h-full object-cover object-center grayscale contrast-125"
             />
             {/* Subtle Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 pointer-events-none"></div>

@@ -13,158 +13,119 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
     img.crossOrigin = 'anonymous'
     img.src = imageSrc
 
-    let animationFrameId
-    let mouse = { x: -1000, y: -1000, isHoveringElement: false }
+    let isDisposed = false
 
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect()
-      const target = document.elementFromPoint(e.clientX, e.clientY)
-      const isHoveringElement = !!(
-        target && (
-          target.tagName === 'A' ||
-          target.tagName === 'BUTTON' ||
-          target.closest('a') ||
-          target.closest('button')
-        )
-      )
-      mouse = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-        isHoveringElement,
+    const renderGrid = () => {
+      if (isDisposed || !img.complete || img.naturalWidth === 0) return
+
+      const width = canvas.offsetWidth
+      const height = canvas.offsetHeight
+      if (width === 0 || height === 0) return
+
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width
+        canvas.height = height
+      }
+
+      // 6px tile size for high definition grid
+      const tileSize = 6
+      const cols = Math.ceil(width / tileSize)
+      const rows = Math.ceil(height / tileSize)
+
+      const offCanvas = document.createElement('canvas')
+      offCanvas.width = cols
+      offCanvas.height = rows
+      const offCtx = offCanvas.getContext('2d')
+      if (!offCtx) return
+
+      const imgAspect = img.width / img.height
+      const canvasAspect = width / height
+      const zoomFactor = 1.10
+      let drawWidth = cols * zoomFactor
+      let drawHeight = rows * zoomFactor
+      let offsetX = 0
+      let offsetY = 0
+
+      if (imgAspect > canvasAspect) {
+        drawWidth = rows * imgAspect * zoomFactor
+        offsetX = (cols - drawWidth) * 0.72
+        offsetY = (rows - drawHeight) * 0.45
+      } else {
+        drawHeight = (cols / imgAspect) * zoomFactor
+        offsetX = (cols - drawWidth) * 0.65
+        offsetY = (rows - drawHeight) * 0.35
+      }
+
+      offCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
+      const imgData = offCtx.getImageData(0, 0, cols, rows).data
+
+      // Background fill
+      ctx.fillStyle = '#050505'
+      ctx.fillRect(0, 0, width, height)
+
+      const padding = 0.5
+      const cornerRadius = 1.0
+
+      // Render mosaic pixel tiles with subtle slate-steel editorial tint
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const index = (r * cols + c) * 4
+          const red = imgData[index]
+          const green = imgData[index + 1]
+          const blue = imgData[index + 2]
+
+          let brightness = (red * 0.299 + green * 0.587 + blue * 0.114) / 255
+          brightness = Math.pow(brightness, 0.65) * 2.0
+          if (brightness > 1) brightness = 1
+
+          const posX = c * tileSize + padding
+          const posY = r * tileSize + padding
+          const w = tileSize - padding * 2
+          const h = tileSize - padding * 2
+
+          let color
+          const val = Math.floor(brightness * 255)
+
+          if (val < 15) {
+            color = '#050507'
+          } else {
+            const rCol = Math.min(255, val)
+            const gCol = Math.min(255, Math.floor(val * 1.02))
+            const bCol = Math.min(255, Math.floor(val * 1.06))
+            color = `rgb(${rCol}, ${gCol}, ${bCol})`
+          }
+
+          ctx.fillStyle = color
+          ctx.beginPath()
+          ctx.roundRect(posX, posY, w, h, cornerRadius)
+          ctx.fill()
+        }
       }
     }
-
-    const handleMouseLeave = () => {
-      mouse = { x: -1000, y: -1000, isHoveringElement: false }
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseleave', handleMouseLeave)
 
     img.onload = () => {
-      const render = () => {
-        const width = canvas.offsetWidth
-        const height = canvas.offsetHeight
-        if (width === 0 || height === 0) {
-          animationFrameId = requestAnimationFrame(render)
-          return
-        }
-
-        if (canvas.width !== width || canvas.height !== height) {
-          canvas.width = width
-          canvas.height = height
-        }
-
-        // Offscreen sampling canvas
-        const offCanvas = document.createElement('canvas')
-        const offCtx = offCanvas.getContext('2d')
-        const tileSize = 8 // Tile size in pixels
-
-        const cols = Math.ceil(width / tileSize)
-        const rows = Math.ceil(height / tileSize)
-
-        offCanvas.width = cols
-        offCanvas.height = rows
-
-        // Calculate cover position targeting subject on right side
-        const imgAspect = img.width / img.height
-        const canvasAspect = width / height
-        let drawWidth = cols
-        let drawHeight = rows
-        let offsetX = 0
-        let offsetY = 0
-
-        if (imgAspect > canvasAspect) {
-          drawWidth = rows * imgAspect
-          offsetX = (cols - drawWidth) * 0.72
-        } else {
-          drawHeight = cols / imgAspect
-          offsetY = (rows - drawHeight) * 0.2
-        }
-
-        offCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
-
-        const imgData = offCtx.getImageData(0, 0, cols, rows).data
-
-        // Clear main canvas with near-black
-        ctx.fillStyle = '#050505'
-        ctx.fillRect(0, 0, width, height)
-
-        const padding = 0.8 // Fine tile border gap
-        const cornerRadius = 1.2
-
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            const index = (r * cols + c) * 4
-            const red = imgData[index]
-            const green = imgData[index + 1]
-            const blue = imgData[index + 2]
-
-            // Convert to high-contrast monochrome lightness (0.0 to 1.0)
-            let brightness = (red * 0.299 + green * 0.587 + blue * 0.114) / 255
-            
-            // Boost brightness curve matching reference image
-            brightness = Math.pow(brightness, 0.7) * 1.85
-            if (brightness > 1) brightness = 1
-
-            // Interactive mouse proximity shimmer effect aligned precisely with cursor size
-            const px = c * tileSize + tileSize / 2
-            const py = r * tileSize + tileSize / 2
-            const dist = Math.hypot(mouse.x - px, mouse.y - py)
-            const activeHoverRadius = mouse.isHoveringElement ? 90 : 50
-
-            if (dist < activeHoverRadius) {
-              const intensity = Math.pow(1 - dist / activeHoverRadius, 1.5)
-              const boost = intensity * 0.8
-              brightness = Math.min(1, brightness + boost)
-            }
-
-            // Map brightness to monochromatic tile color
-            const val = Math.floor(brightness * 255)
-            
-            if (val < 18) {
-              // Dark background mosaic tile
-              ctx.fillStyle = '#08080a'
-            } else {
-              // Metallic B&W mosaic square tile
-              ctx.fillStyle = `rgb(${val}, ${val}, ${val})`
-            }
-
-            // Draw tile with rounded corners
-            const x = c * tileSize + padding
-            const y = r * tileSize + padding
-            const w = tileSize - padding * 2
-            const h = tileSize - padding * 2
-
-            ctx.beginPath()
-            ctx.roundRect(x, y, w, h, cornerRadius)
-            ctx.fill()
-
-            // Specular top highlight for metallic mosaic sheen
-            if (val > 80) {
-              ctx.fillStyle = `rgba(255, 255, 255, ${brightness * 0.5})`
-              ctx.fillRect(x + 1, y + 1, w - 2, 1.5)
-            }
-          }
-        }
-
-        animationFrameId = requestAnimationFrame(render)
-      }
-
-      render()
+      renderGrid()
     }
 
+    if (img.complete) {
+      renderGrid()
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      renderGrid()
+    })
+    resizeObserver.observe(canvas)
+
     return () => {
-      cancelAnimationFrame(animationFrameId)
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseleave', handleMouseLeave)
+      isDisposed = true
+      resizeObserver.disconnect()
     }
   }, [imageSrc])
 
   return (
     <canvas 
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full object-cover pointer-events-auto"
+      className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
     />
   )
 }

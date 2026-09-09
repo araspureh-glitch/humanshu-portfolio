@@ -1,22 +1,23 @@
 import CustomCursor from '../components/CustomCursor'
 import Navigation from '../components/Navigation'
 import BackgroundAudio from '../components/BackgroundAudio'
-import SelectedWorkSection from '../components/SelectedWorkSection'
+import ExperienceSection from '../components/ExperienceSection'
+import SkillsSection from '../components/SkillsSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 
-function Work() {
+function Experience() {
   return (
-    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#0A66C2] selection:text-white min-h-screen pt-16">
+    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#0A66C2] selection:text-white min-h-screen pt-20">
       <CustomCursor />
       <Navigation />
       <BackgroundAudio videoId="16jA-6hiSUo" />
       <main>
-        <SelectedWorkSection />
+        <ExperienceSection />
       </main>
       <Footer />
     </div>
   )
 }
 
-export default Work
+export default Experience
