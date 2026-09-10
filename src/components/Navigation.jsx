@@ -12,9 +12,15 @@ export default function Navigation({ introComplete = true }) {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-6 left-1/2 z-50 pointer-events-auto max-w-[95vw]"
     >
-      {/* Floating Pill Nav Bar with Dark Glassmorphism Backdrop & Original Headings */}
-      <div className="bg-black/40 text-white border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl rounded-full px-6 sm:px-8 py-2.5 sm:py-3 flex items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-sans font-normal transition-all duration-300 hover:border-white/40 hover:bg-black/60">
+      {/* Rectangular Nav Bar with Sharp Corners & Mini Corner Squares */}
+      <div className="relative bg-black/60 text-white border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.8)] backdrop-blur-2xl px-6 sm:px-8 py-2.5 sm:py-3 flex items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-sans font-normal transition-all duration-300 hover:border-white/40 hover:bg-black/80">
         
+        {/* 4 Mini Corner Squares */}
+        <div className="absolute -top-1 -left-1 w-2 h-2 bg-white border border-black shadow-[0_0_6px_rgba(255,255,255,0.9)]" />
+        <div className="absolute -top-1 -right-1 w-2 h-2 bg-white border border-black shadow-[0_0_6px_rgba(255,255,255,0.9)]" />
+        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white border border-black shadow-[0_0_6px_rgba(255,255,255,0.9)]" />
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white border border-black shadow-[0_0_6px_rgba(255,255,255,0.9)]" />
+
         {/* Home */}
         <Link 
           to="/" 
