@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation'
 import BackgroundAudio from '../components/BackgroundAudio'
 import CinematicHero from '../components/CinematicHero'
 import HelloIntro from '../components/HelloIntro'
+import SkaterGliderCanvas from '../components/SkaterGliderCanvas'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 
@@ -24,6 +25,7 @@ function Home() {
       
       <main className="flex-1">
         <CinematicHero introComplete={introComplete} />
+        <SkaterGliderCanvas />
         <ContactSection />
       </main>
 
