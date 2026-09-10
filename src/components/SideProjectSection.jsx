@@ -6,7 +6,7 @@ export default function SideProjectSection() {
       
       <div className="max-w-4xl mx-auto text-center space-y-16 relative z-10">
         
-        {/* Title & Copy */}
+        {/* Title & Description Copy */}
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -23,40 +23,41 @@ export default function SideProjectSection() {
           </p>
         </motion.div>
 
-        {/* Vector Font Frame Graphic (Exact Match to Inspo Image) */}
+        {/* Vector Font Frame Graphic - 1:1 Match to Uploaded Screenshot */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="relative inline-block"
+          className="relative inline-block mt-4"
         >
-          {/* Outer Rounded Vector Container Frame */}
-          <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-[36px] bg-black border border-white/20 p-5 sm:p-6 shadow-2xl flex items-center justify-center group hover:border-white/40 transition-all duration-500">
+          {/* Top-Left Floating Diagonal Pink Handle Line (Outside Box) */}
+          <div className="absolute -top-7 -left-7 w-8 h-px bg-[#ff55a5] -rotate-45 pointer-events-none opacity-90 shadow-[0_0_6px_#ff55a5]" />
+
+          {/* Main Rounded Dark Container Box */}
+          <div className="relative w-80 h-80 sm:w-96 sm:h-96 rounded-[36px] bg-[#050505] border border-white/15 p-6 shadow-2xl flex items-center justify-center overflow-hidden group">
             
-            {/* Top-Left Pink Diagonal Handle Line */}
-            <div className="absolute -top-3 -left-3 w-8 h-px bg-[#ff55a5] -rotate-45 pointer-events-none opacity-80" />
+            {/* 4 Pink Corner Nodes (Inside corners of box) */}
+            <div className="absolute top-5 left-5 w-3.5 h-3.5 rounded-full bg-[#ff55a5] shadow-[0_0_12px_#ff55a5] border border-white/40 z-30" />
+            <div className="absolute top-5 right-5 w-3.5 h-3.5 rounded-full bg-[#ff55a5] shadow-[0_0_12px_#ff55a5] border border-white/40 z-30" />
+            <div className="absolute bottom-5 left-5 w-3.5 h-3.5 rounded-full bg-[#ff55a5] shadow-[0_0_12px_#ff55a5] border border-white/40 z-30" />
+            <div className="absolute bottom-5 right-5 w-3.5 h-3.5 rounded-full bg-[#ff55a5] shadow-[0_0_12px_#ff55a5] border border-white/40 z-30" />
 
-            {/* 4 Pink Corner Nodes */}
-            <div className="absolute top-4 left-4 w-3 h-3 rounded-full bg-[#ff55a5] shadow-[0_0_10px_#ff55a5] border border-white/40 z-30" />
-            <div className="absolute top-4 right-4 w-3 h-3 rounded-full bg-[#ff55a5] shadow-[0_0_10px_#ff55a5] border border-white/40 z-30" />
-            <div className="absolute bottom-4 left-4 w-3 h-3 rounded-full bg-[#ff55a5] shadow-[0_0_10px_#ff55a5] border border-white/40 z-30" />
-            <div className="absolute bottom-4 right-4 w-3 h-3 rounded-full bg-[#ff55a5] shadow-[0_0_10px_#ff55a5] border border-white/40 z-30" />
+            {/* Left & Right Edge Midpoint Ticks */}
+            <div className="absolute top-1/2 left-3 -translate-y-1/2 w-2 h-px bg-white/20 z-30" />
+            <div className="absolute top-1/2 right-3 -translate-y-1/2 w-2 h-px bg-white/20 z-30" />
 
-            {/* Horizontal Center Guide Line */}
-            <div className="absolute top-1/2 left-4 right-4 h-px border-b border-dashed border-white/20 pointer-events-none z-10" />
-
-            {/* Inner Logo Graphic */}
-            <div className="w-full h-full rounded-[26px] bg-black overflow-hidden flex items-center justify-center p-3 relative z-20">
+            {/* Inner Logo Image */}
+            <div className="w-full h-full flex items-center justify-center p-2 relative z-20">
               <img 
                 src="/typeface-logo.png" 
                 alt="Typeface Side Project Logo" 
-                className="w-full h-full object-contain rounded-[20px]"
+                className="w-full h-full object-contain rounded-2xl select-none pointer-events-none"
               />
 
-              {/* Vector Editor Node Selection Ring (Top Right of 'a') */}
-              <div className="absolute top-[38%] right-[22%] w-10 h-10 rounded-full border border-white/40 bg-white/10 backdrop-blur-xs flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)] pointer-events-none z-30 group-hover:scale-110 transition-transform duration-300">
-                <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_white]" />
+              {/* Vector Selection Lens Cursor (Positioned over 'a' loop) */}
+              <div className="absolute top-[38%] right-[25%] w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/40 bg-black/40 backdrop-blur-xs flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.8)] z-40 pointer-events-none group-hover:scale-110 transition-transform duration-300">
+                <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_white]" />
               </div>
             </div>
 
