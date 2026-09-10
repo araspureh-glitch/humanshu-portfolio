@@ -66,19 +66,33 @@ function TiltWorkCard({ project, onClick }) {
 
       {/* Hero Visual Preview */}
       <div className="relative rounded-2xl overflow-hidden bg-[#0a0a0c] border border-white/10 z-10 group-hover:border-white/20 transition-all duration-300">
-        <div className={`p-8 sm:p-12 bg-gradient-to-br ${project.imageBg} min-h-[300px] flex flex-col justify-between relative overflow-hidden`}>
-          
-          <div className="flex justify-between items-start">
-            <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-mono text-white uppercase tracking-wider border border-white/10">
+        <div className="p-6 sm:p-10 min-h-[320px] sm:min-h-[400px] flex flex-col justify-between relative overflow-hidden">
+          {/* Cover Image Background */}
+          {project.coverImage ? (
+            <>
+              <img
+                src={project.coverImage}
+                alt={project.name}
+                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/60 to-black/30 z-0" />
+            </>
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-br ${project.imageBg} z-0`} />
+          )}
+
+          {/* Top Info Bar */}
+          <div className="flex justify-between items-start relative z-10">
+            <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] font-mono text-white uppercase tracking-wider border border-white/15">
               {project.role}
             </span>
-            <span className="font-mono text-xs text-neutral-400">
+            <span className="font-mono text-xs text-neutral-300 bg-black/60 px-3 py-1 rounded-full backdrop-blur-md border border-white/15">
               {project.timeline}
             </span>
           </div>
 
           {!project.coverImage && (
-            <div className="my-auto py-4">
+            <div className="my-auto py-6 relative z-10">
               {isMobile ? (
                 <div className="max-w-xs mx-auto aspect-[9/16] h-44 rounded-2xl border-2 border-white/20 bg-black/60 backdrop-blur-md p-3 flex flex-col justify-between shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
                   <div className="w-12 h-1.5 rounded-full bg-white/30 mx-auto" />
@@ -105,18 +119,19 @@ function TiltWorkCard({ project, onClick }) {
             </div>
           )}
 
-          <div className="flex justify-between items-end">
+          {/* Bottom Card Title & Button */}
+          <div className="flex justify-between items-end relative z-10 pt-16">
             <div>
-              <span className="text-[10px] font-mono tracking-widest uppercase text-[#0A66C2] block font-semibold mb-1">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#0A66C2] block font-semibold mb-1 drop-shadow">
                 {project.category}
               </span>
-              <h3 className="text-2xl sm:text-4xl font-light text-white font-sans group-hover:translate-x-2 transition-transform duration-300">
+              <h3 className="text-2xl sm:text-4xl font-light text-white font-sans group-hover:translate-x-2 transition-transform duration-300 drop-shadow-md">
                 {project.name}
               </h3>
             </div>
 
             {/* Floating Case Study Arrow Button with Magnetic Glow */}
-            <div className="w-12 h-12 rounded-full bg-[#0A66C2] text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(10,102,194,0.6)] transition-all duration-300">
+            <div className="w-12 h-12 rounded-full bg-[#0A66C2] text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(10,102,194,0.6)] transition-all duration-300 flex-shrink-0">
               <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
