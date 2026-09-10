@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation'
 import BackgroundAudio from '../components/BackgroundAudio'
 import CinematicHero from '../components/CinematicHero'
 import HelloIntro from '../components/HelloIntro'
+import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 
 function Home() {
@@ -23,6 +24,7 @@ function Home() {
       
       <main className="flex-1">
         <CinematicHero introComplete={introComplete} />
+        <ContactSection />
       </main>
 
       <Footer />
