@@ -144,7 +144,7 @@ function ProjectLink({ heading, imgSrc, subheading, href, onProjectSelect }) {
               staggerChildren: 0.075,
               delayChildren: 0.25,
             }}
-            className="relative z-10 block text-4xl font-bold text-neutral-400 transition-colors duration-500 group-hover:text-white md:text-6xl"
+            className="relative z-10 block text-4xl font-medium text-neutral-400 transition-colors duration-500 group-hover:text-white md:text-6xl"
           >
             {heading.split("").map((l, i) => (
               <motion.span
