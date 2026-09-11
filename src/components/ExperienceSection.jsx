@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { DisplayCards } from './ui/display-cards'
 
 function ScrollWord({ word, progress, range }) {
   const opacity = useTransform(progress, range, [0.25, 1])
@@ -290,11 +291,7 @@ export default function ExperienceSection() {
             </a>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((cert, index) => (
-              <CertificationCard key={index} cert={cert} index={index} />
-            ))}
-          </div>
+          <DisplayCards cards={certifications} />
         </div>
 
       </div>
