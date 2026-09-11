@@ -178,7 +178,7 @@ function LinkItem({ heading, imgSrc, subheading, href, onProjectSelect }: LinkPr
               </motion.span>
             ))}
           </motion.span>
-          <span className="relative z-10 mt-2 block font-mono text-xs sm:text-sm text-neutral-500 transition-colors duration-500 group-hover:text-neutral-300">
+          <span className="relative z-10 mt-2 block font-sans text-xs sm:text-sm text-neutral-400 font-light tracking-wide transition-colors duration-500 group-hover:text-neutral-200">
             {subheading}
           </span>
         </div>
