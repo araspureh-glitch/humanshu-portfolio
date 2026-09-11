@@ -41,8 +41,8 @@ function HoverLink({
       <span className="relative z-10 font-serif italic text-white group-hover:text-emerald-300 transition-colors duration-300">
         {children}
       </span>
-      {/* Minimal 1px half-stroke underline accent */}
-      <span className="absolute bottom-1 left-1 right-1 h-[1px] bg-white/40 group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:via-emerald-300 group-hover:to-cyan-400 group-hover:h-[1.5px] transition-all duration-300" />
+      {/* Accent underline visible only on hover */}
+      <span className="absolute bottom-0.5 left-1 right-1 h-[1.5px] bg-gradient-to-r from-emerald-400 via-emerald-300 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </span>
   )
 }
@@ -313,12 +313,12 @@ export default function AboutIntroSection() {
   ]
 
   return (
-    <section className="w-full bg-[#050505] text-[#F5F5F5] py-24 sm:py-32 px-6 sm:px-12 lg:px-16 border-t border-white/10 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-[#F5F5F5] py-24 sm:py-32 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
 
       {/* Subtle Background Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto space-y-20 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
 
         {/* Editorial Minimal Header */}
         <motion.div
@@ -326,7 +326,7 @@ export default function AboutIntroSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-white/10 gap-4"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
         >
           <div className="space-y-2">
             <div className="flex items-center gap-2 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
@@ -343,17 +343,17 @@ export default function AboutIntroSection() {
         </motion.div>
 
         {/* Interactive Bio with Hover Image Preview Popups */}
-        <div className="space-y-4 pt-2">
+        <div className="space-y-4">
           <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
             <span>PERSPECTIVE & PROFILE</span>
             <span>•</span>
-            <span className="text-emerald-400">Hover underlined text to preview</span>
+            <span className="text-emerald-400">Hover text to preview</span>
           </div>
           <InteractiveBio />
         </div>
 
-        {/* Minimal Metadata Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-6 border-y border-white/10 font-mono text-xs">
+        {/* Sleek Minimal Floating Metadata Strip */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-2xl bg-white/[0.015] font-mono text-xs border border-white/5">
           {stats.map((stat, idx) => (
             <div key={idx} className="space-y-1">
               <span className="text-[10px] text-neutral-500 uppercase tracking-widest block">{stat.label}</span>
@@ -364,7 +364,7 @@ export default function AboutIntroSection() {
 
         {/* Sleek Minimalist Interactive Rows / Accordion */}
         <div className="space-y-6 pt-4">
-          <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest border-b border-white/10 pb-4">
+          <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest pb-2">
             <span>CORE DISCIPLINES</span>
             <span className="text-neutral-500 text-[10px]">Click to inspect discipline</span>
           </div>
