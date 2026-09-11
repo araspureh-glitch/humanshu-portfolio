@@ -189,26 +189,35 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="border-b border-white/10 group"
+      className={`border-b border-white/10 group transition-colors duration-500 ${isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'}`}
     >
       <button
         onClick={onToggle}
-        className="w-full py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-colors duration-300 group-hover:bg-white/[0.015] px-2 sm:px-4 rounded-lg"
+        className="w-full py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-colors duration-300 px-2 sm:px-4 rounded-lg"
       >
         <div className="flex items-center gap-6 sm:gap-10">
-          <span className="font-mono text-xs sm:text-sm text-neutral-500 font-light">
+          <span className={`font-mono text-xs sm:text-sm font-medium transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-500'}`}>
             {item.num}
           </span>
-          <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extralight text-white font-sans tracking-tight group-hover:text-emerald-400 group-hover:translate-x-2 transition-all duration-300">
-            {item.title}
-          </h3>
+          <div className="flex items-center gap-3">
+            {isOpen && (
+              <motion.span
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                className={`w-1 h-6 sm:h-8 rounded-full ${item.dotBg}`}
+              />
+            )}
+            <h3 className={`text-2xl sm:text-4xl lg:text-5xl font-extralight font-sans tracking-tight transition-all duration-300 ${isOpen ? 'text-white translate-x-1' : 'text-white/90 group-hover:text-white group-hover:translate-x-2'}`}>
+              {item.title}
+            </h3>
+          </div>
         </div>
 
         <div className="flex items-center gap-4 self-end md:self-auto">
-          <span className="font-mono text-[11px] text-neutral-400 uppercase tracking-widest border border-white/15 px-3 py-1 rounded-full group-hover:border-white/40 group-hover:text-white transition-colors">
+          <span className={`font-mono text-[11px] uppercase tracking-widest border px-3 py-1 rounded-full transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.03]` : 'border-white/15 text-neutral-400 group-hover:border-white/40 group-hover:text-white'}`}>
             {item.badge}
           </span>
-          <span className={`text-2xl font-light text-neutral-400 group-hover:text-white transition-transform duration-300 ${isOpen ? 'rotate-45 text-emerald-400' : ''}`}>
+          <span className={`text-2xl font-light transition-all duration-300 ${isOpen ? `rotate-45 ${item.iconColor}` : 'text-neutral-400 group-hover:text-white'}`}>
             +
           </span>
         </div>
@@ -221,27 +230,34 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden pb-8 px-2 sm:pl-16 md:pl-20"
+            className="overflow-hidden pb-10 px-2 sm:pl-16 md:pl-20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-              <div className="lg:col-span-7 space-y-4">
+              <div className="lg:col-span-6 space-y-4">
+                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
+                  APPROACH & IMPACT
+                </span>
                 <p className="text-sm sm:text-base font-sans text-neutral-300 font-light leading-relaxed">
                   {item.desc}
                 </p>
               </div>
 
-              <div className="lg:col-span-5 space-y-3">
-                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest block">
+              <div className="lg:col-span-6 space-y-4">
+                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
                   CAPABILITIES & DELIVERABLES
                 </span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2.5">
                   {item.tags.map((tag, idx) => (
-                    <span
+                    <motion.span
                       key={idx}
-                      className="px-3 py-1 rounded-full border border-white/15 bg-white/[0.03] text-xs font-mono text-neutral-300"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.06 }}
+                      className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.035] hover:bg-white/[0.08] hover:border-white/30 text-xs sm:text-sm font-sans font-normal text-neutral-200 backdrop-blur-md transition-all duration-300 flex items-center gap-2 shadow-sm"
                     >
-                      {tag}
-                    </span>
+                      <span className={`text-xs ${item.iconColor}`}>✦</span>
+                      <span>{tag}</span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
@@ -260,23 +276,32 @@ export default function AboutIntroSection() {
     {
       num: '01',
       badge: 'RESEARCH & FLOWS',
+      iconColor: 'text-emerald-400',
+      dotBg: 'bg-emerald-400',
+      badgeBorder: 'border-emerald-500/40',
       title: 'Human-Centered Research',
       desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.',
-      tags: ['Empathy Mapping', 'Wireframing & IA', 'Usability Feedback']
+      tags: ['Empathy Mapping', 'Wireframing & IA', 'Usability Testing & Feedback']
     },
     {
       num: '02',
       badge: 'SYSTEMS & TOKENS',
+      iconColor: 'text-cyan-400',
+      dotBg: 'bg-cyan-400',
+      badgeBorder: 'border-cyan-500/40',
       title: 'Design Systems Architecture',
       desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.',
-      tags: ['Atomic Component Spec', 'Design Tokens', 'WCAG Accessibility']
+      tags: ['Atomic Component Architecture', 'Design Tokens & Variables', 'WCAG 2.1 Accessibility']
     },
     {
       num: '03',
       badge: 'MOTION & CRAFT',
+      iconColor: 'text-purple-400',
+      dotBg: 'bg-purple-400',
+      badgeBorder: 'border-purple-500/40',
       title: 'Interactive Prototyping',
       desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.',
-      tags: ['Framer Motion / JS', 'Figma High-Fi', 'Micro-Interactions']
+      tags: ['Framer Motion & JS Physics', 'High-Fi Interactive Prototypes', 'Polished Micro-Interactions']
     }
   ]
 
