@@ -182,8 +182,7 @@ function InteractiveBio() {
   )
 }
 
-function InteractiveCard({ item, index, activeTab, setActiveTab }) {
-  const isActive = activeTab === index
+function DisciplineCard({ item, index }) {
   const cardRef = useRef(null)
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
 
@@ -199,33 +198,23 @@ function InteractiveCard({ item, index, activeTab, setActiveTab }) {
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      onClick={() => setActiveTab(index)}
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-      className={`
-        relative group p-8 rounded-2xl border transition-all duration-500 cursor-pointer overflow-hidden flex flex-col justify-between space-y-6
-        ${isActive
-          ? 'bg-white/[0.04] border-white/40 shadow-[0_15px_35px_rgba(0,0,0,0.6)]'
-          : 'bg-white/[0.012] border-white/10 hover:border-white/25 hover:bg-white/[0.025]'
-        }
-      `}
+      className="relative group p-8 rounded-2xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.03] hover:border-white/20 transition-all duration-500 overflow-hidden flex flex-col justify-between space-y-6"
     >
-      {/* Dynamic Cursor Spotlight Effect */}
+      {/* Subtle Cursor Glow */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
-          background: `radial-gradient(400px circle at ${mousePos.x}% ${mousePos.y}%, rgba(255, 255, 255, 0.06), transparent 80%)`
+          background: `radial-gradient(400px circle at ${mousePos.x}% ${mousePos.y}%, rgba(255, 255, 255, 0.05), transparent 80%)`
         }}
       />
 
-      {/* Top Accent Line */}
-      <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-500 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
-
       <div className="space-y-4 relative z-10">
         <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs">
-          <span className={`text-base font-medium transition-colors ${isActive ? 'text-emerald-400' : 'text-neutral-400 group-hover:text-white'}`}>
+          <span className="text-sm font-medium text-neutral-400 group-hover:text-white transition-colors">
             {item.num}
           </span>
           <span className="px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-[10px] text-neutral-400 uppercase tracking-widest">
@@ -237,30 +226,25 @@ function InteractiveCard({ item, index, activeTab, setActiveTab }) {
           {item.title}
         </h3>
 
-        <p className="text-xs font-mono text-neutral-400 leading-relaxed font-light">
+        <p className="text-xs sm:text-sm font-sans text-neutral-400 leading-relaxed font-light">
           {item.desc}
         </p>
       </div>
 
-      {/* Active Indicator & Action Hint */}
-      <div className="flex items-center justify-between pt-4 border-t border-white/10 font-mono text-xs text-neutral-500 relative z-10">
-        <div className="flex items-center gap-2">
-          <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-emerald-400 animate-ping' : 'bg-neutral-600'}`} />
-          <span className={isActive ? 'text-white' : 'group-hover:text-neutral-300'}>
-            {isActive ? 'Active Focus' : 'Click to inspect'}
-          </span>
-        </div>
-        <span className={`transition-transform duration-300 ${isActive ? 'translate-x-1 text-white' : 'group-hover:translate-x-1'}`}>
-          →
-        </span>
-      </div>
+      {/* Clean Feature Bullets inside card */}
+      <ul className="space-y-2 pt-4 border-t border-white/10 font-sans text-xs text-neutral-400 relative z-10">
+        {item.details.map((detail, idx) => (
+          <li key={idx} className="flex items-center gap-2.5 text-neutral-400">
+            <span className="w-1 h-1 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
+            <span className="font-light">{detail}</span>
+          </li>
+        ))}
+      </ul>
     </motion.div>
   )
 }
 
 export default function AboutIntroSection() {
-  const [activeTab, setActiveTab] = useState(0)
-
   const disciplines = [
     {
       num: '01',
@@ -270,7 +254,7 @@ export default function AboutIntroSection() {
       details: [
         'Empathy mapping & user persona synthesis',
         'Wireframing & information architecture',
-        'Usability testing & quantitative feedback iteration'
+        'Usability testing & feedback iteration'
       ]
     },
     {
@@ -281,7 +265,7 @@ export default function AboutIntroSection() {
       details: [
         'Atomic design component architecture',
         'Typography, color, & layout token structures',
-        'Cross-platform responsiveness & accessibility (WCAG)'
+        'Cross-platform responsiveness & accessibility'
       ]
     },
     {
@@ -354,60 +338,22 @@ export default function AboutIntroSection() {
           ))}
         </div>
 
-        {/* Minimal Interactive Disciplines Grid */}
+        {/* Minimal Disciplines Grid */}
         <div className="space-y-8 pt-4">
           <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest">
             <span>CORE DISCIPLINES</span>
-            <span className="text-neutral-500 text-[10px]">Select a focus to inspect</span>
+            <span className="text-neutral-500 text-[10px]">Pillars of Craft</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {disciplines.map((item, index) => (
-              <InteractiveCard
+              <DisciplineCard
                 key={item.num}
                 item={item}
                 index={index}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
               />
             ))}
           </div>
-
-          {/* Expanded Spotlight Detail Panel for Active Discipline */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="p-8 sm:p-10 rounded-2xl border border-white/15 bg-white/[0.025] backdrop-blur-xl space-y-6"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
-                <div>
-                  <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest block mb-1">
-                    SELECTED DISCIPLINE BREAKDOWN — {disciplines[activeTab].num}
-                  </span>
-                  <h4 className="text-2xl sm:text-3xl font-light text-white font-sans">
-                    {disciplines[activeTab].title}
-                  </h4>
-                </div>
-                <span className="font-mono text-xs text-neutral-400 border border-white/15 px-3 py-1 rounded-full uppercase tracking-wider self-start sm:self-auto">
-                  {disciplines[activeTab].badge}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 font-mono text-xs">
-                {disciplines[activeTab].details.map((detail, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-neutral-300">
-                    <span className="text-emerald-400 font-bold mt-0.5">✦</span>
-                    <span className="leading-relaxed font-light">{detail}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
         </div>
 
       </div>
