@@ -66,18 +66,18 @@ export function DisplayCard({
 }
 
 export function DisplayCards({ cards = [] }: { cards?: any[] }) {
-  // Pre-configured stacked layout offsets for display cards
+  // Centered stacked layout offsets for display cards to balance negative space
   const stackPositions = [
-    "[grid-area:stack] -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-12 z-10",
-    "[grid-area:stack] translate-x-4 sm:translate-x-12 translate-y-6 sm:translate-y-8 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-12 z-20",
-    "[grid-area:stack] translate-x-8 sm:translate-x-24 translate-y-12 sm:translate-y-16 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-12 z-30",
-    "[grid-area:stack] translate-x-12 sm:translate-x-36 translate-y-18 sm:translate-y-24 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-12 z-40",
-    "[grid-area:stack] translate-x-16 sm:translate-x-48 translate-y-24 sm:translate-y-32 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-12 z-50",
-    "[grid-area:stack] translate-x-20 sm:translate-x-60 translate-y-30 sm:translate-y-40 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-12 z-60",
+    "[grid-area:stack] -translate-x-5 sm:-translate-x-30 -translate-y-5 sm:-translate-y-20 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-24 z-10",
+    "[grid-area:stack] -translate-x-3 sm:-translate-x-18 -translate-y-3 sm:-translate-y-12 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-24 z-20",
+    "[grid-area:stack] -translate-x-1 sm:-translate-x-6 -translate-y-1 sm:-translate-y-4 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-24 z-30",
+    "[grid-area:stack] translate-x-1 sm:translate-x-6 translate-y-1 sm:translate-y-4 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-24 z-40",
+    "[grid-area:stack] translate-x-3 sm:translate-x-18 translate-y-3 sm:translate-y-12 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-24 z-50",
+    "[grid-area:stack] translate-x-5 sm:translate-x-30 translate-y-5 sm:translate-y-20 -skew-y-[6deg] hover:skew-y-0 hover:-translate-y-24 z-60",
   ];
 
   return (
-    <div className="w-full flex items-center justify-center py-16 px-4">
+    <div className="w-full flex items-center justify-center py-12 px-4">
       <div className="grid [grid-template-areas:'stack'] place-items-center min-h-[380px] sm:min-h-[460px] max-w-4xl w-full">
         {cards.map((card, index) => (
           <DisplayCard
