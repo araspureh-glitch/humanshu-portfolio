@@ -89,19 +89,7 @@ export default function AboutSection() {
             }}
             className="relative z-20 group cursor-pointer"
           >
-            {/* Animated Dashed Selection Frame (Figma / Vector Frame Style) */}
-            <div className="absolute -inset-4 sm:-inset-6 rounded-[40px] border-2 border-dashed border-white/25 group-hover:border-white/50 transition-colors duration-500 pointer-events-none">
-              {/* Corner Selection Nodes */}
-              <div className="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border border-black shadow-[0_0_8px_white]" />
-              <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border border-black shadow-[0_0_8px_white]" />
-              <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border border-black shadow-[0_0_8px_white]" />
-              <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border border-black shadow-[0_0_8px_white]" />
 
-              {/* Frame Label Badge */}
-              <div className="absolute -top-4 left-6 px-2.5 py-0.5 rounded bg-white/10 backdrop-blur-md border border-white/20 font-mono text-[9px] text-neutral-300 uppercase tracking-widest">
-                PORTRAIT_COMPONENT.frame
-              </div>
-            </div>
 
             {/* Central Portrait Image */}
             <div className="relative w-64 h-80 sm:w-80 sm:h-[420px] rounded-[32px] overflow-hidden border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.8)] bg-neutral-900">

@@ -29,7 +29,7 @@ export default function SkillsSection() {
   const tabs = ['ALL', 'UX', 'UI', 'GRAPHIC', 'TOOLS']
 
   return (
-    <section className="w-full bg-[#050505] text-[#F5F5F5] py-28 px-6 sm:px-12 lg:px-16 border-t border-white/10">
+    <section id="skills" className="w-full bg-[#050505] text-[#F5F5F5] py-28 px-6 sm:px-12 lg:px-16 border-t border-white/10">
       <div className="max-w-7xl mx-auto space-y-16">
         
         {/* Section Header */}

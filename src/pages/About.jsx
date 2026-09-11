@@ -1,7 +1,7 @@
 import CustomCursor from '../components/CustomCursor'
 import Navigation from '../components/Navigation'
 import BackgroundAudio from '../components/BackgroundAudio'
-import AboutSection from '../components/AboutSection'
+import AboutIntroSection from '../components/AboutIntroSection'
 import FloatingHobbiesCloud from '../components/FloatingHobbiesCloud'
 import ExperienceSection from '../components/ExperienceSection'
 import SkillsSection from '../components/SkillsSection'
@@ -15,7 +15,7 @@ function About() {
       <Navigation />
       <BackgroundAudio videoId="16jA-6hiSUo" />
       <main>
-        <AboutSection />
+        <AboutIntroSection />
         <FloatingHobbiesCloud />
         <ExperienceSection />
         <SkillsSection />

@@ -2,10 +2,11 @@ import { useState } from 'react'
 import CustomCursor from '../components/CustomCursor'
 import Navigation from '../components/Navigation'
 import BackgroundAudio from '../components/BackgroundAudio'
-import CinematicHero from '../components/CinematicHero'
 import HelloIntro from '../components/HelloIntro'
+import CinematicHero from '../components/CinematicHero'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
+import { InteractiveHoverLinks } from '../components/ui/interactive-hover-links'
 
 function Home() {
   const [introComplete, setIntroComplete] = useState(() => {
@@ -21,9 +22,10 @@ function Home() {
       <CustomCursor />
       <Navigation introComplete={introComplete} />
       <BackgroundAudio videoId="16jA-6hiSUo" />
-      
+
       <main className="flex-1">
         <CinematicHero introComplete={introComplete} />
+        <InteractiveHoverLinks />
         <ContactSection />
       </main>
 
@@ -33,4 +35,3 @@ function Home() {
 }
 
 export default Home
-

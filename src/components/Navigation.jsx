@@ -2,27 +2,14 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
-export default function Navigation({ introComplete = true }) {
+export default function Navigation({ introComplete = true, activeSection: activeSectionProp = 'home' }) {
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('work')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40)
-
-      const sections = ['work', 'about', 'experience', 'contact']
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId)
-        if (el) {
-          const rect = el.getBoundingClientRect()
-          if (rect.top <= 200 && rect.bottom >= 200) {
-            setActiveSection(sectionId)
-            break
-          }
-        }
-      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -69,7 +56,7 @@ export default function Navigation({ introComplete = true }) {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`relative flex items-center gap-2 transition-colors duration-200 py-1 ${
+                className={`relative flex items-center gap-2 transition-colors duration-200 py-1 cursor-pointer ${
                   isActive ? 'text-white font-medium' : 'hover:text-neutral-200'
                 }`}
               >
@@ -89,8 +76,8 @@ export default function Navigation({ introComplete = true }) {
         {/* Right Desktop CTA + Mobile Toggle */}
         <div className="flex items-center gap-3">
           <Link 
-            to="/contact" 
-            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-[11px] font-mono tracking-widest uppercase"
+            to="/contact"
+            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-[11px] font-mono tracking-widest uppercase cursor-pointer"
           >
             <span>Let's talk</span>
             <span className="text-xs">↗</span>
@@ -116,19 +103,12 @@ export default function Navigation({ introComplete = true }) {
                 key={item.name}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 border-b border-white/5 text-neutral-300 hover:text-white uppercase tracking-widest"
+                className="flex items-center justify-between py-2 border-b border-white/5 text-neutral-300 hover:text-white uppercase tracking-widest cursor-pointer"
               >
                 <span>{item.name}</span>
                 <span className="text-neutral-400">→</span>
               </Link>
             ))}
-            <Link 
-              to="/contact" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 w-full py-3 rounded-full bg-white text-black font-bold tracking-widest block text-center uppercase text-xs shadow-lg hover:bg-neutral-200 transition-colors"
-            >
-              Let's talk ↗
-            </Link>
           </div>
         </div>
       )}
