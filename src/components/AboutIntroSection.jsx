@@ -182,81 +182,84 @@ function InteractiveBio() {
   )
 }
 
-function DisciplineCard({ item, index }) {
-  const cardRef = useRef(null)
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    const y = ((e.clientY - rect.top) / rect.height) * 100
-    setMousePos({ x, y })
-  }
-
+function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
   return (
     <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-      className="relative group p-8 rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.025] to-transparent hover:border-white/30 transition-all duration-500 overflow-hidden flex flex-col justify-between space-y-8 min-h-[320px]"
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="border-b border-white/10 group"
     >
-      {/* Background Watermark Number */}
-      <span className="absolute top-4 right-6 font-mono text-7xl font-extralight text-white/[0.04] select-none pointer-events-none group-hover:text-white/[0.08] transition-colors duration-500">
-        {item.num}
-      </span>
-
-      {/* Top Ambient Glow Line */}
-      <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${item.accentLine} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-      {/* Dynamic Cursor Spotlight */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{
-          background: `radial-gradient(400px circle at ${mousePos.x}% ${mousePos.y}%, rgba(255, 255, 255, 0.05), transparent 80%)`
-        }}
-      />
-
-      <div className="space-y-4 relative z-10">
-        <div className="flex items-center gap-2 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
-          <span className={`w-1.5 h-1.5 rounded-full ${item.dotColor}`} />
-          <span>{item.badge}</span>
+      <button
+        onClick={onToggle}
+        className="w-full py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-colors duration-300 group-hover:bg-white/[0.015] px-2 sm:px-4 rounded-lg"
+      >
+        <div className="flex items-center gap-6 sm:gap-10">
+          <span className="font-mono text-xs sm:text-sm text-neutral-500 font-light">
+            {item.num}
+          </span>
+          <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extralight text-white font-sans tracking-tight group-hover:text-emerald-400 group-hover:translate-x-2 transition-all duration-300">
+            {item.title}
+          </h3>
         </div>
 
-        <h3 className="text-2xl sm:text-3xl font-light text-white font-sans tracking-tight pt-2">
-          {item.title}
-        </h3>
-
-        <p className="text-xs sm:text-sm font-sans text-neutral-400 leading-relaxed font-light">
-          {item.desc}
-        </p>
-      </div>
-
-      {/* Interactive Tag Pills instead of PowerPoint bullets */}
-      <div className="pt-4 border-t border-white/10 relative z-10 flex flex-wrap gap-2">
-        {item.tags.map((tag, idx) => (
-          <span
-            key={idx}
-            className="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[11px] font-mono text-neutral-400 group-hover:text-neutral-200 group-hover:border-white/20 transition-all duration-300"
-          >
-            {tag}
+        <div className="flex items-center gap-4 self-end md:self-auto">
+          <span className="font-mono text-[11px] text-neutral-400 uppercase tracking-widest border border-white/15 px-3 py-1 rounded-full group-hover:border-white/40 group-hover:text-white transition-colors">
+            {item.badge}
           </span>
-        ))}
-      </div>
+          <span className={`text-2xl font-light text-neutral-400 group-hover:text-white transition-transform duration-300 ${isOpen ? 'rotate-45 text-emerald-400' : ''}`}>
+            +
+          </span>
+        </div>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden pb-8 px-2 sm:pl-16 md:pl-20"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
+              <div className="lg:col-span-7 space-y-4">
+                <p className="text-sm sm:text-base font-sans text-neutral-300 font-light leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+
+              <div className="lg:col-span-5 space-y-3">
+                <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest block">
+                  CAPABILITIES & DELIVERABLES
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {item.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-full border border-white/15 bg-white/[0.03] text-xs font-mono text-neutral-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }
 
 export default function AboutIntroSection() {
+  const [openRow, setOpenRow] = useState(0)
+
   const disciplines = [
     {
       num: '01',
       badge: 'RESEARCH & FLOWS',
-      dotColor: 'bg-emerald-400',
-      accentLine: 'from-transparent via-emerald-400 to-transparent',
       title: 'Human-Centered Research',
       desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.',
       tags: ['Empathy Mapping', 'Wireframing & IA', 'Usability Feedback']
@@ -264,8 +267,6 @@ export default function AboutIntroSection() {
     {
       num: '02',
       badge: 'SYSTEMS & TOKENS',
-      dotColor: 'bg-cyan-400',
-      accentLine: 'from-transparent via-cyan-400 to-transparent',
       title: 'Design Systems Architecture',
       desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.',
       tags: ['Atomic Component Spec', 'Design Tokens', 'WCAG Accessibility']
@@ -273,8 +274,6 @@ export default function AboutIntroSection() {
     {
       num: '03',
       badge: 'MOTION & CRAFT',
-      dotColor: 'bg-purple-400',
-      accentLine: 'from-transparent via-purple-400 to-transparent',
       title: 'Interactive Prototyping',
       desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.',
       tags: ['Framer Motion / JS', 'Figma High-Fi', 'Micro-Interactions']
@@ -338,19 +337,21 @@ export default function AboutIntroSection() {
           ))}
         </div>
 
-        {/* Bento Interactive Disciplines Grid */}
-        <div className="space-y-8 pt-4">
-          <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest">
+        {/* Sleek Minimalist Interactive Rows / Accordion */}
+        <div className="space-y-6 pt-4">
+          <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest border-b border-white/10 pb-4">
             <span>CORE DISCIPLINES</span>
-            <span className="text-neutral-500 text-[10px]">Pillars of Craft</span>
+            <span className="text-neutral-500 text-[10px]">Click to inspect discipline</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="border-t border-white/10">
             {disciplines.map((item, index) => (
-              <DisciplineCard
+              <DisciplineAccordionRow
                 key={item.num}
                 item={item}
                 index={index}
+                isOpen={openRow === index}
+                onToggle={() => setOpenRow(openRow === index ? null : index)}
               />
             ))}
           </div>
