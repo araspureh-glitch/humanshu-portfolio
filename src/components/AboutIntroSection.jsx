@@ -198,13 +198,21 @@ function DisciplineCard({ item, index }) {
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-      className="relative group p-8 rounded-2xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.03] hover:border-white/20 transition-all duration-500 overflow-hidden flex flex-col justify-between space-y-6"
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+      className="relative group p-8 rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.025] to-transparent hover:border-white/30 transition-all duration-500 overflow-hidden flex flex-col justify-between space-y-8 min-h-[320px]"
     >
-      {/* Subtle Cursor Glow */}
+      {/* Background Watermark Number */}
+      <span className="absolute top-4 right-6 font-mono text-7xl font-extralight text-white/[0.04] select-none pointer-events-none group-hover:text-white/[0.08] transition-colors duration-500">
+        {item.num}
+      </span>
+
+      {/* Top Ambient Glow Line */}
+      <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${item.accentLine} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+      {/* Dynamic Cursor Spotlight */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
@@ -213,16 +221,12 @@ function DisciplineCard({ item, index }) {
       />
 
       <div className="space-y-4 relative z-10">
-        <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs">
-          <span className="text-sm font-medium text-neutral-400 group-hover:text-white transition-colors">
-            {item.num}
-          </span>
-          <span className="px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-[10px] text-neutral-400 uppercase tracking-widest">
-            {item.badge}
-          </span>
+        <div className="flex items-center gap-2 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+          <span className={`w-1.5 h-1.5 rounded-full ${item.dotColor}`} />
+          <span>{item.badge}</span>
         </div>
 
-        <h3 className="text-xl sm:text-2xl font-light text-white font-sans tracking-tight">
+        <h3 className="text-2xl sm:text-3xl font-light text-white font-sans tracking-tight pt-2">
           {item.title}
         </h3>
 
@@ -231,15 +235,17 @@ function DisciplineCard({ item, index }) {
         </p>
       </div>
 
-      {/* Clean Feature Bullets inside card */}
-      <ul className="space-y-2 pt-4 border-t border-white/10 font-sans text-xs text-neutral-400 relative z-10">
-        {item.details.map((detail, idx) => (
-          <li key={idx} className="flex items-center gap-2.5 text-neutral-400">
-            <span className="w-1 h-1 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
-            <span className="font-light">{detail}</span>
-          </li>
+      {/* Interactive Tag Pills instead of PowerPoint bullets */}
+      <div className="pt-4 border-t border-white/10 relative z-10 flex flex-wrap gap-2">
+        {item.tags.map((tag, idx) => (
+          <span
+            key={idx}
+            className="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[11px] font-mono text-neutral-400 group-hover:text-neutral-200 group-hover:border-white/20 transition-all duration-300"
+          >
+            {tag}
+          </span>
         ))}
-      </ul>
+      </div>
     </motion.div>
   )
 }
@@ -248,36 +254,30 @@ export default function AboutIntroSection() {
   const disciplines = [
     {
       num: '01',
-      badge: 'Research & Flows',
+      badge: 'RESEARCH & FLOWS',
+      dotColor: 'bg-emerald-400',
+      accentLine: 'from-transparent via-emerald-400 to-transparent',
       title: 'Human-Centered Research',
       desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.',
-      details: [
-        'Empathy mapping & user persona synthesis',
-        'Wireframing & information architecture',
-        'Usability testing & feedback iteration'
-      ]
+      tags: ['Empathy Mapping', 'Wireframing & IA', 'Usability Feedback']
     },
     {
       num: '02',
-      badge: 'Systems & Tokens',
+      badge: 'SYSTEMS & TOKENS',
+      dotColor: 'bg-cyan-400',
+      accentLine: 'from-transparent via-cyan-400 to-transparent',
       title: 'Design Systems Architecture',
       desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.',
-      details: [
-        'Atomic design component architecture',
-        'Typography, color, & layout token structures',
-        'Cross-platform responsiveness & accessibility'
-      ]
+      tags: ['Atomic Component Spec', 'Design Tokens', 'WCAG Accessibility']
     },
     {
       num: '03',
-      badge: 'Motion & Craft',
+      badge: 'MOTION & CRAFT',
+      dotColor: 'bg-purple-400',
+      accentLine: 'from-transparent via-purple-400 to-transparent',
       title: 'Interactive Prototyping',
       desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.',
-      details: [
-        'Framer Motion & interactive JS animations',
-        'High-fidelity interactive Figma prototypes',
-        'Polished micro-interactions & feedback states'
-      ]
+      tags: ['Framer Motion / JS', 'Figma High-Fi', 'Micro-Interactions']
     }
   ]
 
@@ -338,7 +338,7 @@ export default function AboutIntroSection() {
           ))}
         </div>
 
-        {/* Minimal Disciplines Grid */}
+        {/* Bento Interactive Disciplines Grid */}
         <div className="space-y-8 pt-4">
           <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest">
             <span>CORE DISCIPLINES</span>
