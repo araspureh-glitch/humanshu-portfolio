@@ -9,8 +9,8 @@ export default function ContactSection() {
   ]
 
   return (
-    <section id="contact" className="w-full bg-[#050505] text-[#F5F5F5] py-32 px-6 sm:px-12 lg:px-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto flex flex-col justify-between min-h-[520px]">
+    <section id="contact" className="w-full bg-[#050505] text-[#F5F5F5] py-16 px-6 sm:px-12 lg:px-16 border-t border-white/10">
+      <div className="max-w-7xl mx-auto flex flex-col justify-between">
         
         {/* Main CTA Block */}
         <div className="space-y-8 max-w-4xl">
