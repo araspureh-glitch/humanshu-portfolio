@@ -7,12 +7,14 @@ interface LiquidMetalButtonProps {
   label?: string;
   onClick?: () => void;
   viewMode?: "text" | "icon";
+  icon?: React.ComponentType<any>;
 }
 
 export function LiquidMetalButton({
   label = "Get Started",
   onClick,
   viewMode = "text",
+  icon: CustomIcon,
 }: LiquidMetalButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -198,15 +200,20 @@ export function LiquidMetalButton({
             }}
           >
             {viewMode === "icon" && (
-              <Sparkles
-                size={16}
-                style={{
-                  color: "#666666",
-                  filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
-                  transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  transform: "scale(1)",
-                }}
-              />
+              (() => {
+                const RenderIcon = CustomIcon || Sparkles;
+                return (
+                  <RenderIcon
+                    size={16}
+                    style={{
+                      color: "#666666",
+                      filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
+                      transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                      transform: "scale(1)",
+                    }}
+                  />
+                );
+              })()
             )}
             {viewMode === "text" && (
               <span

@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Music } from 'lucide-react'
 import MosaicHeroCanvas from './MosaicHeroCanvas'
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
-export default function CinematicHero({ introComplete = true }) {
+export default function CinematicHero({ introComplete = true, onAudioToggle, isPlaying }) {
   // Motion variants for container and elements
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -171,18 +171,21 @@ export default function CinematicHero({ introComplete = true }) {
             </h1>
           </motion.div>
 
-          {/* Lower Right / Bottom Left: Scroll to explore */}
+          {/* Lower Right / Bottom Left: Music Toggle Button */}
           <motion.div variants={itemVariants} className="lg:col-span-3 flex lg:justify-end items-center pointer-events-auto">
-            <Link to="/work">
-              <LiquidMetalButton viewMode="icon" />
-            </Link>
+            <LiquidMetalButton 
+              viewMode="icon" 
+              icon={Music} 
+              onClick={onAudioToggle}
+              label={isPlaying ? "Mute Background Music" : "Play Background Music"}
+            />
           </motion.div>
 
         </div>
       </motion.div>
 
       {/* Fine Horizontal Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#FFFFFF1A] z-10 pointer-events-none" />
     </section>
   )
 }

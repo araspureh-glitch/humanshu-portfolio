@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, forwardRef, useImperativeHandle } from 'react'
 
-export default function BackgroundAudio({ videoId = '16jA-6hiSUo' }) {
+const BackgroundAudio = forwardRef(function BackgroundAudio({ videoId = '16jA-6hiSUo', onStateChange }, ref) {
   const [isPlaying, setIsPlaying] = useState(false)
   const playerRef = useRef(null)
 
@@ -13,14 +13,21 @@ export default function BackgroundAudio({ videoId = '16jA-6hiSUo' }) {
         '*'
       )
       setIsPlaying(false)
+      onStateChange?.(false)
     } else {
       playerRef.current.contentWindow.postMessage(
         JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
         '*'
       )
       setIsPlaying(true)
+      onStateChange?.(true)
     }
   }
+
+  useImperativeHandle(ref, () => ({
+    toggleAudio,
+    isPlaying
+  }))
 
   return (
     <>
@@ -32,8 +39,9 @@ export default function BackgroundAudio({ videoId = '16jA-6hiSUo' }) {
         src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=0&loop=1&playlist=${videoId}&controls=0&disablekb=1`}
         allow="autoplay; encrypted-media"
       />
-
-      {/* Sound button hidden for now */}
     </>
   )
-}
+})
+
+export default BackgroundAudio
+

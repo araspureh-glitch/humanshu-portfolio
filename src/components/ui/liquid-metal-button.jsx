@@ -6,14 +6,13 @@ export function LiquidMetalButton({
   label = "Get Started",
   onClick,
   viewMode = "text",
+  icon: CustomIcon,
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
-  const [ripples, setRipples] = useState([]);
   const shaderRef = useRef(null);
   const shaderMount = useRef(null);
   const buttonRef = useRef(null);
-  const rippleId = useRef(0);
 
   const dimensions = useMemo(() => {
     if (viewMode === "icon") {
@@ -52,16 +51,6 @@ export function LiquidMetalButton({
           top: 0 !important;
           left: 0 !important;
           border-radius: 100px !important;
-        }
-        @keyframes ripple-animation {
-          0% {
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0.6;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(4);
-            opacity: 0;
-          }
         }
       `;
       document.head.appendChild(style);
@@ -132,20 +121,10 @@ export function LiquidMetalButton({
       }, 300);
     }
 
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const ripple = { x, y, id: rippleId.current++ };
-
-      setRipples((prev) => [...prev, ripple]);
-      setTimeout(() => {
-        setRipples((prev) => prev.filter((r) => r.id !== ripple.id));
-      }, 600);
-    }
-
-    onClick?.();
+    onClick?.(e);
   };
+
+  const RenderIcon = CustomIcon || Sparkles;
 
   return (
     <div className="relative inline-block">
@@ -186,7 +165,7 @@ export function LiquidMetalButton({
             }}
           >
             {viewMode === "icon" && (
-              <Sparkles
+              <RenderIcon
                 size={16}
                 style={{
                   color: "#666666",

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import CustomCursor from '../components/CustomCursor'
 import Navigation from '../components/Navigation'
 import BackgroundAudio from '../components/BackgroundAudio'
@@ -16,15 +16,22 @@ function Home() {
     return prefersReduced || hasSeen
   })
 
+  const audioRef = useRef(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+
   return (
     <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#0A66C2] selection:text-white min-h-screen flex flex-col justify-between">
       <HelloIntro onComplete={() => setIntroComplete(true)} />
       <CustomCursor />
       <Navigation introComplete={introComplete} />
-      <BackgroundAudio videoId="16jA-6hiSUo" />
+      <BackgroundAudio ref={audioRef} videoId="16jA-6hiSUo" onStateChange={setIsPlaying} />
 
       <main className="flex-1">
-        <CinematicHero introComplete={introComplete} />
+        <CinematicHero 
+          introComplete={introComplete} 
+          onAudioToggle={() => audioRef.current?.toggleAudio()}
+          isPlaying={isPlaying}
+        />
         <InteractiveHoverLinks />
         <ContactSection />
       </main>
