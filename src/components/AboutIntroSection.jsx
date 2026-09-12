@@ -39,11 +39,11 @@ function HoverLink({
       onMouseMove={onHoverMove}
       onMouseLeave={onHoverEnd}
     >
-      <span className="relative z-10 font-serif italic text-white group-hover:text-emerald-300 transition-colors duration-300">
+      <span className="relative z-10 font-serif italic text-white group-hover:text-[#EA5211] transition-colors duration-300">
         {children}
       </span>
       {/* Accent underline visible only on hover */}
-      <span className="absolute bottom-0.5 left-1 right-1 h-[1.5px] bg-gradient-to-r from-emerald-400 via-emerald-300 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <span className="absolute bottom-0.5 left-1 right-1 h-[1.5px] bg-gradient-to-r from-[#EA5211] via-orange-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </span>
   )
 }
@@ -137,7 +137,7 @@ function InteractiveBio() {
 
   return (
     <div className="relative">
-      <p className="text-2xl sm:text-4xl md:text-5xl font-extralight leading-[1.3] tracking-tight font-sans text-neutral-300 max-w-5xl">
+      <p className="text-lg sm:text-2xl md:text-3xl lg:text-[2rem] font-light leading-[1.4] tracking-tight font-sans text-neutral-300 max-w-4xl">
         I am Humanshu Araspure, a{" "}
         <HoverLink
           previewKey="architect"
@@ -214,7 +214,7 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
         {/* Right Column: Statement Headline & Expandable Description */}
         <div className="md:col-span-9 sm:col-span-8 space-y-1.5">
           <h3 
-            className={`text-lg sm:text-xl lg:text-2xl font-sans tracking-tight leading-snug transition-all duration-300 ${
+            className={`text-base sm:text-lg lg:text-xl font-sans tracking-tight leading-snug transition-all duration-300 ${
               isOpen 
                 ? 'text-white font-normal' 
                 : 'text-neutral-400/80 font-light group-hover:text-white'
@@ -286,7 +286,7 @@ export default function AboutIntroSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
               <span>01 / ABOUT ME</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight text-white tracking-tight font-sans">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight font-sans">
               Humanshu Araspure
             </h1>
           </div>

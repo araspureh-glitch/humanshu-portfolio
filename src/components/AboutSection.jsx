@@ -6,7 +6,7 @@ const tagsData = [
   { id: 'tag-1', label: 'UI/UX Designer', x: '-38%', y: '-32%', rotate: -6, zIndex: 30, color: 'from-blue-500/20 to-cyan-500/20' },
   { id: 'tag-2', label: 'Product Designer', x: '36%', y: '-36%', rotate: 5, zIndex: 25, color: 'from-purple-500/20 to-pink-500/20' },
   { id: 'tag-3', label: 'Visual Designer', x: '-42%', y: '5%', rotate: 4, zIndex: 20, color: 'from-[#EA5211]/30 to-orange-600/20' },
-  { id: 'tag-4', label: 'Research', x: '42%', y: '2%', rotate: -7, zIndex: 35, color: 'from-emerald-500/20 to-teal-500/20' },
+  { id: 'tag-4', label: 'Research', x: '42%', y: '2%', rotate: -7, zIndex: 35, color: 'from-[#EA5211]/30 to-amber-600/20' },
   { id: 'tag-5', label: 'Prototyping', x: '-34%', y: '40%', rotate: -4, zIndex: 15, color: 'from-amber-500/20 to-orange-500/20' },
   { id: 'tag-6', label: 'Figma', x: '32%', y: '38%', rotate: 6, zIndex: 30, color: 'from-pink-500/20 to-[#ff55a5]/20' },
   { id: 'tag-7', label: 'Interaction Design', x: '-12%', y: '-48%', rotate: 3, zIndex: 40, color: 'from-cyan-500/20 to-blue-500/20' },
@@ -20,7 +20,7 @@ const decorativeObjects = [
   { id: 'dec-3', icon: '📐', label: 'Grid', x: '-26%', y: '24%', floatDelay: 1.2, size: 'text-xl text-purple-400' },
   { id: 'dec-4', icon: '🎨', label: 'Palette', x: '26%', y: '22%', floatDelay: 0.4, size: 'text-xl text-pink-400' },
   { id: 'dec-5', icon: '⚡', label: 'Motion', x: '-48%', y: '-12%', floatDelay: 0.9, size: 'text-lg text-yellow-400' },
-  { id: 'dec-6', icon: '📷', label: 'Lens', x: '48%', y: '-10%', floatDelay: 1.5, size: 'text-lg text-emerald-400' },
+  { id: 'dec-6', icon: '📷', label: 'Lens', x: '48%', y: '-10%', floatDelay: 1.5, size: 'text-lg text-[#EA5211]' },
 ]
 
 export default function AboutSection() {
@@ -65,7 +65,7 @@ export default function AboutSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-ping"></span>
               <span>02 / ABOUT ME</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight mt-2 font-sans">
+            <h2 className="text-3xl sm:text-5xl font-light text-white tracking-tight mt-2 font-sans">
               Human-centered UX & Visual Architecture
             </h2>
           </div>
@@ -105,7 +105,7 @@ export default function AboutSection() {
                   <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">DESIGNER</span>
                   <span className="font-sans text-sm text-white font-medium">Humanshu A.</span>
                 </div>
-                <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                <span className="font-mono text-[10px] text-[#EA5211] bg-[#EA5211]/10 px-2 py-0.5 rounded border border-[#EA5211]/30">
                   AVAILABLE 2026
                 </span>
               </div>
@@ -213,7 +213,7 @@ export default function AboutSection() {
 
         {/* Editorial Text Statement Below Moodboard */}
         <div className="max-w-3xl mx-auto text-center space-y-6 pt-6 border-t border-white/10">
-          <p className="text-xl sm:text-3xl font-light text-neutral-200 leading-relaxed font-sans">
+          <p className="text-lg sm:text-2xl font-light text-neutral-200 leading-relaxed font-sans">
             "Design is not just what it looks like and feels like. Design is how it works under pressure, in motion, and across human lives."
           </p>
           <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest block">
