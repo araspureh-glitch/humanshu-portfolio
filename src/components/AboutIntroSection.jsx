@@ -285,7 +285,7 @@ export default function AboutIntroSection() {
               <p className="text-sm sm:text-base font-sans font-medium text-white tracking-tight">
                 At Humanshu Studio
               </p>
-              <p className="text-sm sm:text-base font-sans font-medium text-[#38bdf8] tracking-tight">
+              <p className="text-sm sm:text-base font-sans font-medium text-[#EA5211] tracking-tight">
                 We make digital experiences better
               </p>
             </div>
