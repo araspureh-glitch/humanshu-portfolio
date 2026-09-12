@@ -1,10 +1,8 @@
-// Zero-dependency Pure WebGL Realistic Interstellar Accretion Disk Black Hole Renderer
 export function createRenderer({ canvas }) {
   let animationFrameId;
   let isDisposed = false;
 
-  const gl = canvas.getContext('webgl', { alpha: true, antialias: true }) || 
-             canvas.getContext('experimental-webgl');
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 
   let resolveReady;
   const ready = new Promise((resolve) => {
@@ -26,8 +24,10 @@ export function createRenderer({ canvas }) {
     const render = () => {
       if (isDisposed) return;
       time += 0.01;
+      const w = canvas.width;
+      const h = canvas.height;
       ctx.fillStyle = '#050505';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
       animationFrameId = requestAnimationFrame(render);
     };
     render();
@@ -35,7 +35,7 @@ export function createRenderer({ canvas }) {
     return { ready, dispose: () => { isDisposed = true; cancelAnimationFrame(animationFrameId); } };
   }
 
-  // --- WebGL Interstellar Black Hole Shader ---
+  // --- High-Precision WebGL Realistic Interstellar Black Hole Shader ---
   const vsSource = `
     attribute vec2 position;
     void main() {
@@ -80,11 +80,11 @@ export function createRenderer({ canvas }) {
     }
 
     void main() {
-      vec2 st = (gl_FragCoord.xy - u_resolution * 0.5) / min(u_resolution.x, u_resolution.y);
+      vec2 uv = (gl_FragCoord.xy - u_resolution * 0.5) / min(u_resolution.x, u_resolution.y);
 
       // Position Black Hole on Right Side matching reference image
       vec2 bhPos = vec2(0.38, 0.02);
-      vec2 p = st - bhPos;
+      vec2 p = uv - bhPos;
 
       // Rotate for realistic 3D accretion disk perspective tilt
       float angle = -0.22;
@@ -94,41 +94,41 @@ export function createRenderer({ canvas }) {
       float dist = length(p);
 
       // Gravitational Lensing effect bending light around event horizon
-      float lens = 0.07 / (dist + 0.035);
+      float lens = 0.065 / (dist + 0.04);
       vec2 lensP = p * (1.0 - lens);
 
       // Distorted coordinates for tilted accretion disk
-      vec2 diskUV = vec2(lensP.x, lensP.y * 3.6);
+      vec2 diskUV = vec2(lensP.x, lensP.y * 3.4);
       float rDisk = length(diskUV);
       float phiDisk = atan(diskUV.y, diskUV.x);
 
       // Starfield Background
       float starHash = hash(gl_FragCoord.xy);
-      float star = step(0.996, starHash) * (0.3 + 0.7 * sin(u_time * 2.5 + starHash * 100.0));
+      float star = step(0.995, starHash) * (0.3 + 0.7 * sin(u_time * 2.0 + starHash * 100.0));
 
       // Accretion Disk Dust Trails & Rotation
-      float diskNoise = fbm(vec2(rDisk * 7.0 - u_time * 0.5, phiDisk * 4.0 + u_time * 0.3));
-      float diskDensity = smoothstep(0.75, 0.28, rDisk) * smoothstep(0.18, 0.26, rDisk);
+      float diskNoise = fbm(vec2(rDisk * 8.0 - u_time * 0.4, phiDisk * 4.0 + u_time * 0.2));
+      float diskDensity = smoothstep(0.72, 0.26, rDisk) * smoothstep(0.19, 0.25, rDisk);
       float accretionDisk = diskDensity * (0.65 + 0.35 * diskNoise);
 
       // Gravitational Einstein Ring / Upper & Lower Lensed Arc
-      float arcUpper = smoothstep(0.025, 0.0, abs(dist - 0.25)) * step(0.0, p.y) * 1.8;
-      float arcLower = smoothstep(0.015, 0.0, abs(dist - 0.24)) * step(p.y, 0.0) * 0.9;
+      float arcUpper = smoothstep(0.02, 0.0, abs(dist - 0.245)) * step(0.0, p.y) * 1.6;
+      float arcLower = smoothstep(0.015, 0.0, abs(dist - 0.235)) * step(p.y, 0.0) * 0.8;
 
       // Inner Photon Ring (Bright Silver Edge)
-      float photonRing = smoothstep(0.01, 0.0, abs(dist - 0.215)) * 2.8;
+      float photonRing = smoothstep(0.01, 0.0, abs(dist - 0.22)) * 2.5;
 
       // Event Horizon Black Hole Shadow Mask
-      float shadowMask = smoothstep(0.208, 0.214, dist);
+      float shadowMask = smoothstep(0.21, 0.218, dist);
 
       // Color Palette: Grayscale Silver/White with rich contrast
       vec3 bgCol = vec3(0.015) + vec3(star * 0.7);
 
       // Accretion disk bright white core fading to silver
-      vec3 diskCol = mix(vec3(0.85, 0.88, 0.95), vec3(1.0, 1.0, 1.0), diskNoise) * accretionDisk * 2.4;
+      vec3 diskCol = mix(vec3(0.85, 0.88, 0.95), vec3(1.0, 1.0, 1.0), diskNoise) * accretionDisk * 2.2;
       
       // Gravitational Arc Lensing Color
-      vec3 lensedCol = vec3(0.95, 0.98, 1.0) * (arcUpper + arcLower);
+      vec3 lensedCol = vec3(0.95, 0.97, 1.0) * (arcUpper + arcLower);
 
       // Combine Space + Disk + Lensing
       vec3 finalCol = bgCol + diskCol + lensedCol + vec3(1.0) * photonRing;
