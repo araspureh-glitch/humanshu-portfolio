@@ -1,30 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  Plus,
-  UserCheck,
-  Network,
-  TestTube2,
-  Boxes,
-  Palette,
-  Eye,
-  Zap,
-  MousePointerClick,
-  SlidersHorizontal,
-  Sparkles
-} from 'lucide-react'
-
-const TAG_ICONS = {
-  'Empathy Mapping': UserCheck,
-  'Wireframing & IA': Network,
-  'Usability Testing & Feedback': TestTube2,
-  'Atomic Component Architecture': Boxes,
-  'Design Tokens & Variables': Palette,
-  'WCAG 2.1 Accessibility': Eye,
-  'Framer Motion & JS Physics': Zap,
-  'High-Fi Interactive Prototypes': MousePointerClick,
-  'Polished Micro-Interactions': SlidersHorizontal,
-}
+import { Plus } from 'lucide-react'
 
 const previewData = {
   architect: {
@@ -255,34 +231,15 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden pb-10 px-2 sm:pl-16 md:pl-20"
+            className="overflow-hidden pb-8 px-2 sm:pl-16 md:pl-20"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
-              <div className="lg:col-span-5 space-y-2">
-                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
-                  APPROACH & IMPACT
-                </span>
-                <p className="text-sm sm:text-base font-sans text-neutral-200 font-light leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-
-              <div className="lg:col-span-7 flex items-center">
-                {/* Elegant Sans-Serif High-Contrast Tag Buttons */}
-                <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                  {item.tags.map((tag, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05, duration: 0.2 }}
-                      className="px-3.5 py-1.5 rounded-full border border-white/20 bg-white/[0.06] hover:bg-white/15 hover:border-white/40 text-xs sm:text-sm font-sans font-medium text-neutral-200 hover:text-white backdrop-blur-md transition-all duration-200 cursor-pointer select-none"
-                    >
-                      {tag}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+            <div className="max-w-4xl space-y-2 pt-1">
+              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+                APPROACH & IMPACT
+              </span>
+              <p className="text-base sm:text-lg font-sans text-neutral-200 font-light leading-relaxed">
+                {item.desc}
+              </p>
             </div>
           </motion.div>
         )}
@@ -301,11 +258,8 @@ export default function AboutIntroSection() {
       iconColor: 'text-emerald-400',
       dotBg: 'bg-emerald-400',
       badgeBorder: 'border-emerald-500/40',
-      tagHover: 'hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]',
-      iconBadge: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
       title: 'Human-Centered Research',
-      desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.',
-      tags: ['Empathy Mapping', 'Wireframing & IA', 'Usability Testing & Feedback']
+      desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.'
     },
     {
       num: '02',
@@ -313,11 +267,8 @@ export default function AboutIntroSection() {
       iconColor: 'text-cyan-400',
       dotBg: 'bg-cyan-400',
       badgeBorder: 'border-cyan-500/40',
-      tagHover: 'hover:border-cyan-500/50 hover:bg-cyan-500/10 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]',
-      iconBadge: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30',
       title: 'Design Systems Architecture',
-      desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.',
-      tags: ['Atomic Component Architecture', 'Design Tokens & Variables', 'WCAG 2.1 Accessibility']
+      desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.'
     },
     {
       num: '03',
@@ -325,11 +276,8 @@ export default function AboutIntroSection() {
       iconColor: 'text-purple-400',
       dotBg: 'bg-purple-400',
       badgeBorder: 'border-purple-500/40',
-      tagHover: 'hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]',
-      iconBadge: 'bg-purple-500/15 text-purple-400 border border-purple-500/30',
       title: 'Interactive Prototyping',
-      desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.',
-      tags: ['Framer Motion & JS Physics', 'High-Fi Interactive Prototypes', 'Polished Micro-Interactions']
+      desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.'
     }
   ]
 
