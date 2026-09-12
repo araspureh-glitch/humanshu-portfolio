@@ -190,61 +190,50 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className={`border-b border-white/10 group transition-colors duration-500 ${isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'}`}
+      className="border-b border-white/10 group transition-colors duration-300 py-8 sm:py-10 cursor-pointer"
       onMouseEnter={onHover}
+      onClick={onToggle}
     >
-      <button
-        onClick={onToggle}
-        className="w-full py-7 sm:py-9 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-all duration-300 px-2 sm:px-4 rounded-xl cursor-pointer"
-      >
-        <div className="flex items-center gap-6 sm:gap-10">
-          <span className={`font-sans text-xs sm:text-sm font-medium tracking-widest transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-500'}`}>
+      <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-4 md:gap-8">
+        {/* Left Column: Number & Sub-label (Exact layout matching reference screenshot) */}
+        <div className="md:col-span-3 sm:col-span-4 space-y-0.5">
+          <span className="block font-sans text-xs sm:text-sm font-light text-neutral-400 tracking-tight">
             {item.num}
           </span>
-          <div className="flex items-center gap-3.5">
-            {isOpen && (
-              <motion.span
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={`w-1 h-6 sm:h-8 rounded-full ${item.dotBg} shadow-[0_0_12px_rgba(255,255,255,0.4)]`}
-              />
-            )}
-            <h3 className={`text-2xl sm:text-4xl lg:text-5xl font-extralight font-sans tracking-tight transition-all duration-300 ${isOpen ? 'text-white translate-x-1' : 'text-white/85 group-hover:text-white group-hover:translate-x-2'}`}>
-              {item.title}
-            </h3>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 self-end md:self-auto">
-          {/* Pure Text Label - Refined Geometric Sans */}
-          <span className={`font-sans text-xs font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-400 group-hover:text-white'}`}>
-            {item.badge}
+          <span className="block font-sans text-xs sm:text-sm font-normal text-neutral-300 group-hover:text-white transition-colors">
+            {item.sublabel}
           </span>
-          <Plus className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? `rotate-45 ${item.iconColor}` : 'text-neutral-400 group-hover:text-white'}`} />
         </div>
-      </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden pb-8 px-2 sm:pl-16 md:pl-20"
+        {/* Right Column: Large Clean Statement Headline & Accordion Detail */}
+        <div className="md:col-span-9 sm:col-span-8 space-y-3">
+          <h3 
+            className={`text-2xl sm:text-4xl lg:text-5xl font-sans tracking-tight leading-[1.12] transition-all duration-300 ${
+              isOpen 
+                ? 'text-white font-normal' 
+                : 'text-neutral-400/90 font-light group-hover:text-white'
+            }`}
           >
-            <div className="max-w-4xl space-y-2 pt-1">
-              <span className="font-sans text-[10px] text-neutral-400 uppercase tracking-[0.2em] block font-semibold">
-                APPROACH & IMPACT
-              </span>
-              <p className="text-base sm:text-lg font-sans text-neutral-200 font-light leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {item.title}
+          </h3>
+
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden pt-2"
+              >
+                <p className="text-base sm:text-lg font-sans text-neutral-300 font-light leading-relaxed max-w-3xl">
+                  {item.desc}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </motion.div>
   )
 }
@@ -254,30 +243,21 @@ export default function AboutIntroSection() {
 
   const disciplines = [
     {
-      num: '01',
-      badge: 'RESEARCH & FLOWS',
-      iconColor: 'text-emerald-400',
-      dotBg: 'bg-emerald-400',
-      badgeBorder: 'border-emerald-500/40',
-      title: 'Human-Centered Research',
-      desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.'
+      num: '0.1',
+      sublabel: 'Our Mission',
+      title: 'Smarter, human-centered research tools',
+      desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing a single pixel on screen.'
     },
     {
-      num: '02',
-      badge: 'SYSTEMS & TOKENS',
-      iconColor: 'text-[#EA5211]',
-      dotBg: 'bg-[#EA5211]',
-      badgeBorder: 'border-[#EA5211]/40',
-      title: 'Design Systems Architecture',
+      num: '0.2',
+      sublabel: 'Our Vision',
+      title: 'Lead the future of Scalable Design Systems',
       desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.'
     },
     {
-      num: '03',
-      badge: 'MOTION & CRAFT',
-      iconColor: 'text-purple-400',
-      dotBg: 'bg-purple-400',
-      badgeBorder: 'border-purple-500/40',
-      title: 'Interactive Prototyping',
+      num: '0.3',
+      sublabel: 'Our Ambition',
+      title: 'Simplify fluid motion & micro-interactions',
       desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.'
     }
   ]
@@ -322,14 +302,23 @@ export default function AboutIntroSection() {
           <InteractiveBio />
         </div>
 
-        {/* Sleek Minimalist Interactive Rows / Accordion */}
-        <div className="space-y-6 pt-4">
-          <div className="flex items-center justify-between font-sans text-xs text-neutral-400 uppercase tracking-[0.2em] font-medium pb-2">
-            <span>CORE DISCIPLINES</span>
-            <span className="text-neutral-500 text-[10px]">Hover or click to inspect discipline</span>
+        {/* Sleek Minimalist Core Disciplines Layout (Inspired by reference screenshot) */}
+        <div className="space-y-4 pt-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-white/10">
+            <div className="space-y-1">
+              <p className="text-sm sm:text-base font-sans font-medium text-white tracking-tight">
+                At Humanshu Studio
+              </p>
+              <p className="text-sm sm:text-base font-sans font-medium text-[#38bdf8] tracking-tight">
+                We make digital experiences better
+              </p>
+            </div>
+            <span className="font-sans text-xs text-neutral-400 uppercase tracking-[0.2em] font-medium">
+              CORE DISCIPLINES
+            </span>
           </div>
 
-          <div className="border-t border-white/10">
+          <div>
             {disciplines.map((item, index) => (
               <DisciplineAccordionRow
                 key={item.num}
