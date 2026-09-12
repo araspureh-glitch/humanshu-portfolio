@@ -2,6 +2,7 @@ import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
 import React, { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 export const PORTFOLIO_PROJECT_LINKS = [
   {
@@ -75,12 +76,8 @@ export function InteractiveHoverLinks({
 
         {/* View More Button */}
         <div className="mt-12 flex justify-center">
-          <RouterLink
-            to="/work"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-white/[0.03] text-sm font-mono text-white tracking-widest uppercase hover:bg-white/10 hover:border-white/50 transition-all duration-300 shadow-lg group-hover:scale-105"
-          >
-            <span>View More Projects</span>
-            <ArrowRight className="size-4 text-white transition-transform group-hover:translate-x-1" />
+          <RouterLink to="/work">
+            <LiquidMetalButton label="VIEW MORE PROJECTS →" />
           </RouterLink>
         </div>
       </div>
