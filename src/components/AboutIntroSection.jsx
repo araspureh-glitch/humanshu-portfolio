@@ -239,14 +239,14 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3.5 self-end md:self-auto">
-          {/* Skills & Tools Section Style Filter Badge */}
-          <span className={`font-mono text-xs uppercase tracking-wider px-4 py-1.5 rounded-full border transition-all duration-300 ${isOpen ? 'bg-white text-black font-semibold border-white shadow-[0_0_20px_rgba(255,255,255,0.35)]' : 'bg-white/5 border-white/10 text-neutral-400 group-hover:text-white group-hover:border-white/30'}`}>
+        <div className="flex items-center gap-3 self-end md:self-auto">
+          {/* Refined Sans-Serif Discipline Badge */}
+          <span className={`font-sans text-[11px] sm:text-xs font-medium uppercase tracking-widest px-3.5 py-1 rounded-full border backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.06]` : 'border-white/15 text-neutral-400 group-hover:border-white/30 group-hover:text-white bg-white/[0.02]'}`}>
             {item.badge}
           </span>
 
-          {/* Skills & Tools Section Style Toggle Circle */}
-          <div className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.35)]' : 'bg-white/5 border-white/10 text-neutral-400 group-hover:text-white group-hover:border-white/30'}`}>
+          {/* Sleek Dark-Glass Toggle Button */}
+          <div className={`w-8 h-8 rounded-full border flex items-center justify-center backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.08]` : 'border-white/15 text-neutral-400 group-hover:border-white/35 group-hover:text-white bg-white/[0.02]'}`}>
             <Plus className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} />
           </div>
         </div>
@@ -272,19 +272,17 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
               </div>
 
               <div className="lg:col-span-7 flex items-center">
-                {/* High Contrast Compact Buttons */}
+                {/* Elegant Sans-Serif High-Contrast Tag Buttons */}
                 <div className="flex flex-wrap gap-2 sm:gap-2.5">
                   {item.tags.map((tag, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, y: 6 }}
+                      initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05, duration: 0.25 }}
-                      className="group relative px-3.5 py-1.5 rounded-full border border-white/25 bg-white/10 hover:bg-white hover:border-white hover:shadow-[0_0_18px_rgba(255,255,255,0.4)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none"
+                      transition={{ delay: idx * 0.05, duration: 0.2 }}
+                      className="px-3.5 py-1.5 rounded-full border border-white/20 bg-white/[0.06] hover:bg-white/15 hover:border-white/40 text-xs sm:text-sm font-sans font-medium text-neutral-200 hover:text-white backdrop-blur-md transition-all duration-200 cursor-pointer select-none"
                     >
-                      <span className="font-sans text-xs sm:text-sm font-medium text-white group-hover:text-black transition-colors duration-200">
-                        {tag}
-                      </span>
+                      {tag}
                     </motion.div>
                   ))}
                 </div>
