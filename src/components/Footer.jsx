@@ -177,12 +177,6 @@ export default function Footer() {
 
           {/* Grid container */}
           <div className="relative">
-            {/* Subtle outer glow */}
-            <div
-              className="absolute inset-0 rounded-lg pointer-events-none"
-              style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.06)" }}
-            />
-
             <div className="grid grid-cols-3" style={{ width: 168, height: 168 }}>
               {board.map((cell, i) => (
                 <Cell
