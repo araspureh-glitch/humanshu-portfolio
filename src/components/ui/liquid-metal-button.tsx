@@ -98,7 +98,7 @@ export function LiquidMetalButton({
               u_contour: 0,
               u_angle: 45,
               u_scale: 8,
-              u_shape: 1,
+              u_shape: 0,
               u_offsetX: 0.1,
               u_offsetY: -0.1,
             },
