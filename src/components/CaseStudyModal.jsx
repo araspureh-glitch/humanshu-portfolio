@@ -59,7 +59,7 @@ export default function CaseStudyModal({ project, onClose }) {
           {/* Hero Header */}
           <div className="space-y-6 pb-12 border-b border-white/10">
             <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
-              <span className="px-3 py-1 rounded-full bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#0A66C2] font-semibold">
+              <span className="px-3 py-1 rounded-full bg-[#EA5211]/20 border border-[#EA5211]/40 text-[#EA5211] font-semibold">
                 {project.category}
               </span>
               <span className="text-neutral-500">•</span>

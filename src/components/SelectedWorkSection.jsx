@@ -57,7 +57,7 @@ function TiltWorkCard({ project, onClick }) {
       {/* Top Card Bar */}
       <div className="flex items-center justify-between font-mono text-xs border-b border-white/10 pb-4 text-neutral-400 relative z-10">
         <div className="flex items-center gap-3">
-          <span className="text-xl font-bold text-[#0A66C2] font-sans">{project.id}</span>
+          <span className="text-xl font-bold text-[#EA5211] font-sans">{project.id}</span>
           <span>//</span>
           <span>{project.client}</span>
         </div>
@@ -122,7 +122,7 @@ function TiltWorkCard({ project, onClick }) {
           {/* Bottom Card Title & Button */}
           <div className="flex justify-between items-end relative z-10 pt-16">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#0A66C2] block font-semibold mb-1 drop-shadow">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#EA5211] block font-semibold mb-1 drop-shadow">
                 {project.category}
               </span>
               <h3 className="text-2xl sm:text-4xl font-light text-white font-sans group-hover:translate-x-2 transition-transform duration-300 drop-shadow-md">
@@ -131,7 +131,7 @@ function TiltWorkCard({ project, onClick }) {
             </div>
 
             {/* Floating Case Study Arrow Button with Magnetic Glow */}
-            <div className="w-12 h-12 rounded-full bg-[#0A66C2] text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(10,102,194,0.6)] transition-all duration-300 flex-shrink-0">
+            <div className="w-12 h-12 rounded-full bg-[#EA5211] text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(234,82,17,0.6)] transition-all duration-300 flex-shrink-0">
               <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>

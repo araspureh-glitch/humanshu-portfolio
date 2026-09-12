@@ -69,10 +69,10 @@ export default function SkillsSection() {
             .map((cat) => (
               <div 
                 key={cat.category}
-                className="p-8 sm:p-10 rounded-3xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.035] hover:border-[#0A66C2]/40 transition-all duration-300 space-y-6 shadow-xl"
+                className="p-8 sm:p-10 rounded-3xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.035] hover:border-[#EA5211]/40 transition-all duration-300 space-y-6 shadow-xl"
               >
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs">
-                  <span className="text-[#0A66C2] font-bold">{cat.category} //</span>
+                  <span className="text-[#EA5211] font-bold">{cat.category} //</span>
                   <span className="text-neutral-400 uppercase tracking-widest">{cat.title}</span>
                 </div>
 

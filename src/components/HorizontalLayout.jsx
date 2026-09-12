@@ -112,7 +112,7 @@ export default function HorizontalLayout({ children, activeSection, onSectionCha
       {/* Top Horizontal Progress Bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-white/5 pointer-events-none">
         <div
-          className="h-full bg-gradient-to-r from-[#0A66C2] via-indigo-500 to-purple-500 transition-all duration-150 ease-out shadow-[0_0_12px_rgba(10,102,194,0.8)]"
+          className="h-full bg-gradient-to-r from-[#EA5211] via-amber-500 to-orange-500 transition-all duration-150 ease-out shadow-[0_0_12px_rgba(234,82,17,0.8)]"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>

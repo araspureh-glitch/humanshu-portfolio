@@ -50,7 +50,7 @@ export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0,
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8 mb-4 gap-4">
           <div>
             <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0A66C2] animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse"></span>
               <span>SELECTED PROJECTS</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-light text-white tracking-tight mt-2 font-sans">

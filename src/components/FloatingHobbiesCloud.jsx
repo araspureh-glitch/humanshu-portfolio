@@ -9,7 +9,7 @@ export default function FloatingHobbiesCloud() {
     >
       {/* Background Spatial Glow Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[#0A66C2]/[0.06] blur-[180px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[#EA5211]/[0.06] blur-[180px]" />
         <div className="absolute top-1/3 left-1/4 w-[450px] h-[450px] rounded-full bg-emerald-500/[0.04] blur-[150px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[480px] h-[480px] rounded-full bg-amber-500/[0.04] blur-[160px]" />
         
@@ -27,13 +27,13 @@ export default function FloatingHobbiesCloud() {
           className="text-center space-y-4 max-w-2xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-xl text-[11px] font-mono text-neutral-300 uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0A66C2] animate-ping" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-ping" />
             <span>06 / PERSONAL INTERESTS & HOBBIES</span>
           </div>
 
           <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight leading-[1.05] font-sans">
             What fuels <br />
-            <span className="font-serif italic text-[#0A66C2] font-normal" style={{ fontFamily: '"Instrument Serif", "Alex Brush", serif' }}>
+            <span className="font-serif italic text-[#EA5211] font-normal" style={{ fontFamily: '"Instrument Serif", "Alex Brush", serif' }}>
               my everyday
             </span> energy.
           </h2>

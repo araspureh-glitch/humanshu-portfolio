@@ -20,7 +20,7 @@ function Home() {
   const [isPlaying, setIsPlaying] = useState(false)
 
   return (
-    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#0A66C2] selection:text-white min-h-screen flex flex-col justify-between">
+    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen flex flex-col justify-between">
       <HelloIntro onComplete={() => setIntroComplete(true)} />
       <CustomCursor />
       <Navigation introComplete={introComplete} />

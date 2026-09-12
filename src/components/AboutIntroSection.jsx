@@ -265,9 +265,9 @@ export default function AboutIntroSection() {
     {
       num: '02',
       badge: 'SYSTEMS & TOKENS',
-      iconColor: 'text-cyan-400',
-      dotBg: 'bg-cyan-400',
-      badgeBorder: 'border-cyan-500/40',
+      iconColor: 'text-[#EA5211]',
+      dotBg: 'bg-[#EA5211]',
+      badgeBorder: 'border-[#EA5211]/40',
       title: 'Design Systems Architecture',
       desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.'
     },

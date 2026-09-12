@@ -124,7 +124,7 @@ export default function SkaterGliderCanvas() {
       // Draw Skateboard Deck
       const deckW = 110
       const deckH = 10
-      ctx.fillStyle = '#0A66C2'
+      ctx.fillStyle = '#EA5211'
       ctx.shadowColor = '#00F0FF'
       ctx.shadowBlur = 12
       ctx.beginPath()

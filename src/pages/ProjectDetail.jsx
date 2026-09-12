@@ -20,7 +20,7 @@ export default function ProjectDetail() {
   const cs = project.caseStudy || {}
 
   return (
-    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#0A66C2] selection:text-white min-h-screen pt-24">
+    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen pt-24">
       <CustomCursor />
       <Navigation />
       <BackgroundAudio videoId="16jA-6hiSUo" />
@@ -37,7 +37,7 @@ export default function ProjectDetail() {
           </button>
           
           <div className="flex items-center gap-3 font-mono text-xs text-neutral-400 uppercase tracking-widest">
-            <span className="text-[#0A66C2] font-bold">CASE STUDY {project.id}</span>
+            <span className="text-[#EA5211] font-bold">CASE STUDY {project.id}</span>
             <span>/</span>
             <span>{project.year}</span>
           </div>
@@ -51,7 +51,7 @@ export default function ProjectDetail() {
           className="space-y-6"
         >
           <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
-            <span className="px-3.5 py-1 rounded-full bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#0A66C2] font-semibold tracking-wider">
+            <span className="px-3.5 py-1 rounded-full bg-[#EA5211]/20 border border-[#EA5211]/40 text-[#EA5211] font-semibold tracking-wider">
               {project.category}
             </span>
             <span className="text-neutral-500">•</span>
@@ -98,7 +98,7 @@ export default function ProjectDetail() {
           </div>
         ) : (
           <div className={`w-full h-96 rounded-3xl border border-white/10 bg-gradient-to-br ${project.imageBg || 'from-neutral-900 to-black'} p-12 flex flex-col justify-center items-center text-center space-y-4 shadow-2xl relative overflow-hidden`}>
-            <div className="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-mono text-[#0A66C2] shadow-xl">
+            <div className="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-mono text-[#EA5211] shadow-xl">
               {project.id}
             </div>
             <h3 className="text-3xl font-light text-white">{project.name} Digital Prototype</h3>
@@ -114,7 +114,7 @@ export default function ProjectDetail() {
           {/* Executive Overview */}
           {cs.overview && (
             <section className="space-y-4">
-              <span className="font-mono text-xs text-[#0A66C2] uppercase tracking-widest block font-semibold">
+              <span className="font-mono text-xs text-[#EA5211] uppercase tracking-widest block font-semibold">
                 01 // EXECUTIVE OVERVIEW
               </span>
               <h2 className="text-2xl sm:text-4xl font-light text-white">The Challenge & Vision</h2>
@@ -152,7 +152,7 @@ export default function ProjectDetail() {
           {/* Research & Key Insights */}
           {cs.insights && cs.insights.length > 0 && (
             <section className="space-y-6 p-8 rounded-3xl border border-white/10 bg-white/[0.015]">
-              <span className="font-mono text-xs text-[#0A66C2] uppercase tracking-widest block font-semibold">
+              <span className="font-mono text-xs text-[#EA5211] uppercase tracking-widest block font-semibold">
                 02 // RESEARCH & KEY INSIGHTS
               </span>
               {cs.research && (
@@ -163,7 +163,7 @@ export default function ProjectDetail() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
                 {cs.insights.map((insight, idx) => (
                   <div key={idx} className="p-5 rounded-2xl border border-white/10 bg-black/40 space-y-2">
-                    <span className="font-mono text-xs text-[#0A66C2] font-bold">0{idx + 1}</span>
+                    <span className="font-mono text-xs text-[#EA5211] font-bold">0{idx + 1}</span>
                     <p className="text-sm text-neutral-300 font-light leading-relaxed">{insight}</p>
                   </div>
                 ))}
@@ -173,7 +173,7 @@ export default function ProjectDetail() {
 
           {/* Process & Execution Steps */}
           <section className="space-y-8">
-            <span className="font-mono text-xs text-[#0A66C2] uppercase tracking-widest block font-semibold">
+            <span className="font-mono text-xs text-[#EA5211] uppercase tracking-widest block font-semibold">
               03 // PROCESS & EXECUTION
             </span>
 
@@ -216,7 +216,7 @@ export default function ProjectDetail() {
               ← Previous Project
             </span>
             <div>
-              <span className="font-mono text-xs text-[#0A66C2] block mb-1">{prevProject.category}</span>
+              <span className="font-mono text-xs text-[#EA5211] block mb-1">{prevProject.category}</span>
               <h4 className="text-2xl font-light text-white font-sans">{prevProject.name}</h4>
             </div>
           </Link>
@@ -229,7 +229,7 @@ export default function ProjectDetail() {
               Next Project →
             </span>
             <div>
-              <span className="font-mono text-xs text-[#0A66C2] block mb-1">{nextProject.category}</span>
+              <span className="font-mono text-xs text-[#EA5211] block mb-1">{nextProject.category}</span>
               <h4 className="text-2xl font-light text-white font-sans">{nextProject.name}</h4>
             </div>
           </Link>

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const tagsData = [
   { id: 'tag-1', label: 'UI/UX Designer', x: '-38%', y: '-32%', rotate: -6, zIndex: 30, color: 'from-blue-500/20 to-cyan-500/20' },
   { id: 'tag-2', label: 'Product Designer', x: '36%', y: '-36%', rotate: 5, zIndex: 25, color: 'from-purple-500/20 to-pink-500/20' },
-  { id: 'tag-3', label: 'Visual Designer', x: '-42%', y: '5%', rotate: 4, zIndex: 20, color: 'from-[#0A66C2]/30 to-blue-600/20' },
+  { id: 'tag-3', label: 'Visual Designer', x: '-42%', y: '5%', rotate: 4, zIndex: 20, color: 'from-[#EA5211]/30 to-orange-600/20' },
   { id: 'tag-4', label: 'Research', x: '42%', y: '2%', rotate: -7, zIndex: 35, color: 'from-emerald-500/20 to-teal-500/20' },
   { id: 'tag-5', label: 'Prototyping', x: '-34%', y: '40%', rotate: -4, zIndex: 15, color: 'from-amber-500/20 to-orange-500/20' },
   { id: 'tag-6', label: 'Figma', x: '32%', y: '38%', rotate: 6, zIndex: 30, color: 'from-pink-500/20 to-[#ff55a5]/20' },
@@ -193,12 +193,12 @@ export default function AboutSection() {
                     bg-gradient-to-r ${tag.color} bg-black/70 backdrop-blur-xl 
                     text-xs sm:text-sm font-mono tracking-wide text-white cursor-pointer select-none
                     shadow-[0_10px_25px_rgba(0,0,0,0.5)] 
-                    hover:shadow-[0_20px_40px_rgba(10,102,194,0.4)] hover:border-white/60 hover:text-white
+                    hover:shadow-[0_20px_40px_rgba(234,82,17,0.4)] hover:border-white/60 hover:text-white
                     will-change-transform transition-colors duration-200 flex items-center gap-2
                   `}
                 >
                   {/* Active Indicator Pulse Dot */}
-                  <span className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-[#0A66C2] animate-ping' : 'bg-white/40'}`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-[#EA5211] animate-ping' : 'bg-white/40'}`} />
                   
                   <span>{tag.label}</span>
 
