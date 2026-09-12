@@ -239,15 +239,11 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 self-end md:self-auto">
-          {/* Refined Sans-Serif Discipline Badge */}
-          <span className={`font-sans text-[11px] sm:text-xs font-medium uppercase tracking-widest px-3.5 py-1 rounded-full border backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.06]` : 'border-white/15 text-neutral-400 group-hover:border-white/30 group-hover:text-white bg-white/[0.02]'}`}>
-            {item.badge}
-          </span>
-
-          {/* Sleek Dark-Glass Toggle Button */}
-          <div className={`w-8 h-8 rounded-full border flex items-center justify-center backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.08]` : 'border-white/15 text-neutral-400 group-hover:border-white/35 group-hover:text-white bg-white/[0.02]'}`}>
-            <Plus className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} />
+        <div className="flex items-center self-end md:self-auto">
+          {/* Single Unified Interactive Pill Button */}
+          <div className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.06]` : 'border-white/15 text-neutral-300 group-hover:border-white/35 group-hover:text-white bg-white/[0.02]'}`}>
+            <span className="font-sans text-xs font-medium uppercase tracking-wider">{item.badge}</span>
+            <Plus className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} />
           </div>
         </div>
       </button>
