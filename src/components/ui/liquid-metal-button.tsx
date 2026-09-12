@@ -25,29 +25,6 @@ export function LiquidMetalButton({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const rippleId = useRef(0);
 
-  const dimensions = useMemo(() => {
-    if (viewMode === "icon") {
-      return {
-        width: 46,
-        height: 46,
-        innerWidth: 42,
-        innerHeight: 42,
-        shaderWidth: 46,
-        shaderHeight: 46,
-      };
-    } else {
-      const calcWidth = Math.max(142, Math.round(label.length * 9.5 + 40));
-      return {
-        width: calcWidth,
-        height: 46,
-        innerWidth: calcWidth - 4,
-        innerHeight: 42,
-        shaderWidth: calcWidth,
-        shaderHeight: 46,
-      };
-    }
-  }, [viewMode, label]);
-
   useEffect(() => {
     const styleId = "shader-canvas-style-exploded";
     if (!document.getElementById(styleId)) {
@@ -79,8 +56,6 @@ export function LiquidMetalButton({
 
     const loadShader = async () => {
       try {
-        // static import used above
-
         if (shaderRef.current) {
           if (shaderMount.current?.destroy) {
             shaderMount.current.destroy();
@@ -160,7 +135,7 @@ export function LiquidMetalButton({
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block select-none">
       <div
         style={{
           perspective: "1000px",
@@ -168,55 +143,47 @@ export function LiquidMetalButton({
         }}
       >
         <div
+          className="relative flex items-center justify-center"
           style={{
-            position: "relative",
-            width: `${dimensions.width}px`,
-            height: `${dimensions.height}px`,
             transformStyle: "preserve-3d",
-            transition:
-              "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
+            transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
             transform: "none",
           }}
         >
+          {/* Layer 3: Text / Icon Layer */}
           <div
+            className="flex items-center justify-center gap-2 pointer-events-none"
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
+              padding: viewMode === "icon" ? "12px" : "12px 28px",
+              minWidth: viewMode === "icon" ? "46px" : "140px",
+              height: "46px",
               transformStyle: "preserve-3d",
-              transition:
-                "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, gap 0.4s ease",
+              transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
               transform: "translateZ(20px)",
               zIndex: 30,
-              pointerEvents: "none",
             }}
           >
             {viewMode === "icon" && (
               <Sparkles
                 size={16}
                 style={{
-                  color: "#666666",
+                  color: "#ffffff",
                   filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
                   transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  transform: "scale(1)",
                 }}
               />
             )}
             {viewMode === "text" && (
               <span
                 style={{
-                  fontSize: "14px",
-                  color: "#666666",
-                  fontWeight: 400,
-                  textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
+                  fontSize: "13px",
+                  fontFamily: "monospace, sans-serif",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#ffffff",
+                  fontWeight: 600,
+                  textShadow: "0px 1px 3px rgba(0, 0, 0, 0.9)",
                   transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  transform: "scale(1)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -225,63 +192,52 @@ export function LiquidMetalButton({
             )}
           </div>
 
+          {/* Layer 2: Inner Dark Pill Background */}
           <div
+            className="absolute inset-0 pointer-events-none"
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
               transformStyle: "preserve-3d",
-              transition:
-                "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
+              transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
               transform: `translateZ(10px) ${isPressed ? "translateY(1px) scale(0.98)" : "translateY(0) scale(1)"}`,
               zIndex: 20,
             }}
           >
             <div
               style={{
-                width: `${dimensions.innerWidth}px`,
-                height: `${dimensions.innerHeight}px`,
-                margin: "2px",
+                position: "absolute",
+                inset: "2px",
                 borderRadius: "100px",
-                background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
+                background: "linear-gradient(180deg, #18181b 0%, #000000 100%)",
                 boxShadow: isPressed
-                  ? "inset 0px 2px 4px rgba(0, 0, 0, 0.4), inset 0px 1px 2px rgba(0, 0, 0, 0.3)"
+                  ? "inset 0px 2px 4px rgba(0, 0, 0, 0.6)"
                   : "none",
-                transition:
-                  "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+                transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
               }}
             />
           </div>
 
+          {/* Layer 1: Outer Shader & Border/Shadow Container */}
           <div
+            className="absolute inset-0 pointer-events-none"
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
               transformStyle: "preserve-3d",
-              transition:
-                "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
+              transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
               transform: `translateZ(0px) ${isPressed ? "translateY(1px) scale(0.98)" : "translateY(0) scale(1)"}`,
               zIndex: 10,
             }}
           >
             <div
               style={{
-                height: `${dimensions.height}px`,
-                width: `${dimensions.width}px`,
+                width: "100%",
+                height: "100%",
                 borderRadius: "100px",
                 boxShadow: isPressed
-                  ? "0px 0px 0px 1px rgba(0, 0, 0, 0.5), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)"
+                  ? "0px 0px 0px 1px rgba(255, 255, 255, 0.2), 0px 1px 2px 0px rgba(0, 0, 0, 0.5)"
                   : isHovered
-                    ? "0px 0px 0px 1px rgba(0, 0, 0, 0.4), 0px 12px 6px 0px rgba(0, 0, 0, 0.05), 0px 8px 5px 0px rgba(0, 0, 0, 0.1), 0px 4px 4px 0px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)"
-                    : "0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 36px 14px 0px rgba(0, 0, 0, 0.02), 0px 20px 12px 0px rgba(0, 0, 0, 0.08), 0px 9px 9px 0px rgba(0, 0, 0, 0.12), 0px 2px 5px 0px rgba(0, 0, 0, 0.15)",
-                transition:
-                  "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
-                background: "rgb(0 0 0 / 0)",
+                    ? "0px 0px 0px 1px rgba(255, 255, 255, 0.3), 0px 12px 20px 0px rgba(0, 0, 0, 0.4)"
+                    : "0px 0px 0px 1px rgba(255, 255, 255, 0.15), 0px 6px 14px 0px rgba(0, 0, 0, 0.3)",
+                transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                background: "transparent",
               }}
             >
               <div
@@ -290,16 +246,16 @@ export function LiquidMetalButton({
                 style={{
                   borderRadius: "100px",
                   overflow: "hidden",
-                  position: "relative",
-                  width: `${dimensions.shaderWidth}px`,
-                  maxWidth: `${dimensions.shaderWidth}px`,
-                  height: `${dimensions.shaderHeight}px`,
-                  transition: "width 0.4s ease, height 0.4s ease",
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
                 }}
               />
             </div>
           </div>
 
+          {/* Layer 4: Interactive Button overlay */}
           <button
             ref={buttonRef}
             onClick={handleClick}
@@ -309,10 +265,9 @@ export function LiquidMetalButton({
             onMouseUp={() => setIsPressed(false)}
             style={{
               position: "absolute",
-              top: 0,
-              left: 0,
-              width: `${dimensions.width}px`,
-              height: `${dimensions.height}px`,
+              inset: 0,
+              width: "100%",
+              height: "100%",
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -320,8 +275,6 @@ export function LiquidMetalButton({
               zIndex: 40,
               transformStyle: "preserve-3d",
               transform: "translateZ(25px)",
-              transition:
-                "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease",
               overflow: "hidden",
               borderRadius: "100px",
             }}
@@ -338,7 +291,7 @@ export function LiquidMetalButton({
                   height: "20px",
                   borderRadius: "50%",
                   background:
-                    "radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%)",
+                    "radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%)",
                   pointerEvents: "none",
                   animation: "ripple-animation 0.6s ease-out",
                 }}
