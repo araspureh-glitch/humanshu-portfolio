@@ -178,8 +178,9 @@ export const Carousel360: React.FC = () => {
                 }`}
               />
 
+              {/* Bottom Vignette & Title Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-left">
-                <span className="font-mono text-[10px] text-emerald-400 font-semibold tracking-widest uppercase mb-1">
+                <span className="font-sans text-[10px] text-emerald-400 font-semibold tracking-[0.18em] uppercase mb-1">
                   {activeItem.tag}
                 </span>
                 <h3 className="text-base sm:text-xl font-light text-white font-sans tracking-tight">
@@ -218,7 +219,7 @@ export const Carousel360: React.FC = () => {
 
       {/* Centered Index Counter */}
       <div className="mt-6 z-30">
-        <span className="font-mono text-[11px] text-neutral-500 uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.02]">
+        <span className="font-sans font-medium text-[11px] text-neutral-500 uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.02]">
           {centerIndex + 1} / {numImages}
         </span>
       </div>

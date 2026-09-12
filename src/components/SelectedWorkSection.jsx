@@ -55,7 +55,7 @@ function TiltWorkCard({ project, onClick }) {
       />
 
       {/* Top Card Bar */}
-      <div className="flex items-center justify-between font-mono text-xs border-b border-white/10 pb-4 text-neutral-400 relative z-10">
+      <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b border-white/10 pb-4 text-neutral-400 relative z-10">
         <div className="flex items-center gap-3">
           <span className="text-xl font-bold text-[#EA5211] font-sans">{project.id}</span>
           <span>//</span>
@@ -83,10 +83,10 @@ function TiltWorkCard({ project, onClick }) {
 
           {/* Top Info Bar */}
           <div className="flex justify-between items-start relative z-10">
-            <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] font-mono text-white uppercase tracking-wider border border-white/15">
+            <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] font-sans font-medium text-white uppercase tracking-wider border border-white/15">
               {project.role}
             </span>
-            <span className="font-mono text-xs text-neutral-300 bg-black/60 px-3 py-1 rounded-full backdrop-blur-md border border-white/15">
+            <span className="font-sans text-xs font-medium text-neutral-300 bg-black/60 px-3 py-1 rounded-full backdrop-blur-md border border-white/15">
               {project.timeline}
             </span>
           </div>
@@ -100,7 +100,7 @@ function TiltWorkCard({ project, onClick }) {
                     <div className="w-3/4 h-3 rounded bg-white/40" />
                     <div className="w-1/2 h-2 rounded bg-white/20" />
                   </div>
-                  <div className="w-full h-8 rounded-xl bg-white/10 flex items-center justify-center text-[10px] font-mono text-white">
+                  <div className="w-full h-8 rounded-xl bg-white/10 flex items-center justify-center text-[10px] font-sans font-medium tracking-wider text-white">
                     UI PROTOTYPE
                   </div>
                 </div>
@@ -110,7 +110,7 @@ function TiltWorkCard({ project, onClick }) {
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                    <span className="text-[10px] font-mono text-neutral-400 ml-2">{project.slug}.ui</span>
+                    <span className="text-[10px] font-sans font-medium text-neutral-400 ml-2">{project.slug}.ui</span>
                   </div>
                   <div className="w-full h-2 rounded bg-white/15" />
                   <div className="w-2/3 h-2 rounded bg-white/20" />
@@ -122,7 +122,7 @@ function TiltWorkCard({ project, onClick }) {
           {/* Bottom Card Title & Button */}
           <div className="flex justify-between items-end relative z-10 pt-16">
             <div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#EA5211] block font-semibold mb-1 drop-shadow">
+              <span className="text-[11px] font-sans tracking-[0.18em] uppercase text-[#EA5211] block font-semibold mb-1 drop-shadow">
                 {project.category}
               </span>
               <h3 className="text-2xl sm:text-4xl font-light text-white font-sans group-hover:translate-x-2 transition-transform duration-300 drop-shadow-md">
@@ -146,7 +146,7 @@ function TiltWorkCard({ project, onClick }) {
           {project.description}
         </p>
 
-        <button className="self-start sm:self-auto inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white font-medium group-hover:text-amber-100 transition-colors cursor-pointer">
+        <button className="self-start sm:self-auto inline-flex items-center gap-2 text-xs font-sans tracking-[0.18em] uppercase text-white font-medium group-hover:text-amber-100 transition-colors cursor-pointer">
           <span className="group-hover:translate-x-1 transition-transform">→ View Case Study Page</span>
         </button>
       </div>
@@ -169,7 +169,7 @@ export default function SelectedWorkSection() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-16 border-b border-white/10 gap-6">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2.5 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.18em] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-ping"></span>
               <span>01 / FEATURED CASE STUDIES</span>
             </div>
@@ -177,7 +177,7 @@ export default function SelectedWorkSection() {
               Selected work
             </h2>
           </div>
-          <p className="text-xs font-mono text-neutral-400 uppercase tracking-widest max-w-xs sm:text-right">
+          <p className="text-xs font-sans text-neutral-400 uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right">
             UI/UX · Graphic Design · Research
             <span className="block text-white font-medium mt-1">2024 – 2026 ARCHIVE</span>
           </p>

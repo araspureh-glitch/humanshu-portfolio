@@ -150,7 +150,7 @@ export default function SideProjectSection() {
         </motion.div>
 
         {/* Interactive Indicator Tag */}
-        <div className="flex justify-center items-center gap-2.5 font-mono text-xs text-neutral-400 uppercase tracking-widest pt-2">
+        <div className="flex justify-center items-center gap-2.5 font-sans font-medium text-xs text-neutral-400 uppercase tracking-[0.18em] pt-2">
           <span className="w-2 h-2 rounded-full bg-[#ff55a5] animate-ping" />
           <span>Interactive Vector Type Inspector</span>
         </div>

@@ -218,11 +218,11 @@ export default function SkaterGliderCanvas() {
       
       {/* Header Info Tag */}
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 mb-4 px-6 z-10 relative">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-neutral-400">
+        <div className="flex items-center gap-3 font-sans font-medium text-xs uppercase tracking-[0.18em] text-neutral-400">
           <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-ping" />
           <span>03 / DYNAMIC MOTION ARCHITECTURE</span>
         </div>
-        <div className="font-mono text-xs text-neutral-400 uppercase tracking-widest">
+        <div className="font-sans font-medium text-xs text-neutral-400 uppercase tracking-[0.18em]">
           60FPS VECTOR GLIDER • SMOOTH SEAMLESS LOOP
         </div>
       </div>

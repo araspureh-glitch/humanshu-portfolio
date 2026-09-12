@@ -35,7 +35,7 @@ export default function SkillsSection() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-12 border-b border-white/10 gap-6">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2.5 font-sans text-[11px] font-medium text-neutral-400 uppercase tracking-[0.2em]">
               <span className="w-1.5 h-1.5 rounded-full bg-white/80"></span>
               <span>04 / CORE DISCIPLINES</span>
             </div>
@@ -45,7 +45,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Interactive Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-2 font-sans text-xs font-medium">
             {tabs.map((tab) => (
               <button
                 key={tab}
@@ -71,9 +71,9 @@ export default function SkillsSection() {
                 key={cat.category}
                 className="p-8 sm:p-10 rounded-3xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.035] hover:border-[#EA5211]/40 transition-all duration-300 space-y-6 shadow-xl"
               >
-                <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4 font-sans text-xs font-medium">
                   <span className="text-[#EA5211] font-bold">{cat.category} //</span>
-                  <span className="text-neutral-400 uppercase tracking-widest">{cat.title}</span>
+                  <span className="text-neutral-400 uppercase tracking-[0.18em]">{cat.title}</span>
                 </div>
 
                 {/* Typography Pills with Interactive Glow & White Hover Effect */}

@@ -133,7 +133,7 @@ export function DesignToolsDock() {
       <div className="w-full max-w-5xl flex flex-col items-start space-y-4 relative z-10">
         
         {/* Top-Left Monospace Tag Label: SIDE VIEW — */}
-        <div className="flex items-center gap-3 font-mono text-xs text-neutral-400 tracking-[0.25em] uppercase font-semibold">
+        <div className="flex items-center gap-3 font-sans text-xs text-neutral-400 tracking-[0.25em] uppercase font-semibold">
           <span>SIDE VIEW</span>
           <span className="w-7 h-[1.5px] bg-neutral-600"></span>
         </div>

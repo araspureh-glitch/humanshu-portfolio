@@ -34,7 +34,7 @@ export default function Navigation({ introComplete = true, activeSection: active
           : 'bg-gradient-to-b from-[#050505]/90 via-[#050505]/40 to-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-xs font-mono tracking-widest uppercase">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-xs font-sans font-medium tracking-[0.18em] uppercase">
         
         {/* Left: Minimal Editorial Brand Logo */}
         <Link 
@@ -43,7 +43,7 @@ export default function Navigation({ introComplete = true, activeSection: active
           className="group flex items-center gap-2 text-sm tracking-tight text-white hover:opacity-80 transition-opacity"
         >
           <span className="font-sans font-medium tracking-wider text-white text-sm uppercase">
-            HUMANSHU <span className="text-neutral-500 font-mono text-[10px] lowercase tracking-normal">°26</span>
+            HUMANSHU <span className="text-neutral-500 font-sans text-[10px] lowercase tracking-normal">°26</span>
           </span>
         </Link>
 
@@ -77,7 +77,7 @@ export default function Navigation({ introComplete = true, activeSection: active
         <div className="flex items-center gap-3">
           <Link 
             to="/contact"
-            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-[11px] font-mono tracking-widest uppercase cursor-pointer"
+            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-[11px] font-sans font-medium tracking-[0.18em] uppercase cursor-pointer"
           >
             <span>Let's talk</span>
             <span className="text-xs">↗</span>
@@ -86,7 +86,7 @@ export default function Navigation({ introComplete = true, activeSection: active
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white font-mono text-[11px] uppercase tracking-wider flex items-center gap-1.5"
+            className="md:hidden px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-white font-sans font-medium text-[11px] uppercase tracking-wider flex items-center gap-1.5"
           >
             <span>{mobileMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}</span>
           </button>
@@ -97,7 +97,7 @@ export default function Navigation({ introComplete = true, activeSection: active
       {/* Mobile Auto-Layout Dropdown Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#070709]/95 border-b border-white/[0.08] backdrop-blur-2xl px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
-          <div className="flex flex-col space-y-3 font-mono text-xs text-neutral-300">
+          <div className="flex flex-col space-y-3 font-sans text-xs text-neutral-300 font-medium tracking-[0.18em]">
             {navItems.map((item) => (
               <Link
                 key={item.name}

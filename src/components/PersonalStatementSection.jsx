@@ -30,7 +30,7 @@ export default function PersonalStatementSection() {
     <section className="w-full bg-[#050505] text-[#F5F5F5] py-32 px-6 sm:px-12 lg:px-16 border-t border-white/10 relative overflow-hidden">
       <div className="max-w-6xl mx-auto text-center space-y-8">
         
-        <span className="text-xs font-mono tracking-widest text-[#8A8A8A] uppercase block">
+        <span className="text-xs font-sans font-medium tracking-[0.18em] text-[#8A8A8A] uppercase block">
           STATEMENT // PHILOSOPHY
         </span>
 

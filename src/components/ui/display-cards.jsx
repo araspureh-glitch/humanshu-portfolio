@@ -61,9 +61,9 @@ export function DisplayCard({
             <span className={cn("inline-flex items-center justify-center w-11 h-11 rounded-full border shadow-[0_0_15px_rgba(52,211,153,0.2)]", iconClassName)}>
               {icon}
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-300 font-semibold">CERTIFICATION</span>
+            <span className="font-sans text-xs uppercase tracking-[0.2em] text-neutral-300 font-semibold">CERTIFICATION</span>
           </div>
-          <span className="font-mono text-xs text-neutral-300 border border-neutral-700/80 px-4 py-1 rounded-full bg-[#1e2124] backdrop-blur-md">
+          <span className="font-sans font-medium text-xs text-neutral-300 border border-neutral-700/80 px-4 py-1 rounded-full bg-[#1e2124] backdrop-blur-md">
             {date}
           </span>
         </div>
@@ -73,12 +73,12 @@ export function DisplayCard({
           <h4 className={cn("text-xl sm:text-2xl font-bold tracking-tight text-white transition-colors group-hover:text-emerald-300 font-sans leading-snug pr-8", titleClassName)}>
             {title}
           </h4>
-          <p className="text-sm font-mono text-neutral-400 font-medium">{description}</p>
+          <p className="text-sm font-sans text-neutral-400 font-medium">{description}</p>
         </div>
 
         {/* Divider Line & Upper Right Arrow */}
         <div className="relative border-t border-neutral-800/80 pt-3">
-          <span className="absolute right-0 -top-3 text-neutral-400 text-xs font-mono group-hover:text-white transition-colors">↗</span>
+          <span className="absolute right-0 -top-3 text-neutral-400 text-xs font-sans group-hover:text-white transition-colors">↗</span>
           
           {/* Bottom Row: Verified Credential & Signature */}
           <div className="flex items-center justify-between pt-1">
@@ -86,7 +86,7 @@ export function DisplayCard({
               <span className="w-6 h-6 rounded-full border-2 border-[#34d399] flex items-center justify-center text-[#34d399] bg-[#121417]">
                 <Check className="size-3.5 text-[#34d399] stroke-[3]" />
               </span>
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#34d399] font-bold">VERIFY CREDENTIAL</span>
+              <span className="font-sans text-xs uppercase tracking-[0.2em] text-[#34d399] font-bold">VERIFY CREDENTIAL</span>
             </div>
 
             {/* Signature Mark SVG */}

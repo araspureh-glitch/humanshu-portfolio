@@ -49,7 +49,7 @@ export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0,
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8 mb-4 gap-4">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2.5 font-sans font-medium text-[11px] text-neutral-400 uppercase tracking-[0.18em]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse"></span>
               <span>SELECTED PROJECTS</span>
             </div>
@@ -57,7 +57,7 @@ export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0,
               Interactive Case Studies
             </h2>
           </div>
-          <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest">
+          <span className="font-sans font-medium text-xs text-neutral-500 uppercase tracking-[0.18em]">
             Hover to preview work
           </span>
         </div>

@@ -198,7 +198,7 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
         className="w-full py-7 sm:py-9 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-all duration-300 px-2 sm:px-4 rounded-xl cursor-pointer"
       >
         <div className="flex items-center gap-6 sm:gap-10">
-          <span className={`font-mono text-xs sm:text-sm font-medium transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-500'}`}>
+          <span className={`font-sans text-xs sm:text-sm font-medium tracking-widest transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-500'}`}>
             {item.num}
           </span>
           <div className="flex items-center gap-3.5">
@@ -217,8 +217,8 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
         </div>
 
         <div className="flex items-center gap-2 self-end md:self-auto">
-          {/* Pure Text Label - No Background, No Border */}
-          <span className={`font-mono text-xs uppercase tracking-widest transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-400 group-hover:text-white'}`}>
+          {/* Pure Text Label - Refined Geometric Sans */}
+          <span className={`font-sans text-xs font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-400 group-hover:text-white'}`}>
             {item.badge}
           </span>
           <Plus className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? `rotate-45 ${item.iconColor}` : 'text-neutral-400 group-hover:text-white'}`} />
@@ -235,7 +235,7 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
             className="overflow-hidden pb-8 px-2 sm:pl-16 md:pl-20"
           >
             <div className="max-w-4xl space-y-2 pt-1">
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="font-sans text-[10px] text-neutral-400 uppercase tracking-[0.2em] block font-semibold">
                 APPROACH & IMPACT
               </span>
               <p className="text-base sm:text-lg font-sans text-neutral-200 font-light leading-relaxed">
@@ -299,7 +299,7 @@ export default function AboutIntroSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
         >
           <div className="space-y-2">
-            <div className="flex items-center gap-2 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.2em] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
               <span>01 / ABOUT ME</span>
             </div>
@@ -307,14 +307,14 @@ export default function AboutIntroSection() {
               Humanshu Araspure
             </h1>
           </div>
-          <p className="font-mono text-xs text-neutral-400 uppercase tracking-widest max-w-xs sm:text-right">
+          <p className="font-sans text-xs text-neutral-400 uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right">
             Crafting minimal, high-impact digital experiences
           </p>
         </motion.div>
 
         {/* Interactive Bio with Hover Image Preview Popups */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
+          <div className="flex items-center gap-2 font-sans text-[10px] text-neutral-500 uppercase tracking-[0.2em] font-medium">
             <span>PERSPECTIVE & PROFILE</span>
             <span>•</span>
             <span className="text-emerald-400">Hover text to preview</span>
@@ -324,7 +324,7 @@ export default function AboutIntroSection() {
 
         {/* Sleek Minimalist Interactive Rows / Accordion */}
         <div className="space-y-6 pt-4">
-          <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest pb-2">
+          <div className="flex items-center justify-between font-sans text-xs text-neutral-400 uppercase tracking-[0.2em] font-medium pb-2">
             <span>CORE DISCIPLINES</span>
             <span className="text-neutral-500 text-[10px]">Hover or click to inspect discipline</span>
           </div>

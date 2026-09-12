@@ -122,7 +122,7 @@ export default function RecognitionSection() {
           className="lg:col-span-4 space-y-6 flex flex-col justify-center"
         >
           <div>
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-xs font-mono text-neutral-300 tracking-wide bg-white/[0.03] backdrop-blur-md shadow-sm">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-xs font-sans font-medium text-neutral-300 tracking-[0.18em] uppercase bg-white/[0.03] backdrop-blur-md shadow-sm">
               02 / CERTIFICATIONS & LEARNING
             </span>
           </div>
@@ -188,17 +188,17 @@ export default function RecognitionSection() {
                       <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-bold font-sans tracking-tight text-white">
                         <span>{item.brand}</span>
                         {item.brandSuffix && (
-                          <span className="text-neutral-400 font-mono text-lg font-light pl-0.5">{item.brandSuffix}</span>
+                          <span className="text-neutral-400 font-sans text-lg font-light pl-0.5">{item.brandSuffix}</span>
                         )}
                       </div>
                       {offset === 0 && (
-                        <span className="text-[10px] font-mono uppercase tracking-wider px-3 py-1 rounded-full border border-white/20 bg-white/10 text-neutral-200 font-semibold backdrop-blur-sm group-hover:bg-white group-hover:text-black transition-colors">
+                        <span className="text-[10px] font-sans uppercase tracking-wider px-3 py-1 rounded-full border border-white/20 bg-white/10 text-neutral-200 font-semibold backdrop-blur-sm group-hover:bg-white group-hover:text-black transition-colors">
                           Inspect ↗
                         </span>
                       )}
                     </div>
 
-                    <div className="font-mono text-[10px] sm:text-xs text-neutral-400 uppercase tracking-widest font-semibold">
+                    <div className="font-sans text-[10px] sm:text-xs text-neutral-400 uppercase tracking-widest font-semibold">
                       {item.category}
                     </div>
                   </div>
@@ -218,7 +218,7 @@ export default function RecognitionSection() {
                           </svg>
                           <span className="font-semibold text-[11px] sm:text-xs text-white whitespace-nowrap">{item.date}</span>
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400 font-semibold block">DATE</span>
+                        <span className="font-sans text-[9px] uppercase tracking-wider text-neutral-400 font-semibold block">DATE</span>
                       </div>
 
                       <div className="space-y-0.5 border-l border-white/10 pl-2.5">
@@ -228,7 +228,7 @@ export default function RecognitionSection() {
                           </svg>
                           <span className="font-semibold text-[11px] sm:text-xs text-white whitespace-nowrap">{item.duration}</span>
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400 font-semibold block">TRACK</span>
+                        <span className="font-sans text-[9px] uppercase tracking-wider text-neutral-400 font-semibold block">TRACK</span>
                       </div>
 
                       <div className="space-y-0.5 border-l border-white/10 pl-2.5">
@@ -238,7 +238,7 @@ export default function RecognitionSection() {
                           </svg>
                           <span className="font-semibold text-[11px] sm:text-xs text-white whitespace-nowrap">{item.score}</span>
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400 font-semibold block">STATUS</span>
+                        <span className="font-sans text-[9px] uppercase tracking-wider text-neutral-400 font-semibold block">STATUS</span>
                       </div>
                     </div>
 
@@ -260,15 +260,15 @@ export default function RecognitionSection() {
                     {/* Credential ID */}
                     {item.credentialId && (
                       <div className="space-y-0.5 pt-0.5">
-                        <span className="text-[9px] font-mono text-neutral-400 uppercase tracking-wider block">Credential ID</span>
-                        <span className="font-mono text-xs text-neutral-200 font-medium block">{item.credentialId}</span>
+                        <span className="text-[9px] font-sans text-neutral-400 uppercase tracking-wider block">Credential ID</span>
+                        <span className="font-sans text-xs text-neutral-200 font-medium block">{item.credentialId}</span>
                       </div>
                     )}
                   </div>
 
                   {/* Vertical Label along right edge */}
                   <div className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 rotate-90 origin-right pointer-events-none">
-                    <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] uppercase font-semibold text-neutral-400 block whitespace-nowrap">
+                    <span className="font-sans text-[10px] sm:text-xs tracking-[0.25em] uppercase font-semibold text-neutral-400 block whitespace-nowrap">
                       {item.verticalLabel}
                     </span>
                   </div>
@@ -277,7 +277,7 @@ export default function RecognitionSection() {
                   <div className="pt-3 border-t border-white/15 space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="space-y-0.5">
-                        <span className="text-[10px] font-mono uppercase text-neutral-400 font-semibold tracking-wider block">
+                        <span className="text-[10px] font-sans uppercase text-neutral-400 font-semibold tracking-wider block">
                           Platform
                         </span>
                         <span className="text-sm font-bold text-white tracking-tight block">
@@ -354,7 +354,7 @@ export default function RecognitionSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
-            <span className="font-mono text-xs text-neutral-400 font-medium pl-2 tracking-wider">
+            <span className="font-sans text-xs text-neutral-400 font-medium pl-2 tracking-wider">
               0{activeIndex + 1} / 0{certificatesData.length}
             </span>
           </div>
@@ -383,7 +383,7 @@ export default function RecognitionSection() {
               {/* Modal Top Header */}
               <div className="flex items-start justify-between border-b border-white/10 pb-5">
                 <div>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-400 font-semibold">
+                  <span className="text-[11px] font-sans uppercase tracking-widest text-neutral-400 font-semibold">
                     Certifications & Credentials
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1 font-sans">
@@ -402,15 +402,15 @@ export default function RecognitionSection() {
               <div className="p-6 sm:p-8 rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur-xl space-y-6">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-mono uppercase text-neutral-400 block">ISSUING BRAND / PROVIDER</span>
+                    <span className="text-[10px] font-sans uppercase text-neutral-400 block">ISSUING BRAND / PROVIDER</span>
                     <span className="text-xl font-bold text-white">{activeModalCert.brand}</span>
                   </div>
-                  <span className="font-mono text-xs uppercase px-3 py-1 rounded-full border border-white/15 bg-white/5 text-neutral-300 font-semibold">
+                  <span className="font-sans text-xs uppercase px-3 py-1 rounded-full border border-white/15 bg-white/5 text-neutral-300 font-semibold">
                     {activeModalCert.category}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 text-xs font-mono">
+                <div className="grid grid-cols-2 gap-4 text-xs font-sans">
                   <div>
                     <span className="text-neutral-400 block text-[10px] uppercase">PLATFORM</span>
                     <span className="text-neutral-200 font-semibold text-sm">{activeModalCert.platform}</span>
@@ -435,7 +435,7 @@ export default function RecognitionSection() {
 
                 {activeModalCert.skills && (
                   <div className="border-t border-white/10 pt-4 space-y-2">
-                    <span className="text-[10px] font-mono uppercase text-neutral-400 block tracking-widest font-medium">KEY COMPETENCIES VERIFIED</span>
+                    <span className="text-[10px] font-sans uppercase text-neutral-400 block tracking-widest font-medium">KEY COMPETENCIES VERIFIED</span>
                     <div className="flex flex-wrap gap-2">
                       {activeModalCert.skills.map((sk, i) => (
                         <span key={i} className="inline-flex items-center px-3 py-1 rounded-lg bg-white/[0.05] border border-white/15 text-xs font-sans font-medium text-neutral-200 hover:border-white/30 transition-all duration-200">
@@ -448,7 +448,7 @@ export default function RecognitionSection() {
                 )}
 
                 {activeModalCert.credentialId && (
-                  <div className="border-t border-white/10 pt-4 text-xs font-mono">
+                  <div className="border-t border-white/10 pt-4 text-xs font-sans">
                     <span className="text-neutral-400 block text-[10px] uppercase">CREDENTIAL ID</span>
                     <span className="text-white font-bold tracking-wider">{activeModalCert.credentialId}</span>
                   </div>
@@ -459,7 +459,7 @@ export default function RecognitionSection() {
               <div className="flex items-center justify-end pt-2">
                 <button
                   onClick={() => setActiveModalCert(null)}
-                  className="px-6 py-2.5 rounded-full bg-white text-black font-mono text-xs uppercase font-bold tracking-wider hover:bg-neutral-200 transition-colors cursor-pointer"
+                  className="px-6 py-2.5 rounded-full bg-white text-black font-sans text-xs uppercase font-bold tracking-wider hover:bg-neutral-200 transition-colors cursor-pointer"
                 >
                   Close
                 </button>

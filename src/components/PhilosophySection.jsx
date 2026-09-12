@@ -59,7 +59,7 @@ export default function PhilosophySection() {
         
         {/* Main Philosophy Statement */}
         <div className="max-w-6xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2.5 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.18em] font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-white/80"></span>
             <span>03 / DESIGN PHILOSOPHY</span>
           </div>
@@ -99,11 +99,11 @@ export default function PhilosophySection() {
                 <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl pointer-events-none" />
 
                 {/* Header Meta */}
-                <div className="flex items-center justify-between font-mono text-[11px] text-neutral-500 relative z-10">
+                <div className="flex items-center justify-between font-sans text-[11px] text-neutral-500 relative z-10">
                   <span className="text-emerald-400/90 font-semibold tracking-wider group-hover:text-emerald-300 transition-colors">
                     {p.num}
                   </span>
-                  <span className="uppercase tracking-widest text-[10px] text-neutral-500 group-hover:text-neutral-300 transition-colors">
+                  <span className="uppercase tracking-widest text-[10px] text-neutral-500 group-hover:text-neutral-300 transition-colors font-medium">
                     {p.tag || 'PRINCIPLE'}
                   </span>
                 </div>
@@ -119,7 +119,7 @@ export default function PhilosophySection() {
                 </div>
 
                 {/* Footer Micro Tag & Animated Bottom Accent Line */}
-                <div className="relative z-10 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-neutral-500">
+                <div className="relative z-10 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-sans font-medium tracking-wider text-neutral-500">
                   <span className="group-hover:text-neutral-300 transition-colors flex items-center gap-1.5">
                     <span className="w-1 h-1 rounded-full bg-emerald-400/60 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <span>0{idx + 1} // FOCUS</span>

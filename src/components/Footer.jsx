@@ -112,7 +112,7 @@ export default function Footer() {
           {/* Section tag */}
           <div className="flex items-center gap-2">
             <span className="w-1 h-1 rounded-full bg-white/50" />
-            <span className="font-mono text-[10px] text-white/40 tracking-[0.3em] uppercase">
+            <span className="font-sans font-medium text-[10px] text-white/40 tracking-[0.3em] uppercase">
               Direct Inquiry
             </span>
           </div>
@@ -131,7 +131,7 @@ export default function Footer() {
               {/* Animated underline */}
               <span className="absolute bottom-0 left-0 h-px bg-white w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
             </div>
-            <span className="mt-1.5 block font-mono text-[10px] text-white/30 tracking-[0.2em] uppercase group-hover:text-white/50 transition-colors duration-300">
+            <span className="mt-1.5 block font-sans font-medium text-[10px] text-white/30 tracking-[0.2em] uppercase group-hover:text-white/50 transition-colors duration-300">
               Open to work ↗
             </span>
           </a>
@@ -151,10 +151,10 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="group flex items-center gap-1.5"
               >
-                <span className="font-mono text-[11px] text-white/50 group-hover:text-white tracking-[0.18em] uppercase transition-colors duration-200">
+                <span className="font-sans font-medium text-[11px] text-white/50 group-hover:text-white tracking-[0.18em] uppercase transition-colors duration-200">
                   {name}
                 </span>
-                <span className="font-mono text-[10px] text-white/20 group-hover:text-white/70 transition-all duration-200 -translate-x-1 group-hover:translate-x-0 inline-block">
+                <span className="font-sans text-[10px] text-white/20 group-hover:text-white/70 transition-all duration-200 -translate-x-1 group-hover:translate-x-0 inline-block">
                   ↗
                 </span>
               </a>
@@ -190,12 +190,12 @@ export default function Footer() {
           {/* Status */}
           <div className="flex items-center gap-3 min-h-[20px]">
             {msg && (
-              <span className="font-mono text-[11px] text-white/60 tracking-wide">{msg}</span>
+              <span className="font-sans font-medium text-[11px] text-white/60 tracking-wide">{msg}</span>
             )}
             {(gameOver || board.some(Boolean)) && (
               <button
                 onClick={reset}
-                className="font-mono text-[10px] text-white/30 hover:text-white/80 tracking-[0.2em] uppercase transition-colors duration-200"
+                className="font-sans font-medium text-[10px] text-white/30 hover:text-white/80 tracking-[0.2em] uppercase transition-colors duration-200"
               >
                 play again
               </button>
@@ -211,10 +211,10 @@ export default function Footer() {
 
       {/* ── Bottom bar ── */}
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
-        <span className="font-mono text-[10px] text-white/20 tracking-[0.2em] uppercase">
+        <span className="font-sans font-medium text-[10px] text-white/20 tracking-[0.2em] uppercase">
           © {new Date().getFullYear()} Humanshu Araspure — All rights reserved
         </span>
-        <span className="font-mono text-[10px] text-white/10 tracking-[0.18em] uppercase">
+        <span className="font-sans font-medium text-[10px] text-white/10 tracking-[0.18em] uppercase">
           Built with React · Vercel
         </span>
       </div>

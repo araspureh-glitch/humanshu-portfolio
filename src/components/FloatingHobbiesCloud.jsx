@@ -26,7 +26,7 @@ export default function FloatingHobbiesCloud() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center space-y-4 max-w-2xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-xl text-[11px] font-mono text-neutral-300 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-xl text-[11px] font-sans font-medium text-neutral-300 uppercase tracking-[0.18em]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-ping" />
             <span>06 / PERSONAL INTERESTS & HOBBIES</span>
           </div>

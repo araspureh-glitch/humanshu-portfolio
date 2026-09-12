@@ -36,7 +36,7 @@ export default function ProcessSection() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-16 border-b border-white/10 gap-4">
           <div>
-            <span className="text-xs font-mono tracking-widest text-[#8A8A8A] uppercase">03 — METHODOLOGY</span>
+            <span className="text-xs font-sans font-medium tracking-[0.18em] text-[#8A8A8A] uppercase">03 — METHODOLOGY</span>
             <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight mt-3 font-sans">
               How I work
             </h2>
@@ -54,10 +54,10 @@ export default function ProcessSection() {
               transition={{ duration: 0.35 }}
               className="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-4 sm:gap-6 group hover:bg-white/[0.02] transition-colors px-2 sm:px-4 rounded-xl"
             >
-              <div className="md:col-span-2 font-mono text-xs text-[#8A8A8A] tracking-widest">
+              <div className="md:col-span-2 font-sans font-medium text-xs text-[#8A8A8A] tracking-widest">
                 {step.number} —
               </div>
-              <div className="md:col-span-4 font-mono text-xl sm:text-2xl text-white font-medium group-hover:translate-x-2 transition-transform duration-300">
+              <div className="md:col-span-4 font-sans text-xl sm:text-2xl text-white font-medium group-hover:translate-x-2 transition-transform duration-300">
                 {step.title}
               </div>
               <div className="md:col-span-6 text-sm sm:text-base text-[#8A8A8A] font-light leading-relaxed font-sans">
