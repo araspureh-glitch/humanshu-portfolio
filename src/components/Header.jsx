@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import { Button } from '@/components/ui/button'
+import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function Header() {
   return (
@@ -26,14 +27,9 @@ export default function Header() {
             <Nav />
           </div>
 
-          <Button 
-            asChild
-            className="bg-emerald-500 text-slate-950 hover:bg-emerald-400 font-mono text-xs uppercase tracking-wider font-bold px-4 py-2 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/25 active:scale-95 cursor-pointer shadow-md"
-          >
-            <a href="mailto:araspurehumanshu@gmail.com">
-              Book a call
-            </a>
-          </Button>
+          <a href="mailto:araspurehumanshu@gmail.com">
+            <LiquidMetalButton label="Book a Call" />
+          </a>
         </div>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function Hero() {
   return (
@@ -35,16 +36,9 @@ export default function Hero() {
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-4">
-            <Button 
-              asChild
-              size="lg"
-              className="bg-emerald-500 text-slate-950 font-mono text-xs uppercase font-bold tracking-wider px-7 py-6 rounded-xl cursor-pointer shadow-md"
-            >
-              <Link to="/work" className="flex items-center gap-2">
-                <span>See selected work</span>
-                <span className="text-base">↘</span>
-              </Link>
-            </Button>
+            <Link to="/work">
+              <LiquidMetalButton label="See selected work" />
+            </Link>
           </div>
 
           <div className="pt-8 border-t border-neutral-800/80 flex items-center gap-8 text-xs font-mono text-neutral-500">
