@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import MosaicHeroCanvas from './MosaicHeroCanvas'
+import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function CinematicHero({ introComplete = true }) {
   // Motion variants for container and elements
@@ -172,16 +173,8 @@ export default function CinematicHero({ introComplete = true }) {
 
           {/* Lower Right / Bottom Left: Scroll to explore */}
           <motion.div variants={itemVariants} className="lg:col-span-3 flex lg:justify-end items-center pointer-events-auto">
-            <Link 
-              to="/work" 
-              className="group flex items-center gap-3 text-xs font-mono tracking-widest uppercase text-[#8A8A8A] hover:text-white transition-colors"
-            >
-              <span className="group-hover:translate-x-1 transition-transform">Explore Work</span>
-              <div className="w-8 h-8 rounded-full border border-white/20 group-hover:border-white/60 bg-white/[0.02] group-hover:bg-white/[0.08] flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(255,255,255,0)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5 text-neutral-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </div>
+            <Link to="/work">
+              <LiquidMetalButton viewMode="icon" />
             </Link>
           </motion.div>
 
