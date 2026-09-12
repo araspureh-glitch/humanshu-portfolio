@@ -64,35 +64,6 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Footer Meta & Socials */}
-        <div className="pt-24 grid grid-cols-1 md:grid-cols-12 gap-8 items-end border-t border-white/10 mt-20 font-mono text-xs text-neutral-400">
-          
-          <div className="md:col-span-6 space-y-2">
-            <span className="text-neutral-500 uppercase tracking-widest block">Direct Inquiry</span>
-            <a 
-              href="mailto:humanshu.araspure@gmail.com" 
-              className="text-lg sm:text-xl text-white font-mono hover:text-[#0A66C2] transition-colors block"
-            >
-              humanshu.araspure@gmail.com
-            </a>
-          </div>
-
-          <div className="md:col-span-6 flex flex-wrap md:justify-end gap-6 uppercase tracking-widest">
-            {socialLinks.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.url} 
-                target="_blank" 
-                rel="noreferrer" 
-                className="hover:text-white transition-colors"
-              >
-                {item.name} ↗
-              </a>
-            ))}
-          </div>
-
-        </div>
-
       </div>
     </section>
   )
