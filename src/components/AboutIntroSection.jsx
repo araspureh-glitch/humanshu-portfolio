@@ -269,12 +269,7 @@ export default function AboutIntroSection() {
         </motion.div>
 
         {/* Interactive Bio with Hover Image Preview Popups */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 font-sans text-[10px] text-neutral-500 uppercase tracking-[0.2em] font-medium">
-            <span>PERSPECTIVE & PROFILE</span>
-            <span>•</span>
-            <span className="text-emerald-400">Hover text to preview</span>
-          </div>
+        <div>
           <InteractiveBio />
         </div>
 
