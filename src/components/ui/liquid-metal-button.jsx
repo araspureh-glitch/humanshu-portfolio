@@ -176,14 +176,12 @@ export function LiquidMetalButton({
             {viewMode === "text" && (
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: "monospace, sans-serif",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#ffffff",
-                  fontWeight: 600,
-                  textShadow: "0px 1px 3px rgba(0, 0, 0, 0.9)",
+                  fontSize: "14px",
+                  color: "#666666",
+                  fontWeight: 400,
+                  textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
                   transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  transform: "scale(1)",
                   whiteSpace: "nowrap",
                 }}
               >
