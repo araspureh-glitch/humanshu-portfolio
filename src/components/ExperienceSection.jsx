@@ -247,7 +247,7 @@ export default function ExperienceSection() {
           <div>
             <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
               <span className="w-1.5 h-1.5 rounded-full bg-white/80"></span>
-              <span>03 / EXPERIENCE</span>
+              <span>04 / WORK EXPERIENCE</span>
             </div>
             <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight mt-3 font-sans">
               Work experience

@@ -61,7 +61,7 @@ export default function PhilosophySection() {
         <div className="max-w-6xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-white/80"></span>
-            <span>05 / DESIGN PHILOSOPHY</span>
+            <span>03 / DESIGN PHILOSOPHY</span>
           </div>
 
           <blockquote 
@@ -85,7 +85,7 @@ export default function PhilosophySection() {
 
         {/* Four Principles Editorial Grid */}
         <div className="pt-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-y border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 bg-white/[0.008] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 bg-[#08080a] rounded-2xl overflow-hidden shadow-2xl">
             {principles.map((p, idx) => (
               <motion.div 
                 key={p.num}

@@ -16,10 +16,10 @@ function About() {
       <BackgroundAudio videoId="16jA-6hiSUo" />
       <main>
         <AboutIntroSection />
-        <FloatingHobbiesCloud />
+        <PhilosophySection />
         <ExperienceSection />
         <SkillsSection />
-        <PhilosophySection />
+        <FloatingHobbiesCloud />
       </main>
       <Footer />
     </div>

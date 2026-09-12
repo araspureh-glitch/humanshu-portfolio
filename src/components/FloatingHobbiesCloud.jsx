@@ -28,7 +28,7 @@ export default function FloatingHobbiesCloud() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-xl text-[11px] font-mono text-neutral-300 uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A66C2] animate-ping" />
-            <span>BEYOND DESIGN // HOBBIES & LIFE</span>
+            <span>06 / PERSONAL INTERESTS & HOBBIES</span>
           </div>
 
           <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight leading-[1.05] font-sans">
