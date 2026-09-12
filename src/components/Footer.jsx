@@ -38,50 +38,27 @@ function getAIMove(board) {
 function Cell({ value, index, onClick, disabled, isWinCell }) {
   const col = index % 3;
   const row = Math.floor(index / 3);
-  const borderR = col < 2 ? "border-r" : "";
-  const borderB = row < 2 ? "border-b" : "";
 
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       aria-label={`Cell ${index}`}
-      style={{ aspectRatio: "1 / 1" }}
       className={[
-        "relative flex items-center justify-center",
-        "border-white/10 transition-all duration-200",
-        borderR, borderB,
-        !disabled && value === null ? "hover:bg-white/[0.04] cursor-pointer" : "cursor-default",
-        isWinCell ? "bg-white/[0.07]" : "",
+        "flex items-center justify-center transition-colors duration-150",
+        col < 2 ? "border-r border-white/20" : "",
+        row < 2 ? "border-b border-white/20" : "",
+        !disabled && value === null ? "hover:bg-white/[0.03] cursor-pointer" : "cursor-default",
+        isWinCell ? "bg-white/[0.06]" : "",
       ].join(" ")}
+      style={{ width: 80, height: 80 }}
     >
-      {value === "X" && (
+      {value && (
         <span
-          className="text-3xl font-extralight select-none"
-          style={{
-            color: "#a78bfa",
-            textShadow: "0 0 18px rgba(167,139,250,0.7)",
-            fontFamily: "monospace",
-          }}
+          className="text-3xl font-light select-none"
+          style={{ color: "#ffffff", fontFamily: "serif" }}
         >
-          ✕
-        </span>
-      )}
-      {value === "O" && (
-        <span
-          className="text-3xl font-extralight select-none"
-          style={{
-            color: "#38bdf8",
-            textShadow: "0 0 18px rgba(56,189,248,0.7)",
-            fontFamily: "monospace",
-          }}
-        >
-          ○
-        </span>
-      )}
-      {!value && !disabled && (
-        <span className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-20 text-white text-2xl font-light transition-opacity select-none pointer-events-none">
-          ✕
+          {value}
         </span>
       )}
     </button>
@@ -191,71 +168,44 @@ export default function Footer() {
         </div>
 
         {/* RIGHT: Tic-Tac-Toe */}
-        <div className="flex flex-col items-start md:items-end gap-5">
+        <div className="flex flex-col items-start md:items-end gap-4">
           {/* Caption */}
-          <p className="font-mono text-[11px] text-neutral-500 tracking-[0.2em] uppercase">
+          <p className="text-sm text-white font-sans font-normal">
             By the way, can you beat me? :)
           </p>
 
-          {/* Game card */}
+          {/* Grid — equal 80×80 cells, only inner dividers */}
           <div
-            className="rounded-2xl p-5 flex flex-col gap-4"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              backdropFilter: "blur(12px)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.5)",
-            }}
+            className="grid grid-cols-3"
+            style={{ width: 240, height: 240 }}
           >
-            {/* Legend */}
-            <div className="flex items-center justify-between px-1">
-              <div className="flex items-center gap-2">
-                <span style={{ color: "#a78bfa", textShadow: "0 0 10px rgba(167,139,250,0.6)" }} className="text-sm font-mono">✕</span>
-                <span className="text-[11px] font-mono text-neutral-400 tracking-widest">YOU</span>
-              </div>
-              <div className="h-px w-8 bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono text-neutral-400 tracking-widest">AI</span>
-                <span style={{ color: "#38bdf8", textShadow: "0 0 10px rgba(56,189,248,0.6)" }} className="text-sm font-mono">○</span>
-              </div>
-            </div>
+            {board.map((cell, i) => (
+              <Cell
+                key={i}
+                value={cell}
+                index={i}
+                onClick={() => handleClick(i)}
+                disabled={!!cell || gameOver || !isXNext}
+                isWinCell={winLine.includes(i)}
+              />
+            ))}
+          </div>
 
-            {/* Grid */}
-            <div
-              className="grid grid-cols-3 border border-white/10 rounded-xl overflow-hidden"
-              style={{ width: 216, height: 216 }}
-            >
-              {board.map((cell, i) => (
-                <Cell
-                  key={i}
-                  value={cell}
-                  index={i}
-                  onClick={() => handleClick(i)}
-                  disabled={!!cell || gameOver || !isXNext}
-                  isWinCell={winLine.includes(i)}
-                />
-              ))}
-            </div>
-
-            {/* Status bar */}
-            <div className="flex items-center justify-between gap-3 px-1">
-              <span
-                className="text-[11px] font-mono tracking-wide"
-                style={{
-                  color: gameOver
-                    ? (result?.winner === "X" ? "#a78bfa" : result?.winner === "O" ? "#38bdf8" : "#facc15")
-                    : "#9ca3af",
-                }}
-              >
+          {/* Status + reset */}
+          <div className="flex items-center gap-4 h-6">
+            {statusMsg && (
+              <span className="text-sm font-sans text-neutral-300">
                 {statusMsg}
               </span>
+            )}
+            {(gameOver || board.some(c => c !== null)) && (
               <button
                 onClick={reset}
-                className="text-[10px] font-mono text-neutral-500 hover:text-white tracking-widest uppercase transition-colors border border-white/10 hover:border-white/30 px-3 py-1 rounded-full"
+                className="text-sm font-sans text-neutral-400 hover:text-white underline underline-offset-2 transition-colors"
               >
-                Reset
+                Play again
               </button>
-            </div>
+            )}
           </div>
         </div>
 
