@@ -51,7 +51,7 @@ function Cell({ value, index, onClick, disabled, isWinCell }) {
         !disabled && value === null ? "hover:bg-white/[0.03] cursor-pointer" : "cursor-default",
         isWinCell ? "bg-white/[0.06]" : "",
       ].join(" ")}
-      style={{ width: 80, height: 80 }}
+      style={{ width: 56, height: 56 }}
     >
       {value && (
         <span
@@ -60,7 +60,7 @@ function Cell({ value, index, onClick, disabled, isWinCell }) {
             color: "#ffffff",
             fontFamily: "system-ui, sans-serif",
             fontWeight: 100,
-            fontSize: "2rem",
+            fontSize: "1.4rem",
             letterSpacing: "0.05em",
           }}
         >
@@ -183,7 +183,7 @@ export default function Footer() {
           {/* Grid — equal 80×80 cells, only inner dividers */}
           <div
             className="grid grid-cols-3"
-            style={{ width: 240, height: 240 }}
+            style={{ width: 168, height: 168 }}
           >
             {board.map((cell, i) => (
               <Cell
