@@ -114,33 +114,78 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#050505] text-[#F5F5F5] py-16 px-6 sm:px-12 lg:px-20 border-t border-white/10 select-none">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
+    <footer className="w-full bg-[#050505] text-[#F5F5F5] py-20 px-6 sm:px-12 lg:px-20 border-t border-white/10 select-none">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-12 md:gap-8">
         
-        {/* Left Side: Domain Tag & Copyright */}
-        <div className="flex flex-col space-y-2 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2.5">
-            <div className="relative w-4 h-4 mr-0.5">
-              <div className="absolute inset-0 bg-[#f43f5e] rounded-[2.5px] -translate-x-[2px] -translate-y-[2px]" />
-              <div className="absolute inset-0 bg-[#f43f5e]/60 rounded-[2.5px] translate-x-[2px] translate-y-[2px]" />
-            </div>
+        {/* Left Column: Direct Inquiry, Email, Subtitle & Text Links with Arrows */}
+        <div className="flex flex-col space-y-6 max-w-xl">
+          
+          {/* Direct Inquiry Block */}
+          <div className="flex flex-col space-y-1">
+            <span className="font-mono text-[11px] text-neutral-500 tracking-[0.2em] uppercase font-semibold">
+              DIRECT INQUIRY
+            </span>
             <a 
-              href="/" 
-              className="text-white font-medium text-base font-sans tracking-tight hover:opacity-80 transition-opacity"
+              href="mailto:humanshu.araspure@gmail.com" 
+              className="font-mono text-xl sm:text-2xl font-bold text-white tracking-tight hover:text-neutral-300 transition-colors w-fit"
             >
-              humanshu.dev/
+              humanshu.araspure@gmail.com
+            </a>
+            <p className="text-neutral-400 text-sm font-sans pt-1">
+              Design, coding and motion graphics by me.
+            </p>
+          </div>
+
+          {/* Social Links Row with Arrows (↗) */}
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8 font-mono text-xs text-neutral-300 tracking-widest font-medium uppercase pt-2">
+            <a 
+              href="https://linkedin.com/in/humanshu-araspure" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
+            >
+              <span>LINKEDIN</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
+            </a>
+
+            <a 
+              href="https://www.behance.net/humansharaspur" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
+            >
+              <span>BEHANCE</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
+            </a>
+
+            <a 
+              href="https://instagram.com/humanshu.araspure" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
+            >
+              <span>INSTAGRAM</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
+            </a>
+
+            <a 
+              href="https://github.com/araspureh-glitch" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
+            >
+              <span>GITHUB</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
             </a>
           </div>
-          <p className="text-neutral-500 font-mono text-xs uppercase tracking-widest pt-1">
-            © {new Date().getFullYear()} Humanshu Araspure — All Rights Reserved
-          </p>
+
         </div>
 
-        {/* Right Side: Interactive Tic-Tac-Toe Game */}
-        <div className="flex flex-col items-center sm:items-end">
+        {/* Right Column: Tic-Tac-Toe Game */}
+        <div className="flex flex-col items-start md:items-start pt-2">
           
           {/* Header */}
-          <div className="font-sans text-sm text-neutral-300 tracking-wide font-normal mb-4">
+          <div className="font-sans text-sm text-neutral-300 tracking-wide font-normal mb-5">
             By the way, can you beat me? :)
           </div>
 
@@ -200,6 +245,7 @@ export default function Footer() {
     </footer>
   );
 }
+
 
 
 
