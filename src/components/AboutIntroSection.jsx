@@ -183,64 +183,40 @@ function InteractiveBio() {
   )
 }
 
-function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
+function DisciplineAccordionRow({ item, index }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="border-b border-white/10 group transition-colors duration-300 py-6 sm:py-8 cursor-pointer"
-      onMouseEnter={onHover}
-      onClick={onToggle}
+    <div
+      className="border-b border-white/10 group transition-colors duration-200 py-6 sm:py-8 cursor-pointer"
     >
       <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-4 md:gap-8">
-        {/* Left Column: Number & Sub-label (Exact layout matching reference screenshot) */}
+        {/* Left Column: Number & Sub-label */}
         <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
-          <span className="block font-sans text-xs font-light text-neutral-400 tracking-tight">
+          <span className="block font-sans text-xs font-light text-neutral-400 group-hover:text-neutral-300 transition-colors duration-200 tracking-tight">
             {item.num}
           </span>
-          <span className="block font-sans text-xs font-normal text-neutral-300 group-hover:text-white transition-colors">
+          <span className="block font-sans text-xs font-normal text-neutral-300 group-hover:text-white transition-colors duration-200">
             {item.sublabel}
           </span>
         </div>
 
-        {/* Right Column: Clean Statement Headline & Accordion Detail */}
+        {/* Right Column: Clean Statement Headline & Description */}
         <div className="md:col-span-9 sm:col-span-8 space-y-2">
           <h3 
-            className={`text-xl sm:text-2xl lg:text-3xl font-sans tracking-tight leading-snug transition-all duration-300 ${
-              isOpen 
-                ? 'text-white font-normal' 
-                : 'text-neutral-400/80 font-light group-hover:text-white'
-            }`}
+            className="text-xl sm:text-2xl lg:text-3xl font-sans tracking-tight leading-snug text-neutral-400 group-hover:text-white transition-colors duration-200 font-light group-hover:font-normal"
           >
             {item.title}
           </h3>
 
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden pt-1"
-              >
-                <p className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl">
-                  {item.desc}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <p className="text-xs sm:text-sm font-sans text-neutral-500 font-light leading-relaxed max-w-2xl group-hover:text-neutral-300 transition-colors duration-200 pt-1">
+            {item.desc}
+          </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
 export default function AboutIntroSection() {
-  const [openRow, setOpenRow] = useState(0)
-
   const disciplines = [
     {
       num: '0.1',
@@ -324,9 +300,6 @@ export default function AboutIntroSection() {
                 key={item.num}
                 item={item}
                 index={index}
-                isOpen={openRow === index}
-                onToggle={() => setOpenRow(openRow === index ? null : index)}
-                onHover={() => setOpenRow(index)}
               />
             ))}
           </div>
