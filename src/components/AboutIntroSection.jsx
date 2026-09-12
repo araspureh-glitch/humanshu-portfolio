@@ -305,13 +305,6 @@ export default function AboutIntroSection() {
     }
   ]
 
-  const stats = [
-    { label: 'ROLE', value: 'UI/UX Architect' },
-    { label: 'LOCATION', value: 'India (Remote / Hybrid)' },
-    { label: 'CREDENTIALS', value: 'Google UX Certified' },
-    { label: 'STATUS', value: 'Available 2026' }
-  ]
-
   return (
     <section className="w-full bg-[#050505] text-[#F5F5F5] py-24 sm:py-32 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
 
@@ -350,16 +343,6 @@ export default function AboutIntroSection() {
             <span className="text-emerald-400">Hover text to preview</span>
           </div>
           <InteractiveBio />
-        </div>
-
-        {/* Sleek Minimal Floating Metadata Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-2xl bg-white/[0.015] font-mono text-xs border border-white/5">
-          {stats.map((stat, idx) => (
-            <div key={idx} className="space-y-1">
-              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block">{stat.label}</span>
-              <span className="text-sm font-light text-white tracking-wide block">{stat.value}</span>
-            </div>
-          ))}
         </div>
 
         {/* Sleek Minimalist Interactive Rows / Accordion */}
