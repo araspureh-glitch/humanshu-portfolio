@@ -26,16 +26,17 @@ export function LiquidMetalButton({
         shaderHeight: 46,
       };
     } else {
+      const calcWidth = Math.max(142, Math.round(label.length * 11 + 36));
       return {
-        width: 142,
+        width: calcWidth,
         height: 46,
-        innerWidth: 138,
+        innerWidth: calcWidth - 4,
         innerHeight: 42,
-        shaderWidth: 142,
+        shaderWidth: calcWidth,
         shaderHeight: 46,
       };
     }
-  }, [viewMode]);
+  }, [viewMode, label]);
 
   useEffect(() => {
     const styleId = "shader-canvas-style-exploded";

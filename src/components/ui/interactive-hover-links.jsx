@@ -69,7 +69,7 @@ export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0,
         {/* View More Button */}
         <div className="mt-12 flex justify-center">
           <RouterLink to="/work">
-            <LiquidMetalButton label="VIEW MORE PROJECTS →" />
+            <LiquidMetalButton label="VIEW MORE PROJECTS" />
           </RouterLink>
         </div>
       </div>
