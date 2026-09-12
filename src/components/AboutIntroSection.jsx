@@ -185,26 +185,27 @@ function InteractiveBio() {
 
 function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
   return (
-    <div
+    <motion.div
+      layout="position"
       onMouseEnter={onHover}
       onClick={onToggle}
-      className={`border-b border-white/10 group transition-colors duration-300 py-4 sm:py-6 cursor-pointer ${
-        isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'
+      className={`border-b border-white/10 group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] py-4 sm:py-5 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl cursor-pointer ${
+        isOpen ? 'bg-white/[0.03]' : 'hover:bg-white/[0.015]'
       }`}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-3 md:gap-6">
         {/* Left Column: Number & Sub-label */}
         <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
           <span
-            className={`block font-sans text-xs font-light tracking-tight transition-colors duration-300 ${
-              isOpen ? 'text-white font-medium' : 'text-neutral-400 group-hover:text-neutral-300'
+            className={`block font-sans text-xs tracking-tight transition-colors duration-400 ease-out ${
+              isOpen ? 'text-[#EA5211] font-medium' : 'text-neutral-500 group-hover:text-neutral-300 font-light'
             }`}
           >
             {item.num}
           </span>
           <span
-            className={`block font-sans text-xs font-normal transition-colors duration-300 ${
-              isOpen ? 'text-white font-medium' : 'text-neutral-300 group-hover:text-white'
+            className={`block font-sans text-xs transition-colors duration-400 ease-out ${
+              isOpen ? 'text-white font-medium' : 'text-neutral-400 group-hover:text-white font-light'
             }`}
           >
             {item.sublabel}
@@ -212,9 +213,9 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
         </div>
 
         {/* Right Column: Statement Headline & Expandable Description */}
-        <div className="md:col-span-9 sm:col-span-8 space-y-1.5">
+        <div className="md:col-span-9 sm:col-span-8 space-y-2">
           <h3 
-            className={`text-base sm:text-lg lg:text-xl font-sans tracking-tight leading-snug transition-all duration-300 ${
+            className={`text-base sm:text-lg lg:text-xl font-sans tracking-tight leading-snug transition-colors duration-400 ease-out ${
               isOpen 
                 ? 'text-white font-normal' 
                 : 'text-neutral-400/80 font-light group-hover:text-white'
@@ -223,21 +224,44 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
             {item.title}
           </h3>
 
-          {/* Smooth Hardware-Accelerated CSS Grid Expand/Collapse */}
-          <div
-            className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isOpen ? 'grid-rows-[1fr] opacity-100 pt-0.5' : 'grid-rows-[0fr] opacity-0'
-            }`}
-          >
-            <div className="overflow-hidden">
-              <p className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl">
-                {item.desc}
-              </p>
-            </div>
-          </div>
+          <AnimatePresence initial={false}>
+            {isOpen && (
+              <motion.div
+                key="content"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ 
+                  height: 'auto', 
+                  opacity: 1,
+                  transition: {
+                    height: { duration: 0.45, ease: [0.25, 1, 0.5, 1] },
+                    opacity: { duration: 0.35, delay: 0.05, ease: 'easeOut' }
+                  }
+                }}
+                exit={{ 
+                  height: 0, 
+                  opacity: 0,
+                  transition: {
+                    height: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
+                    opacity: { duration: 0.2, ease: 'easeIn' }
+                  }
+                }}
+                className="overflow-hidden"
+              >
+                <motion.p 
+                  initial={{ y: -6, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -4, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                  className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl pt-1 pb-1"
+                >
+                  {item.desc}
+                </motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
