@@ -55,8 +55,14 @@ function Cell({ value, index, onClick, disabled, isWinCell }) {
     >
       {value && (
         <span
-          className="text-3xl font-light select-none"
-          style={{ color: "#ffffff", fontFamily: "serif" }}
+          className="select-none"
+          style={{
+            color: "#ffffff",
+            fontFamily: "system-ui, sans-serif",
+            fontWeight: 100,
+            fontSize: "2rem",
+            letterSpacing: "0.05em",
+          }}
         >
           {value}
         </span>
@@ -89,7 +95,7 @@ export default function Footer() {
       setStatusMsg("Draw! 🤝");
       setGameOver(true);
     } else {
-      setStatusMsg(isXNext ? "Your turn  ( X )" : "AI thinking…");
+      setStatusMsg(isXNext ? "" : "AI thinking…");
     }
   }, [board, result, isFull, isXNext]);
 
