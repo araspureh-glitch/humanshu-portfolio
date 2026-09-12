@@ -248,9 +248,10 @@ export default function RecognitionSection() {
                         {item.skills.map((skill, sIdx) => (
                           <span 
                             key={sIdx}
-                            className="px-2.5 py-1 rounded-lg border border-white/10 bg-white/[0.03] text-[10px] font-mono text-neutral-300 tracking-wide"
+                            className="inline-flex items-center px-2.5 py-1 rounded-md border border-white/12 bg-white/[0.04] text-[10px] font-sans font-medium text-neutral-300 tracking-tight hover:border-white/30 hover:text-white transition-all duration-200"
                           >
-                            ✦ {skill}
+                            <span className="w-1 h-1 rounded-full bg-emerald-400/80 mr-1.5" />
+                            {skill}
                           </span>
                         ))}
                       </div>
@@ -434,11 +435,12 @@ export default function RecognitionSection() {
 
                 {activeModalCert.skills && (
                   <div className="border-t border-white/10 pt-4 space-y-2">
-                    <span className="text-[10px] font-mono uppercase text-neutral-400 block">KEY COMPETENCIES VERIFIED</span>
+                    <span className="text-[10px] font-mono uppercase text-neutral-400 block tracking-widest font-medium">KEY COMPETENCIES VERIFIED</span>
                     <div className="flex flex-wrap gap-2">
                       {activeModalCert.skills.map((sk, i) => (
-                        <span key={i} className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-neutral-200">
-                          ✦ {sk}
+                        <span key={i} className="inline-flex items-center px-3 py-1 rounded-lg bg-white/[0.05] border border-white/15 text-xs font-sans font-medium text-neutral-200 hover:border-white/30 transition-all duration-200">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 mr-2" />
+                          {sk}
                         </span>
                       ))}
                     </div>

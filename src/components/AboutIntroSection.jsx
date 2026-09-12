@@ -1,5 +1,30 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  Plus,
+  UserCheck,
+  Network,
+  TestTube2,
+  Boxes,
+  Palette,
+  Eye,
+  Zap,
+  MousePointerClick,
+  SlidersHorizontal,
+  Sparkles
+} from 'lucide-react'
+
+const TAG_ICONS = {
+  'Empathy Mapping': UserCheck,
+  'Wireframing & IA': Network,
+  'Usability Testing & Feedback': TestTube2,
+  'Atomic Component Architecture': Boxes,
+  'Design Tokens & Variables': Palette,
+  'WCAG 2.1 Accessibility': Eye,
+  'Framer Motion & JS Physics': Zap,
+  'High-Fi Interactive Prototypes': MousePointerClick,
+  'Polished Micro-Interactions': SlidersHorizontal,
+}
 
 const previewData = {
   architect: {
@@ -189,37 +214,42 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className={`border-b border-white/10 group transition-colors duration-500 ${isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'}`}
+      className={`border-b border-white/10 group transition-colors duration-500 ${isOpen ? 'bg-white/[0.02]' : 'hover:bg-white/[0.01]'}`}
     >
       <button
         onClick={onToggle}
-        className="w-full py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-colors duration-300 px-2 sm:px-4 rounded-lg"
+        className="w-full py-7 sm:py-9 flex flex-col md:flex-row md:items-center justify-between text-left gap-4 transition-all duration-300 px-2 sm:px-4 rounded-xl cursor-pointer"
       >
         <div className="flex items-center gap-6 sm:gap-10">
           <span className={`font-mono text-xs sm:text-sm font-medium transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-500'}`}>
             {item.num}
           </span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             {isOpen && (
               <motion.span
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                className={`w-1 h-6 sm:h-8 rounded-full ${item.dotBg}`}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className={`w-1 h-6 sm:h-8 rounded-full ${item.dotBg} shadow-[0_0_12px_rgba(255,255,255,0.4)]`}
               />
             )}
-            <h3 className={`text-2xl sm:text-4xl lg:text-5xl font-extralight font-sans tracking-tight transition-all duration-300 ${isOpen ? 'text-white translate-x-1' : 'text-white/90 group-hover:text-white group-hover:translate-x-2'}`}>
+            <h3 className={`text-2xl sm:text-4xl lg:text-5xl font-extralight font-sans tracking-tight transition-all duration-300 ${isOpen ? 'text-white translate-x-1' : 'text-white/85 group-hover:text-white group-hover:translate-x-2'}`}>
               {item.title}
             </h3>
           </div>
         </div>
 
-        <div className="flex items-center gap-4 self-end md:self-auto">
-          <span className={`font-mono text-[11px] uppercase tracking-widest border px-3 py-1 rounded-full transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.03]` : 'border-white/15 text-neutral-400 group-hover:border-white/40 group-hover:text-white'}`}>
+        <div className="flex items-center gap-3.5 self-end md:self-auto">
+          {/* Handcrafted Discipline Badge */}
+          <span className={`flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider border px-3.5 py-1.5 rounded-full backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.06] shadow-[0_0_20px_rgba(0,0,0,0.6)]` : 'border-white/12 text-neutral-400 group-hover:border-white/30 group-hover:text-neutral-200 bg-white/[0.02]'}`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${isOpen ? `${item.dotBg} animate-pulse` : 'bg-neutral-500'}`} />
             {item.badge}
           </span>
-          <span className={`text-2xl font-light transition-all duration-300 ${isOpen ? `rotate-45 ${item.iconColor}` : 'text-neutral-400 group-hover:text-white'}`}>
-            +
-          </span>
+
+          {/* Bespoke Interactive Toggle Control */}
+          <div className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 shadow-sm ${isOpen ? `${item.badgeBorder} bg-white/10 ${item.iconColor} shadow-[0_0_20px_rgba(0,0,0,0.6)]` : 'border-white/15 bg-white/[0.03] text-neutral-400 group-hover:border-white/40 group-hover:text-white group-hover:bg-white/10'}`}>
+            <Plus className={`w-4 h-4 transition-transform duration-300 ease-out ${isOpen ? 'rotate-45' : ''}`} />
+          </div>
         </div>
       </button>
 
@@ -233,32 +263,41 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
             className="overflow-hidden pb-10 px-2 sm:pl-16 md:pl-20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-              <div className="lg:col-span-6 space-y-4">
-                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
-                  APPROACH & IMPACT
-                </span>
+              <div className="lg:col-span-5 space-y-3.5">
+                <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-400 uppercase tracking-widest font-semibold">
+                  <span className={`w-1.5 h-1.5 rounded-full ${item.dotBg}`} />
+                  <span>APPROACH & IMPACT</span>
+                </div>
                 <p className="text-sm sm:text-base font-sans text-neutral-300 font-light leading-relaxed">
                   {item.desc}
                 </p>
               </div>
 
-              <div className="lg:col-span-6 space-y-4">
-                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
-                  CAPABILITIES & DELIVERABLES
-                </span>
-                <div className="flex flex-wrap gap-2.5">
-                  {item.tags.map((tag, idx) => (
-                    <motion.span
-                      key={idx}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.06 }}
-                      className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.035] hover:bg-white/[0.08] hover:border-white/30 text-xs sm:text-sm font-sans font-normal text-neutral-200 backdrop-blur-md transition-all duration-300 flex items-center gap-2 shadow-sm"
-                    >
-                      <span className={`text-xs ${item.iconColor}`}>✦</span>
-                      <span>{tag}</span>
-                    </motion.span>
-                  ))}
+              <div className="lg:col-span-7 space-y-3.5">
+                <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-400 uppercase tracking-widest font-semibold">
+                  <span className={`w-1.5 h-1.5 rounded-full ${item.dotBg}`} />
+                  <span>CAPABILITIES & DELIVERABLES</span>
+                </div>
+                
+                {/* Handcrafted Bespoke Tag Chips */}
+                <div className="flex flex-wrap gap-2.5 pt-1">
+                  {item.tags.map((tag, idx) => {
+                    const TagIcon = TAG_ICONS[tag] || Sparkles
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: idx * 0.06, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        className={`group/tag relative inline-flex items-center gap-2.5 px-4 py-2 rounded-xl sm:rounded-full border border-white/15 bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-xl text-xs sm:text-sm font-sans font-medium text-neutral-200 transition-all duration-300 cursor-pointer select-none shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] active:scale-[0.97] active:translate-y-0 ${item.tagHover}`}
+                      >
+                        <div className={`w-5 h-5 rounded-md flex items-center justify-center ${item.iconBadge} transition-all duration-300 group-hover/tag:scale-110`}>
+                          <TagIcon className="w-3.5 h-3.5" />
+                        </div>
+                        <span className="tracking-tight text-neutral-200 group-hover/tag:text-white transition-colors duration-300">{tag}</span>
+                      </motion.div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -279,6 +318,8 @@ export default function AboutIntroSection() {
       iconColor: 'text-emerald-400',
       dotBg: 'bg-emerald-400',
       badgeBorder: 'border-emerald-500/40',
+      tagHover: 'hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]',
+      iconBadge: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
       title: 'Human-Centered Research',
       desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing pixels.',
       tags: ['Empathy Mapping', 'Wireframing & IA', 'Usability Testing & Feedback']
@@ -289,6 +330,8 @@ export default function AboutIntroSection() {
       iconColor: 'text-cyan-400',
       dotBg: 'bg-cyan-400',
       badgeBorder: 'border-cyan-500/40',
+      tagHover: 'hover:border-cyan-500/50 hover:bg-cyan-500/10 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]',
+      iconBadge: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30',
       title: 'Design Systems Architecture',
       desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.',
       tags: ['Atomic Component Architecture', 'Design Tokens & Variables', 'WCAG 2.1 Accessibility']
@@ -299,6 +342,8 @@ export default function AboutIntroSection() {
       iconColor: 'text-purple-400',
       dotBg: 'bg-purple-400',
       badgeBorder: 'border-purple-500/40',
+      tagHover: 'hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]',
+      iconBadge: 'bg-purple-500/15 text-purple-400 border border-purple-500/30',
       title: 'Interactive Prototyping',
       desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.',
       tags: ['Framer Motion & JS Physics', 'High-Fi Interactive Prototypes', 'Polished Micro-Interactions']
