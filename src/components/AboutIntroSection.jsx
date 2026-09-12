@@ -188,11 +188,11 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
     <div
       onMouseEnter={onHover}
       onClick={onToggle}
-      className={`border-b border-white/10 group transition-colors duration-300 py-6 sm:py-8 cursor-pointer ${
+      className={`border-b border-white/10 group transition-colors duration-300 py-4 sm:py-6 cursor-pointer ${
         isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'
       }`}
     >
-      <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-4 md:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-3 md:gap-6">
         {/* Left Column: Number & Sub-label */}
         <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
           <span
@@ -212,9 +212,9 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
         </div>
 
         {/* Right Column: Statement Headline & Expandable Description */}
-        <div className="md:col-span-9 sm:col-span-8 space-y-2">
+        <div className="md:col-span-9 sm:col-span-8 space-y-1.5">
           <h3 
-            className={`text-xl sm:text-2xl lg:text-3xl font-sans tracking-tight leading-snug transition-all duration-300 ${
+            className={`text-lg sm:text-xl lg:text-2xl font-sans tracking-tight leading-snug transition-all duration-300 ${
               isOpen 
                 ? 'text-white font-normal' 
                 : 'text-neutral-400/80 font-light group-hover:text-white'
@@ -226,11 +226,11 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
           {/* Smooth Hardware-Accelerated CSS Grid Expand/Collapse */}
           <div
             className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isOpen ? 'grid-rows-[1fr] opacity-100 pt-1' : 'grid-rows-[0fr] opacity-0'
+              isOpen ? 'grid-rows-[1fr] opacity-100 pt-0.5' : 'grid-rows-[0fr] opacity-0'
             }`}
           >
             <div className="overflow-hidden">
-              <p className="text-xs sm:text-sm font-sans text-neutral-300 font-light leading-relaxed max-w-2xl">
+              <p className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl">
                 {item.desc}
               </p>
             </div>
@@ -266,12 +266,12 @@ export default function AboutIntroSection() {
   ]
 
   return (
-    <section className="w-full bg-[#050505] text-[#F5F5F5] py-24 sm:py-32 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-[#F5F5F5] py-16 sm:py-24 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
 
       {/* Subtle Background Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-12 relative z-10">
 
         {/* Editorial Minimal Header */}
         <motion.div
@@ -286,7 +286,7 @@ export default function AboutIntroSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
               <span>01 / ABOUT ME</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight text-white tracking-tight font-sans">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight text-white tracking-tight font-sans">
               Humanshu Araspure
             </h1>
           </div>
@@ -300,18 +300,18 @@ export default function AboutIntroSection() {
           <InteractiveBio />
         </div>
 
-        {/* Sleek Minimalist Core Disciplines Layout (Inspired by reference screenshot) */}
-        <div className="space-y-4 pt-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-white/10">
-            <div className="space-y-1">
-              <p className="text-sm sm:text-base font-sans font-medium text-white tracking-tight">
+        {/* Sleek Minimalist Core Disciplines Layout */}
+        <div className="space-y-4 pt-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-white/10">
+            <div className="space-y-0.5">
+              <p className="text-xs sm:text-sm font-sans font-medium text-white tracking-tight">
                 At Humanshu Studio
               </p>
-              <p className="text-sm sm:text-base font-sans font-medium text-[#EA5211] tracking-tight">
+              <p className="text-xs sm:text-sm font-sans font-medium text-[#EA5211] tracking-tight">
                 We make digital experiences better
               </p>
             </div>
-            <span className="font-sans text-xs text-neutral-400 uppercase tracking-[0.2em] font-medium">
+            <span className="font-sans text-[11px] text-neutral-400 uppercase tracking-[0.2em] font-medium">
               CORE DISCIPLINES
             </span>
           </div>
