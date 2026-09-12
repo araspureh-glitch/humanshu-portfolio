@@ -183,7 +183,7 @@ function InteractiveBio() {
   )
 }
 
-function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
+function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -191,6 +191,7 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className={`border-b border-white/10 group transition-colors duration-500 ${isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'}`}
+      onMouseEnter={onHover}
     >
       <button
         onClick={onToggle}
@@ -215,12 +216,12 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
           </div>
         </div>
 
-        <div className="flex items-center self-end md:self-auto">
-          {/* Single Unified Interactive Pill Button */}
-          <div className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border backdrop-blur-md transition-all duration-300 ${isOpen ? `${item.badgeBorder} ${item.iconColor} bg-white/[0.06]` : 'border-white/15 text-neutral-300 group-hover:border-white/35 group-hover:text-white bg-white/[0.02]'}`}>
-            <span className="font-sans text-xs font-medium uppercase tracking-wider">{item.badge}</span>
-            <Plus className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} />
-          </div>
+        <div className="flex items-center gap-2 self-end md:self-auto">
+          {/* Pure Text Label - No Background, No Border */}
+          <span className={`font-mono text-xs uppercase tracking-widest transition-colors duration-300 ${isOpen ? item.iconColor : 'text-neutral-400 group-hover:text-white'}`}>
+            {item.badge}
+          </span>
+          <Plus className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? `rotate-45 ${item.iconColor}` : 'text-neutral-400 group-hover:text-white'}`} />
         </div>
       </button>
 
@@ -325,7 +326,7 @@ export default function AboutIntroSection() {
         <div className="space-y-6 pt-4">
           <div className="flex items-center justify-between font-mono text-xs text-neutral-400 uppercase tracking-widest pb-2">
             <span>CORE DISCIPLINES</span>
-            <span className="text-neutral-500 text-[10px]">Click to inspect discipline</span>
+            <span className="text-neutral-500 text-[10px]">Hover or click to inspect discipline</span>
           </div>
 
           <div className="border-t border-white/10">
@@ -336,6 +337,7 @@ export default function AboutIntroSection() {
                 index={index}
                 isOpen={openRow === index}
                 onToggle={() => setOpenRow(openRow === index ? null : index)}
+                onHover={() => setOpenRow(index)}
               />
             ))}
           </div>
