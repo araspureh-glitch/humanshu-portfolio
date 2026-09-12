@@ -183,33 +183,58 @@ function InteractiveBio() {
   )
 }
 
-function DisciplineAccordionRow({ item, index }) {
+function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
   return (
     <div
-      className="border-b border-white/10 group transition-colors duration-200 py-6 sm:py-8 cursor-pointer"
+      onMouseEnter={onHover}
+      onClick={onToggle}
+      className={`border-b border-white/10 group transition-colors duration-300 py-6 sm:py-8 cursor-pointer ${
+        isOpen ? 'bg-white/[0.015]' : 'hover:bg-white/[0.01]'
+      }`}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-4 md:gap-8">
         {/* Left Column: Number & Sub-label */}
         <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
-          <span className="block font-sans text-xs font-light text-neutral-400 group-hover:text-neutral-300 transition-colors duration-200 tracking-tight">
+          <span
+            className={`block font-sans text-xs font-light tracking-tight transition-colors duration-300 ${
+              isOpen ? 'text-white font-medium' : 'text-neutral-400 group-hover:text-neutral-300'
+            }`}
+          >
             {item.num}
           </span>
-          <span className="block font-sans text-xs font-normal text-neutral-300 group-hover:text-white transition-colors duration-200">
+          <span
+            className={`block font-sans text-xs font-normal transition-colors duration-300 ${
+              isOpen ? 'text-white font-medium' : 'text-neutral-300 group-hover:text-white'
+            }`}
+          >
             {item.sublabel}
           </span>
         </div>
 
-        {/* Right Column: Clean Statement Headline & Description */}
+        {/* Right Column: Statement Headline & Expandable Description */}
         <div className="md:col-span-9 sm:col-span-8 space-y-2">
           <h3 
-            className="text-xl sm:text-2xl lg:text-3xl font-sans tracking-tight leading-snug text-neutral-400 group-hover:text-white transition-colors duration-200 font-light group-hover:font-normal"
+            className={`text-xl sm:text-2xl lg:text-3xl font-sans tracking-tight leading-snug transition-all duration-300 ${
+              isOpen 
+                ? 'text-white font-normal' 
+                : 'text-neutral-400/80 font-light group-hover:text-white'
+            }`}
           >
             {item.title}
           </h3>
 
-          <p className="text-xs sm:text-sm font-sans text-neutral-500 font-light leading-relaxed max-w-2xl group-hover:text-neutral-300 transition-colors duration-200 pt-1">
-            {item.desc}
-          </p>
+          {/* Smooth Hardware-Accelerated CSS Grid Expand/Collapse */}
+          <div
+            className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isOpen ? 'grid-rows-[1fr] opacity-100 pt-1' : 'grid-rows-[0fr] opacity-0'
+            }`}
+          >
+            <div className="overflow-hidden">
+              <p className="text-xs sm:text-sm font-sans text-neutral-300 font-light leading-relaxed max-w-2xl">
+                {item.desc}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -217,6 +242,8 @@ function DisciplineAccordionRow({ item, index }) {
 }
 
 export default function AboutIntroSection() {
+  const [openRow, setOpenRow] = useState(0)
+
   const disciplines = [
     {
       num: '0.1',
@@ -295,6 +322,11 @@ export default function AboutIntroSection() {
                 key={item.num}
                 item={item}
                 index={index}
+                isOpen={openRow === index}
+                onToggle={() => setOpenRow(openRow === index ? null : index)}
+                onHover={() => {
+                  if (openRow !== index) setOpenRow(index)
+                }}
               />
             ))}
           </div>
