@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 // Helper to check for Tic Tac Toe winner
 function checkWinner(board) {
@@ -18,8 +17,8 @@ function checkWinner(board) {
 }
 
 export default function Footer() {
-  // Tic-Tac-Toe State matching screenshot (Initial state has 'O' in top-left cell 0)
-  const initialBoard = ["O", null, null, null, null, null, null, null, null];
+  // Initial board state matching screenshot (Cell 3 has 'O' pre-placed)
+  const initialBoard = [null, null, null, "O", null, null, null, null, null];
   const [board, setBoard] = useState(initialBoard);
   const [isXNext, setIsXNext] = useState(true); // User is 'X'
   const [statusMessage, setStatusMessage] = useState(null);
@@ -115,105 +114,86 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#050505] text-[#F5F5F5] py-16 px-6 sm:px-12 lg:px-20 border-t border-white/10 select-none">
+    <footer className="w-full bg-[#050505] text-[#F5F5F5] py-20 px-6 sm:px-12 lg:px-20 border-t border-white/10 select-none">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-12 md:gap-8">
         
-        {/* Left Side: Logo, Bio, Socials, Visitor Counter */}
-        <div className="flex flex-col space-y-6 max-w-md">
+        {/* Left Column: Direct Inquiry, Email, Subtitle & Text Links with Arrows */}
+        <div className="flex flex-col space-y-6 max-w-xl">
           
-          {/* Top Line: Pink Overlapping Icon Box + Domain */}
-          <div className="flex items-center gap-2.5">
-            <div className="relative w-4 h-4 mr-0.5">
-              <div className="absolute inset-0 bg-[#f43f5e] rounded-[2.5px] -translate-x-[2px] -translate-y-[2px]" />
-              <div className="absolute inset-0 bg-[#f43f5e]/60 rounded-[2.5px] translate-x-[2px] translate-y-[2px]" />
-            </div>
+          {/* Direct Inquiry Block */}
+          <div className="flex flex-col space-y-1">
+            <span className="font-mono text-[11px] text-neutral-500 tracking-[0.2em] uppercase font-semibold">
+              DIRECT INQUIRY
+            </span>
             <a 
-              href="/" 
-              className="text-white font-medium text-base sm:text-lg font-sans tracking-tight hover:opacity-80 transition-opacity"
+              href="mailto:humanshu.araspure@gmail.com" 
+              className="font-mono text-xl sm:text-2xl font-bold text-white tracking-tight hover:text-neutral-300 transition-colors w-fit"
             >
-              humanshu.dev/
+              humanshu.araspure@gmail.com
             </a>
+            <p className="text-neutral-400 text-sm font-sans pt-1">
+              Design, coding and motion graphics by me.
+            </p>
           </div>
 
-          {/* Subtitle */}
-          <p className="text-neutral-400 text-sm font-sans leading-relaxed">
-            Design, coding and motion graphics by me.
-          </p>
-
-          {/* Social Icons Row */}
-          <div className="flex items-center gap-4 text-white/90">
-            {/* LinkedIn */}
+          {/* Social Links Row with Arrows (↗) */}
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8 font-mono text-xs text-neutral-300 tracking-widest font-medium uppercase pt-2">
             <a 
               href="https://linkedin.com/in/humanshu-araspure" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-6 h-6 border border-white/80 rounded flex items-center justify-center font-bold text-[10px] tracking-tighter hover:border-white hover:text-white transition-colors"
-              aria-label="LinkedIn"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
             >
-              in
+              <span>LINKEDIN</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
             </a>
 
-            {/* Medium */}
             <a 
               href="https://www.behance.net/humansharaspur" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="font-serif font-bold text-base hover:text-white transition-colors px-0.5"
-              aria-label="Medium / Portfolio"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
             >
-              M
+              <span>BEHANCE</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
             </a>
 
-            {/* X */}
-            <a 
-              href="https://github.com/araspureh-glitch" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-              aria-label="X / Twitter"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-
-            {/* Instagram */}
             <a 
               href="https://instagram.com/humanshu.araspure" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-              aria-label="Instagram"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
             >
-              <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
+              <span>INSTAGRAM</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
             </a>
-          </div>
 
-          {/* Visitor Counter */}
-          <div className="pt-2 text-neutral-400 text-sm font-sans">
-            You were visitor number <span className="font-bold text-white tracking-wide">557,822</span>
+            <a 
+              href="https://github.com/araspureh-glitch" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 group"
+            >
+              <span>GITHUB</span>
+              <span className="text-neutral-500 group-hover:text-white transition-colors">↗</span>
+            </a>
           </div>
 
         </div>
 
-        {/* Right Side: Interactive Tic-Tac-Toe Game */}
-        <div className="flex flex-col items-start md:items-end">
+        {/* Right Column: Tic-Tac-Toe Game */}
+        <div className="flex flex-col items-start md:items-start pt-2">
           
-          {/* Headline */}
-          <div className="text-neutral-300 text-sm sm:text-base font-sans mb-4 font-normal tracking-wide">
+          {/* Header */}
+          <div className="font-sans text-sm text-neutral-300 tracking-wide font-normal mb-5">
             By the way, can you beat me? :)
           </div>
 
-          {/* Tic Tac Toe Grid */}
+          {/* Tic-Tac-Toe Grid */}
           <div className="relative flex flex-col items-center">
             
-            <div className="grid grid-cols-3 w-[150px] sm:w-[170px] h-[150px] sm:h-[170px]">
+            <div className="grid grid-cols-3 w-[160px] sm:w-[180px] h-[160px] sm:h-[180px]">
               {board.map((cell, index) => {
-                // Wireframe border layout matching screenshot (no outer borders, internal grid lines only)
                 const isRightCol = index % 3 === 2;
                 const isBottomRow = index >= 6;
 
@@ -222,10 +202,10 @@ export default function Footer() {
                     key={index}
                     onClick={() => handleCellClick(index)}
                     disabled={cell !== null || winner !== null}
-                    className={`flex items-center justify-center font-sans text-xl sm:text-2xl font-light text-white transition-colors ${
-                      !isRightCol ? "border-r border-neutral-700/60" : ""
-                    } ${!isBottomRow ? "border-b border-neutral-700/60" : ""} ${
-                      cell === null && !winner ? "hover:bg-white/[0.04]" : ""
+                    className={`flex items-center justify-center font-mono text-2xl sm:text-3xl font-light text-white transition-colors ${
+                      !isRightCol ? "border-r border-neutral-800" : ""
+                    } ${!isBottomRow ? "border-b border-neutral-800" : ""} ${
+                      cell === null && !winner ? "hover:bg-white/[0.03]" : ""
                     }`}
                     aria-label={`Cell ${index}`}
                   >
@@ -237,7 +217,7 @@ export default function Footer() {
 
             {/* Game Status & Reset Button */}
             {statusMessage && (
-              <div className="mt-3 flex items-center gap-3 text-xs font-mono text-neutral-300">
+              <div className="mt-4 flex items-center gap-3 text-xs font-mono text-neutral-300">
                 <span>{statusMessage}</span>
                 <button
                   onClick={resetGame}
@@ -265,5 +245,6 @@ export default function Footer() {
     </footer>
   );
 }
+
 
 
