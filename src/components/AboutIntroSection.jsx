@@ -261,32 +261,28 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle }) {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden pb-10 px-2 sm:pl-16 md:pl-20"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-              <div className="lg:col-span-5 space-y-3.5">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+              <div className="lg:col-span-5 space-y-2">
                 <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
                   APPROACH & IMPACT
                 </span>
-                <p className="text-sm sm:text-base font-sans text-neutral-300 font-light leading-relaxed">
+                <p className="text-sm sm:text-base font-sans text-neutral-200 font-light leading-relaxed">
                   {item.desc}
                 </p>
               </div>
 
-              <div className="lg:col-span-7 space-y-3.5">
-                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
-                  CAPABILITIES & DELIVERABLES
-                </span>
-                
-                {/* Skills & Tools Section Style Typography Pills */}
-                <div className="flex flex-wrap gap-3 pt-1">
+              <div className="lg:col-span-7 flex items-center">
+                {/* High Contrast Compact Buttons */}
+                <div className="flex flex-wrap gap-2 sm:gap-2.5">
                   {item.tags.map((tag, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.06, duration: 0.3 }}
-                      className="group relative px-5 py-2.5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white hover:border-white hover:shadow-[0_0_25px_rgba(255,255,255,0.45)] hover:-translate-y-1 transition-all duration-300 cursor-pointer select-none"
+                      transition={{ delay: idx * 0.05, duration: 0.25 }}
+                      className="group relative px-3.5 py-1.5 rounded-full border border-white/25 bg-white/10 hover:bg-white hover:border-white hover:shadow-[0_0_18px_rgba(255,255,255,0.4)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none"
                     >
-                      <span className="font-sans text-sm sm:text-base font-light text-white group-hover:text-black transition-colors duration-300">
+                      <span className="font-sans text-xs sm:text-sm font-medium text-white group-hover:text-black transition-colors duration-200">
                         {tag}
                       </span>
                     </motion.div>
