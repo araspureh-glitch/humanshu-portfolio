@@ -80,6 +80,16 @@ export function LiquidMetalButton({
             undefined,
             0.6,
           );
+
+          // Force canvas element inside container to fill 100% width & height
+          const canvas = shaderRef.current?.querySelector("canvas");
+          if (canvas) {
+            canvas.style.width = "100%";
+            canvas.style.height = "100%";
+            canvas.style.position = "absolute";
+            canvas.style.inset = "0";
+            canvas.style.borderRadius = "100px";
+          }
         }
       } catch (error) {
         console.error("[v0] Failed to load shader:", error);
