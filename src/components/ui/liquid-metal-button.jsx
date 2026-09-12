@@ -314,25 +314,7 @@ export function LiquidMetalButton({
               borderRadius: "100px",
             }}
             aria-label={label}
-          >
-            {ripples.map((ripple) => (
-              <span
-                key={ripple.id}
-                style={{
-                  position: "absolute",
-                  left: `${ripple.x}px`,
-                  top: `${ripple.y}px`,
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  background:
-                    "radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%)",
-                  pointerEvents: "none",
-                  animation: "ripple-animation 0.6s ease-out",
-                }}
-              />
-            ))}
-          </button>
+          />
         </div>
       </div>
     </div>
