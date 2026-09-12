@@ -190,28 +190,28 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="border-b border-white/10 group transition-colors duration-300 py-8 sm:py-10 cursor-pointer"
+      className="border-b border-white/10 group transition-colors duration-300 py-6 sm:py-8 cursor-pointer"
       onMouseEnter={onHover}
       onClick={onToggle}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-4 md:gap-8">
         {/* Left Column: Number & Sub-label (Exact layout matching reference screenshot) */}
-        <div className="md:col-span-3 sm:col-span-4 space-y-0.5">
-          <span className="block font-sans text-xs sm:text-sm font-light text-neutral-400 tracking-tight">
+        <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
+          <span className="block font-sans text-xs font-light text-neutral-400 tracking-tight">
             {item.num}
           </span>
-          <span className="block font-sans text-xs sm:text-sm font-normal text-neutral-300 group-hover:text-white transition-colors">
+          <span className="block font-sans text-xs font-normal text-neutral-300 group-hover:text-white transition-colors">
             {item.sublabel}
           </span>
         </div>
 
-        {/* Right Column: Large Clean Statement Headline & Accordion Detail */}
-        <div className="md:col-span-9 sm:col-span-8 space-y-3">
+        {/* Right Column: Clean Statement Headline & Accordion Detail */}
+        <div className="md:col-span-9 sm:col-span-8 space-y-2">
           <h3 
-            className={`text-2xl sm:text-4xl lg:text-5xl font-sans tracking-tight leading-[1.12] transition-all duration-300 ${
+            className={`text-xl sm:text-2xl lg:text-3xl font-sans tracking-tight leading-snug transition-all duration-300 ${
               isOpen 
                 ? 'text-white font-normal' 
-                : 'text-neutral-400/90 font-light group-hover:text-white'
+                : 'text-neutral-400/80 font-light group-hover:text-white'
             }`}
           >
             {item.title}
@@ -224,9 +224,9 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden pt-2"
+                className="overflow-hidden pt-1"
               >
-                <p className="text-base sm:text-lg font-sans text-neutral-300 font-light leading-relaxed max-w-3xl">
+                <p className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl">
                   {item.desc}
                 </p>
               </motion.div>
