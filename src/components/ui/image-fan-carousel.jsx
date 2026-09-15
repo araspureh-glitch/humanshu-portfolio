@@ -167,7 +167,7 @@ export const Carousel360 = () => {
                 duration: CROSSFADE_DURATION_S,
                 ease: CROSSFADE_EASE,
               }}
-              className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-[#262626] bg-neutral-950 pointer-events-auto group"
+              className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-white/30 bg-neutral-950 pointer-events-auto group"
             >
               {!centerLoaded && <ImageLoader />}
               <img
@@ -182,7 +182,7 @@ export const Carousel360 = () => {
 
               {/* Bottom Vignette & Title Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-left">
-                <span className="font-mono text-[10px] text-[#EA5211] font-semibold tracking-[0.18em] uppercase mb-1">
+                <span className="font-sans text-[10px] text-emerald-400 font-semibold tracking-[0.18em] uppercase mb-1">
                   {activeItem.tag}
                 </span>
                 <h3 className="text-base sm:text-xl font-light text-white font-sans tracking-tight">
@@ -199,10 +199,10 @@ export const Carousel360 = () => {
           aria-label="Previous image"
           onClick={() => rotateCarousel("left")}
           className={`absolute left-0 sm:-left-6 top-1/2 -translate-y-1/2 z-30 group relative flex items-center justify-center ${BUTTON_SIZE_CLASSES} rounded-full overflow-hidden
-                     shadow-lg shadow-black/40 opacity-80 hover:opacity-100
-                     transition-all duration-200 active:scale-90 cursor-pointer border border-[#262626] hover:border-neutral-500`}
+                     shadow-lg shadow-black/40 opacity-70 hover:opacity-100
+                     transition-all duration-200 active:scale-90 cursor-pointer border border-white/10 hover:border-white/30`}
         >
-          <span className="absolute inset-0 rounded-full bg-[#141416] backdrop-blur-md transition-all duration-200 group-hover:bg-[#1a1a1c]" />
+          <span className="absolute inset-0 rounded-full bg-white/[0.04] backdrop-blur-md transition-all duration-200 group-hover:bg-white/15" />
           <FaArrowLeft className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-white transition-colors duration-200" />
         </button>
 
@@ -211,17 +211,17 @@ export const Carousel360 = () => {
           aria-label="Next image"
           onClick={() => rotateCarousel("right")}
           className={`absolute right-0 sm:-right-6 top-1/2 -translate-y-1/2 z-30 group relative flex items-center justify-center ${BUTTON_SIZE_CLASSES} rounded-full overflow-hidden
-                     shadow-lg shadow-black/40 opacity-80 hover:opacity-100
-                     transition-all duration-200 active:scale-90 cursor-pointer border border-[#262626] hover:border-neutral-500`}
+                     shadow-lg shadow-black/40 opacity-70 hover:opacity-100
+                     transition-all duration-200 active:scale-90 cursor-pointer border border-white/10 hover:border-white/30`}
         >
-          <span className="absolute inset-0 rounded-full bg-[#141416] backdrop-blur-md transition-all duration-200 group-hover:bg-[#1a1a1c]" />
+          <span className="absolute inset-0 rounded-full bg-white/[0.04] backdrop-blur-md transition-all duration-200 group-hover:bg-white/15" />
           <FaArrowRight className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-white transition-colors duration-200" />
         </button>
       </div>
 
       {/* Centered Index Counter */}
       <div className="mt-6 z-30">
-        <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-[#262626] bg-[#141416]">
+        <span className="font-sans font-medium text-[11px] text-neutral-500 uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.02]">
           {centerIndex + 1} / {numImages}
         </span>
       </div>
