@@ -1,6 +1,137 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus } from 'lucide-react'
+
+function PixelPerfectHeroHeader() {
+  const containerRef = useRef(null)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current || window.innerWidth < 768) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+    // Maximum movement 6px on desktop only as requested
+    setMousePos({ x: x * 12, y: y * 12 })
+  }
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, y: 0 })
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full min-h-[60vh] sm:min-h-[75vh] flex flex-col justify-center items-center p-4 sm:p-8 lg:p-12 rounded-3xl overflow-hidden bg-[#0a0a0c] select-none border border-white/10"
+    >
+      {/* Full-width Warm-Toned Background Photograph */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.38, x: mousePos.x * 0.5, y: mousePos.y * 0.5 }}
+        transition={{
+          opacity: { duration: 1, ease: 'easeOut' },
+          x: { duration: 0.3, ease: 'easeOut' },
+          y: { duration: 0.3, ease: 'easeOut' }
+        }}
+        className="absolute inset-0 bg-cover bg-center filter brightness-95 contrast-105 pointer-events-none scale-105"
+        style={{ backgroundImage: `url('/hero.jpg')` }}
+      />
+
+      {/* Dark Subtle Vignette Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/40 to-black/60 pointer-events-none" />
+
+      {/* Exact Hero Composition: Humanshu [Central Card] Araspure */}
+      <div className="relative z-10 w-full flex flex-col items-center justify-center my-auto py-8">
+        
+        <div className="w-full flex flex-row items-center justify-center whitespace-nowrap leading-none tracking-tighter font-sans font-bold text-[#FFBC95] text-3xl sm:text-5xl md:text-7xl lg:text-[7.5rem] xl:text-[9rem] gap-2 sm:gap-4 md:gap-6 py-2">
+          
+          {/* First Name Masked Reveal: "Humanshu" */}
+          <div className="overflow-hidden py-1">
+            <motion.span
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-block"
+            >
+              Humanshu
+            </motion.span>
+          </div>
+
+          {/* Central Dark Card with Artwork & Subtle Float */}
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="shrink-0 my-auto"
+          >
+            {/* Subtle Vertical Float after Load */}
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative w-28 sm:w-48 md:w-64 lg:w-80 h-14 sm:h-24 md:h-32 lg:h-40 rounded-xl sm:rounded-2xl md:rounded-3xl border border-white/20 bg-[#121214] shadow-2xl overflow-hidden flex items-center justify-center p-2.5 sm:p-3"
+            >
+              {/* Card Artwork Matching Reference Screenshot */}
+              <div className="w-full h-full rounded-lg sm:rounded-xl bg-[#09090b] border border-white/10 p-2 sm:p-3 flex flex-col justify-between relative overflow-hidden text-left">
+                <div className="flex justify-between items-start">
+                  <div className="space-y-0.5">
+                    <p className="text-[6px] sm:text-[8px] font-mono text-emerald-400 tracking-widest uppercase">PREPARE YOURSELF ///</p>
+                    <p className="text-[5px] sm:text-[7px] font-mono text-neutral-400 leading-tight">
+                      &gt; REMEMBER<br />
+                      &gt; TRUST YOUR INSTINCTS<br />
+                      &gt; OBEY YOUR INSTINCTS
+                    </p>
+                  </div>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                </div>
+
+                {/* Central Cyan/Green Symbol */}
+                <div className="my-auto text-center flex flex-col items-center justify-center">
+                  <svg className="w-5 h-5 sm:w-8 sm:h-8 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.8L18 8v8l-6 3.75L6 16V8l6-3.2z" />
+                  </svg>
+                  <span className="text-[7px] sm:text-[9px] font-mono text-emerald-400 font-bold tracking-widest mt-0.5">TopTrader</span>
+                </div>
+
+                <div className="flex justify-end">
+                  <span className="text-[5px] sm:text-[7px] font-mono text-neutral-500 text-right leading-tight">
+                    DO YOU HAVE WHAT IT TAKES<br />TO BE THE TOP TRADER?
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Last Name Masked Reveal: "Araspure" */}
+          <div className="overflow-hidden py-1">
+            <motion.span
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-block"
+            >
+              Araspure
+            </motion.span>
+          </div>
+
+        </div>
+
+        {/* Subtitle Fade In */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+          className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-sans text-neutral-300 font-light"
+        >
+          <span>Humanshu Araspure</span>
+          <span className="text-[#FFBC95] font-mono">•</span>
+          <span>Design Director & UI/UX Specialist</span>
+        </motion.div>
+
+      </div>
+    </div>
+  )
+}
 
 const previewData = {
   architect: {
@@ -290,37 +421,18 @@ export default function AboutIntroSection() {
   ]
 
   return (
-    <section className="w-full bg-[#050505] text-[#F5F5F5] py-16 sm:py-24 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-[#F5F5F5] py-12 sm:py-20 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
 
       {/* Subtle Background Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto space-y-12 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-14 relative z-10">
 
-        {/* Editorial Minimal Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
-        >
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.2em] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-              <span>01 / ABOUT ME</span>
-            </div>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight font-sans">
-              Humanshu Araspure
-            </h1>
-          </div>
-          <p className="font-sans text-xs text-neutral-400 uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right">
-            Crafting minimal, high-impact digital experiences
-          </p>
-        </motion.div>
+        {/* Pixel-Perfect Hero Section matching reference screenshot with Humanshu Araspure name */}
+        <PixelPerfectHeroHeader />
 
         {/* Interactive Bio with Hover Image Preview Popups */}
-        <div>
+        <div className="pt-4 border-t border-white/10">
           <InteractiveBio />
         </div>
 
@@ -360,3 +472,4 @@ export default function AboutIntroSection() {
     </section>
   )
 }
+
