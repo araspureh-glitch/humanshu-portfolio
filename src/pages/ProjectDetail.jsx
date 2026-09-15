@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { projects } from '../data/projectsData'
 import CustomCursor from '../components/CustomCursor'
 import Navigation from '../components/Navigation'
-import BackgroundAudio from '../components/BackgroundAudio'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 
@@ -23,7 +22,6 @@ export default function ProjectDetail() {
     <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen pt-24">
       <CustomCursor />
       <Navigation />
-      <BackgroundAudio videoId="16jA-6hiSUo" />
 
       <main className="max-w-6xl mx-auto px-6 sm:px-12 py-12 space-y-16">
         {/* Back Link & Header */}
