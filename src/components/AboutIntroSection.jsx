@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Sparkles, ArrowUpRight, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 
 // Work project images array for the Juan Mora style inline banner pill
@@ -39,18 +39,70 @@ const workPortfolioImages = [
 ]
 
 function JuanMoraNameBanner() {
+  const bannerRef = useRef(null)
   const [activeImgIdx, setActiveImgIdx] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
 
-  // Auto-cycle through work images every 2.8 seconds when not paused by lightbox
+  // Spring physics for smooth 3D tilt tracking mouse
+  const rotateXSpring = useSpring(0, { stiffness: 150, damping: 20 })
+  const rotateYSpring = useSpring(0, { stiffness: 150, damping: 20 })
+  const scaleSpring = useSpring(1, { stiffness: 200, damping: 20 })
+
+  // Scroll driven parallax scale & opacity
+  const { scrollYProgress } = useScroll({
+    target: bannerRef,
+    offset: ['start end', 'end start']
+  })
+
+  const bannerScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95])
+  const glowOpacity = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.3, 0.8, 0.3])
+
+  // Mouse Move Handler: 3D Tilt + Cursor Position Image Scrubbing (like Juan Mora site)
+  const handleMouseMove = useCallback((e) => {
+    if (!bannerRef.current) return
+    const rect = bannerRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
+    // Calculate cursor percentage (0 to 1) across the banner width
+    const percentX = Math.max(0, Math.min(1, x / rect.width))
+    
+    // Dynamically scrub through work images based on mouse X position
+    const imageCount = workPortfolioImages.length
+    const nextIdx = Math.min(imageCount - 1, Math.floor(percentX * imageCount))
+    setActiveImgIdx(nextIdx)
+
+    // Calculate 3D tilt angles
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    const rY = ((x - centerX) / centerX) * 14 // rotate Y up to 14 deg
+    const rX = -((y - centerY) / centerY) * 14 // rotate X up to -14 deg
+
+    rotateXSpring.set(rX)
+    rotateYSpring.set(rY)
+    scaleSpring.set(1.04)
+  }, [rotateXSpring, rotateYSpring, scaleSpring])
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    rotateXSpring.set(0)
+    rotateYSpring.set(0)
+    scaleSpring.set(1)
+  }
+
+  // Auto-cycle fallback when not hovering/lightbox
   useEffect(() => {
-    if (isLightboxOpen) return
+    if (isHovered || isLightboxOpen) return
     const timer = setInterval(() => {
       setActiveImgIdx((prev) => (prev + 1) % workPortfolioImages.length)
     }, 2800)
     return () => clearInterval(timer)
-  }, [isLightboxOpen])
+  }, [isHovered, isLightboxOpen])
 
   const nextImage = (e) => {
     e?.stopPropagation()
@@ -65,32 +117,55 @@ function JuanMoraNameBanner() {
   const currentWork = workPortfolioImages[activeImgIdx]
 
   return (
-    <div className="relative w-full py-8 sm:py-12 select-none">
+    <motion.div
+      ref={bannerRef}
+      style={{ scale: bannerScale }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full py-8 sm:py-14 select-none perspective-[1000px]"
+    >
       {/* Background Soft Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-48 bg-[#EA5211]/15 rounded-full blur-[140px] pointer-events-none" />
+      <motion.div 
+        style={{ opacity: glowOpacity }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-56 bg-[#EA5211]/20 rounded-full blur-[150px] pointer-events-none" 
+      />
 
       <div className="relative z-10 flex flex-col items-center justify-center text-center">
         {/* Top Eyebrow Tag */}
-        <div className="flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md"
+        >
           <span className="w-2 h-2 rounded-full bg-[#EA5211] animate-pulse" />
           <span className="font-mono text-xs text-neutral-300 uppercase tracking-widest">
             01 // DESIGN DIRECTOR & UI/UX ARCHITECT
           </span>
-        </div>
+        </motion.div>
 
-        {/* Juan Mora Style Giant Name Banner with Inline Interactive Work Image Pill */}
+        {/* Juan Mora Style Giant Name Banner with 3D Tilt & Cursor Image Scrubbing */}
         <div className="flex flex-wrap items-center justify-center leading-none tracking-tighter font-sans font-bold text-[#FFB396] text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] xl:text-[11rem] gap-y-2">
           {/* First Name Half */}
-          <span className="inline-block transition-transform duration-300 hover:scale-[1.01]">
+          <motion.span 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-block transition-transform duration-300 hover:scale-[1.01]"
+          >
             Human
-          </span>
+          </motion.span>
 
-          {/* Inline Interactive Work Image Pill Container */}
-          <div
+          {/* Inline Interactive Work Image Pill Container with 3D Tilt Physics */}
+          <motion.div
+            style={{
+              rotateX: rotateXSpring,
+              rotateY: rotateYSpring,
+              scale: scaleSpring,
+            }}
             onClick={() => setIsLightboxOpen(true)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="group/pill relative inline-flex items-center justify-center align-middle mx-2 sm:mx-4 md:mx-6 my-auto w-32 sm:w-52 md:w-72 lg:w-96 h-16 sm:h-24 md:h-32 lg:h-40 rounded-2xl sm:rounded-3xl border-2 border-white/20 hover:border-[#EA5211] bg-black/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)] overflow-hidden cursor-pointer transition-all duration-500 transform hover:scale-105"
+            className="group/pill relative inline-flex items-center justify-center align-middle mx-2 sm:mx-4 md:mx-6 my-auto w-32 sm:w-52 md:w-72 lg:w-96 h-16 sm:h-24 md:h-32 lg:h-40 rounded-2xl sm:rounded-3xl border-2 border-white/20 hover:border-[#EA5211] bg-black/80 shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden cursor-pointer transition-colors duration-300 will-change-transform"
           >
             {/* Animated Work Image Slide */}
             <AnimatePresence mode="wait">
@@ -101,17 +176,20 @@ function JuanMoraNameBanner() {
                 initial={{ opacity: 0, scale: 1.15 }}
                 animate={{ opacity: 1, scale: isHovered ? 1.1 : 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </AnimatePresence>
+
+            {/* Glowing Active Border Beam Line */}
+            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-white/10 group-hover/pill:border-[#EA5211]/60 transition-colors pointer-events-none" />
 
             {/* Gradient Dark Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
             {/* Floating Project Label inside the Pill */}
-            <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between z-10">
-              <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-black/70 backdrop-blur-md text-[9px] sm:text-[11px] font-mono text-white border border-white/20 truncate max-w-[80%] flex items-center gap-1.5">
+            <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between z-10 pointer-events-none">
+              <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-black/75 backdrop-blur-md text-[9px] sm:text-[11px] font-mono text-white border border-white/20 truncate max-w-[80%] flex items-center gap-1.5 shadow-lg">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
                 {currentWork.title}
               </span>
@@ -121,41 +199,52 @@ function JuanMoraNameBanner() {
               </span>
             </div>
 
-            {/* Manual Image Controls on Hover */}
+            {/* Manual Controls on Hover */}
             {isHovered && (
               <div className="absolute inset-x-1 top-1/2 -translate-y-1/2 flex justify-between z-20 pointer-events-auto">
                 <button
                   onClick={prevImage}
-                  className="p-1 rounded-full bg-black/60 hover:bg-[#EA5211] text-white backdrop-blur-md border border-white/20 transition-all active:scale-95"
+                  className="p-1 rounded-full bg-black/70 hover:bg-[#EA5211] text-white backdrop-blur-md border border-white/20 transition-all active:scale-95"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="p-1 rounded-full bg-black/60 hover:bg-[#EA5211] text-white backdrop-blur-md border border-white/20 transition-all active:scale-95"
+                  className="p-1 rounded-full bg-black/70 hover:bg-[#EA5211] text-white backdrop-blur-md border border-white/20 transition-all active:scale-95"
                 >
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Second Name Half */}
-          <span className="inline-block transition-transform duration-300 hover:scale-[1.01]">
+          <motion.span 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-block transition-transform duration-300 hover:scale-[1.01]"
+          >
             shu
-          </span>
+          </motion.span>
         </div>
 
-        {/* Sub-Headline & Work Counter */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base font-sans text-neutral-300 font-light">
+        {/* Sub-Headline & Cursor Scrubber Hint */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+          className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base font-sans text-neutral-300 font-light"
+        >
           <span>Humanshu Araspure</span>
           <span className="text-[#EA5211] font-mono">•</span>
           <span>Web & Brand Design Specialist</span>
           <span className="text-[#EA5211] font-mono">•</span>
-          <span className="font-mono text-xs text-neutral-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
-            {workPortfolioImages.length} Featured Case Studies
+          <span className="font-mono text-xs text-neutral-400 bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Hover / Move cursor to scrub portfolio
           </span>
-        </div>
+        </motion.div>
       </div>
 
       {/* Lightbox Preview Modal for Work Images */}
@@ -231,7 +320,7 @@ function JuanMoraNameBanner() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   )
 }
 
