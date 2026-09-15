@@ -257,8 +257,8 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 group ${
                     isActive
-                      ? "bg-[#09090b]/90 border-[#262626]"
-                      : "bg-[#09090c]/80 border-[#262626]/50 opacity-90 hover:opacity-100 hover:border-[#262626]"
+                      ? "bg-[#09090b]/90 border-[#262626] border-l-4 border-l-[#262626]"
+                      : "bg-[#09090c]/80 border-[#262626]/60 opacity-90 hover:opacity-100"
                   }`}
                 >
                   {/* Header: Number, Date, Company & Role */}
@@ -271,7 +271,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-white/5 border border-[#262626] text-white/90 text-[11px] tracking-wider uppercase font-medium">
+                        <span className="px-3 py-1 rounded-full bg-white/5 border border-[#262626] text-white text-[11px] tracking-wider uppercase font-medium">
                           {item.type}
                         </span>
                       </div>
