@@ -1,12 +1,7 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Carousel360 } from './ui/image-fan-carousel'
 
 export default function FloatingHobbiesCloud() {
-  const [activeTab, setActiveTab] = useState('ALL')
-
-  const tabs = ['ALL', 'PETS', 'SPORTS', 'TRAVEL', 'FITNESS', 'DESIGN']
-
   return (
     <section 
       id="hobbies"
@@ -21,13 +16,13 @@ export default function FloatingHobbiesCloud() {
       </div>
 
       <div className="max-w-6xl mx-auto w-full relative z-10 space-y-12 flex flex-col items-center">
-        {/* Section Header Replicated From Skills & Tools */}
+        {/* Section Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full flex flex-col sm:flex-row sm:items-end justify-between pb-10 border-b border-white/10 gap-6"
+          className="w-full pb-10 border-b border-white/10"
         >
           <div>
             <div className="flex items-center gap-2.5 font-sans text-[11px] font-medium text-neutral-400 uppercase tracking-[0.2em]">
@@ -38,27 +33,10 @@ export default function FloatingHobbiesCloud() {
               Personal interests & hobbies
             </h2>
           </div>
-
-          {/* Interactive Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2 font-sans text-xs font-medium">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-full transition-all cursor-pointer uppercase tracking-wider ${
-                  activeTab === tab
-                    ? 'bg-white text-black font-semibold shadow-lg'
-                    : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:border-white/30'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
         </motion.div>
 
         {/* 3D 360 Fan Carousel Component */}
-        <Carousel360 activeTab={activeTab} />
+        <Carousel360 />
       </div>
     </section>
   )
