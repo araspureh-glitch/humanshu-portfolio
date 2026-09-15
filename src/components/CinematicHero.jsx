@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Music } from 'lucide-react'
+
 import MosaicHeroCanvas from './MosaicHeroCanvas'
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
@@ -171,15 +171,7 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
             </h1>
           </motion.div>
 
-          {/* Lower Right / Bottom Left: Music Toggle Button */}
-          <motion.div variants={itemVariants} className="lg:col-span-3 flex lg:justify-end items-center pointer-events-auto">
-            <LiquidMetalButton 
-              viewMode="icon" 
-              icon={Music} 
-              onClick={onAudioToggle}
-              label={isPlaying ? "Mute Background Music" : "Play Background Music"}
-            />
-          </motion.div>
+
 
         </div>
       </motion.div>
