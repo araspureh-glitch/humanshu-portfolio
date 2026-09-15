@@ -301,16 +301,16 @@ export default function Timeline_02({ data = defaultTimelineData }) {
 
                   {/* Action Bar: View More + Relevant Experience CTAs */}
                   <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-                    {/* View More / View Less Button */}
+                    {/* View Details Toggle Link */}
                     {item.highlights && item.highlights.length > 0 && (
                       <button
                         onClick={() => toggleExpand(index)}
-                        className="text-xs font-mono tracking-widest uppercase text-neutral-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full border border-white/15 hover:border-[#EA5211]/50 bg-white/[0.02] hover:bg-[#EA5211]/10 group"
+                        className="text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-[#EA5211] transition-colors duration-300 cursor-pointer py-1 group"
                         aria-expanded={isExpanded}
                       >
-                        <span>{isExpanded ? "View Less" : "View Details"}</span>
-                        <span className="transition-transform duration-200 group-hover:translate-y-0.5 text-[#EA5211]">
-                          {isExpanded ? "↑" : "↓"}
+                        <span className="relative">
+                          {isExpanded ? "View Less" : "View Details"}
+                          <span className="absolute -bottom-0.5 left-0 w-full h-[1px] bg-[#EA5211] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                         </span>
                       </button>
                     )}
