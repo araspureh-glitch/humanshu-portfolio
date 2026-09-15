@@ -34,7 +34,7 @@ export default function Navigation({ introComplete = true, activeSection: active
           : 'bg-gradient-to-b from-[#050505]/95 via-[#050505]/60 to-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-xs font-mono tracking-widest uppercase">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between font-mono uppercase">
         
         {/* Left: Minimal Editorial Brand Logo */}
         <Link 
@@ -42,13 +42,13 @@ export default function Navigation({ introComplete = true, activeSection: active
           onClick={() => setMobileMenuOpen(false)}
           className="group flex items-center gap-2 text-sm tracking-tight text-white hover:opacity-80 transition-opacity"
         >
-          <span className="font-sans font-semibold tracking-wider text-white text-sm uppercase">
-            HUMANSHU <span className="text-neutral-400 font-mono text-[10px] lowercase tracking-normal">°26</span>
+          <span className="font-sans font-semibold tracking-wider text-white text-sm sm:text-base uppercase">
+            HUMANSHU <span className="text-neutral-400 font-mono text-[11px] lowercase tracking-normal">°26</span>
           </span>
         </Link>
 
-        {/* Center Desktop Nav with High Contrast Visible Links */}
-        <nav className="hidden md:flex items-center gap-8 text-xs text-neutral-200">
+        {/* Center Desktop Nav with Optimized Minimal Font Size */}
+        <nav className="hidden md:flex items-center gap-8 text-[13px] text-neutral-200">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path
 
@@ -56,7 +56,7 @@ export default function Navigation({ introComplete = true, activeSection: active
               <Link
                 key={item.name}
                 to={item.path}
-                className={`relative flex items-center gap-2 transition-all duration-200 py-1 cursor-pointer font-mono tracking-widest uppercase ${
+                className={`relative flex items-center gap-2 transition-all duration-200 py-1 cursor-pointer font-mono text-[13px] tracking-[0.14em] uppercase ${
                   isActive 
                     ? 'text-white font-bold text-shadow-[0_0_10px_rgba(255,255,255,0.8)]' 
                     : 'text-neutral-200 font-medium hover:text-white hover:text-shadow-[0_0_8px_rgba(255,255,255,0.6)]'
@@ -79,7 +79,7 @@ export default function Navigation({ introComplete = true, activeSection: active
         <div className="flex items-center gap-3">
           <Link 
             to="/contact"
-            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-[11px] font-mono tracking-widest uppercase cursor-pointer shadow-sm"
+            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-xs font-mono tracking-widest uppercase cursor-pointer shadow-sm"
           >
             <span>Let's talk</span>
             <span className="text-xs">↗</span>
@@ -88,7 +88,7 @@ export default function Navigation({ introComplete = true, activeSection: active
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden px-3.5 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-white font-mono text-[11px] uppercase tracking-wider flex items-center gap-1.5"
+            className="md:hidden px-3.5 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-white font-mono text-xs uppercase tracking-wider flex items-center gap-1.5"
           >
             <span>{mobileMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}</span>
           </button>
@@ -99,7 +99,7 @@ export default function Navigation({ introComplete = true, activeSection: active
       {/* Mobile Auto-Layout Dropdown Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#070709]/98 border-b border-white/15 backdrop-blur-2xl px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
-          <div className="flex flex-col space-y-3 font-mono text-xs text-neutral-100">
+          <div className="flex flex-col space-y-3 font-mono text-sm text-neutral-100">
             {navItems.map((item) => (
               <Link
                 key={item.name}

@@ -27,7 +27,7 @@ export default function Nav() {
             to={item.path}
             end={item.path === '/'}
             className={({ isActive }) =>
-              `px-2.5 sm:px-3 py-1 rounded-md text-[11px] font-mono tracking-widest uppercase transition-all duration-200 ${
+              `px-2.5 sm:px-3 py-1 rounded-md text-xs sm:text-[13px] font-mono tracking-[0.14em] uppercase transition-all duration-200 ${
                 isActive
                   ? 'bg-white text-black font-bold border border-white shadow-md'
                   : 'text-neutral-200 font-medium hover:text-white hover:bg-white/10'
