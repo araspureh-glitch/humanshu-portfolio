@@ -80,7 +80,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
   const [expandedItems, setExpandedItems] = useState({});
   const itemRefs = useRef([]);
 
-  // IntersectionObserver to set active step based on scroll position
+  // Scroll tracking to highlight current active step
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 3;
@@ -96,7 +96,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [data]);
@@ -122,13 +122,13 @@ export default function Timeline_02({ data = defaultTimelineData }) {
     <div className="relative w-full text-[#F5F5F5] font-sans">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
         
-        {/* LEFT COLUMN: Sticky Vertical Timeline (Brilean-inspired) */}
+        {/* LEFT COLUMN: Minimal Editorial Sticky Timeline */}
         <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-8 z-20">
           
           {/* Label & Title */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#CCFF00] uppercase tracking-[0.2em] font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
+            <div className="flex items-center gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
               <span>MY JOURNEY</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white font-sans">
@@ -139,16 +139,16 @@ export default function Timeline_02({ data = defaultTimelineData }) {
             </p>
           </div>
 
-          {/* Interactive Step Timeline Indicator */}
+          {/* Minimal Timeline Steps */}
           <div className="relative pl-6 py-2 border-l border-white/10 space-y-6">
             
-            {/* Active Yellow-Lime Dot on Timeline */}
+            {/* Active Orange Accent Bar/Dot */}
             <motion.div
-              className="absolute left-[-5px] w-2.5 h-2.5 rounded-full bg-[#CCFF00] shadow-[0_0_12px_rgba(204,255,0,0.8)]"
+              className="absolute left-[-4px] w-2 h-2 rounded-full bg-[#EA5211] shadow-[0_0_10px_rgba(234,82,17,0.8)]"
               animate={{
-                top: `${activeStep * 56 + 12}px`
+                top: `${activeStep * 54 + 14}px`
               }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             />
 
             {data.map((item, idx) => {
@@ -164,7 +164,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                 >
                   <span
                     className={`font-mono text-xs transition-colors duration-300 ${
-                      isActive ? "text-[#CCFF00] font-bold" : "text-neutral-500 group-hover:text-white"
+                      isActive ? "text-[#EA5211] font-bold" : "text-neutral-500 group-hover:text-white"
                     }`}
                   >
                     {item.id}
@@ -182,8 +182,8 @@ export default function Timeline_02({ data = defaultTimelineData }) {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Experience Details Cards */}
-        <div className="lg:col-span-8 space-y-16 sm:space-y-24">
+        {/* RIGHT COLUMN: Premium Editorial Cards */}
+        <div className="lg:col-span-8 space-y-12 sm:space-y-16">
           {data.map((item, index) => {
             const isActive = activeStep === index;
             const isExpanded = !!expandedItems[index];
@@ -192,52 +192,44 @@ export default function Timeline_02({ data = defaultTimelineData }) {
               <div
                 key={item.id}
                 ref={(el) => (itemRefs.current[index] = el)}
-                className="scroll-mt-32 pt-6 first:pt-0"
+                className="scroll-mt-32"
               >
                 <motion.div
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className={`p-6 sm:p-8 rounded-2xl border transition-all duration-500 space-y-6 ${
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 ${
                     isActive
-                      ? "bg-[#0c0c0e] border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                      : "bg-[#08080a]/60 border-white/5 opacity-70 hover:opacity-90"
+                      ? "bg-[#09090b]/90 border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                      : "bg-[#070709]/50 border-white/5 opacity-70 hover:opacity-90"
                   }`}
                 >
-                  {/* Card Header: Meta + Company */}
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-5">
-                    <div>
-                      <div className="flex items-center gap-3 font-mono text-xs text-[#CCFF00]">
-                        <span className="font-bold">{item.id}</span>
-                        <span className="text-neutral-500">•</span>
-                        <span className="text-neutral-400 tracking-widest uppercase">{item.date}</span>
+                  {/* Header: Number, Date, Company & Role */}
+                  <div className="border-b border-white/10 pb-6 space-y-2">
+                    <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#EA5211] font-bold">{item.id}</span>
+                        <span className="text-neutral-600">•</span>
+                        <span className="text-neutral-400 tracking-wider uppercase">{item.date}</span>
                       </div>
-                      <h3
-                        className={`text-2xl sm:text-4xl font-light tracking-tight mt-2 font-sans transition-colors duration-300 ${
-                          isActive ? "text-white" : "text-neutral-300"
-                        }`}
-                      >
-                        {item.company}
-                      </h3>
-                    </div>
-
-                    <div className="sm:text-right font-mono text-xs text-neutral-400 space-y-1">
-                      <span className="inline-block px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[#FFBC95]">
+                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] tracking-wider uppercase">
                         {item.type}
                       </span>
                     </div>
-                  </div>
 
-                  {/* Role & Description */}
-                  <div className="space-y-3">
-                    <h4 className="text-lg sm:text-xl font-medium text-white font-sans tracking-tight">
+                    <h3 className="text-2xl sm:text-4xl font-light tracking-tight text-white font-sans pt-2">
+                      {item.company}
+                    </h3>
+                    <p className="text-base sm:text-lg font-normal text-[#EA5211] tracking-tight font-sans">
                       {item.role || item.title}
-                    </h4>
-                    <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
-                      {item.summary || item.description}
                     </p>
                   </div>
+
+                  {/* Description */}
+                  <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
+                    {item.summary || item.description}
+                  </p>
 
                   {/* Expandable Responsibilities */}
                   <AnimatePresence initial={false}>
@@ -249,7 +241,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                           height: "auto",
                           opacity: 1,
                           transition: {
-                            height: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                            height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
                             opacity: { duration: 0.25, delay: 0.05 }
                           }
                         }}
@@ -257,20 +249,20 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                           height: 0,
                           opacity: 0,
                           transition: {
-                            height: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+                            height: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
                             opacity: { duration: 0.15 }
                           }
                         }}
                         className="overflow-hidden pt-2 border-t border-white/10"
                       >
                         <div className="space-y-3 py-2">
-                          <h5 className="text-xs font-mono uppercase tracking-widest text-[#CCFF00] font-medium">
+                          <h5 className="text-xs font-mono uppercase tracking-widest text-[#EA5211] font-medium">
                             Key Responsibilities & Impact:
                           </h5>
                           <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300 font-light">
                             {item.highlights.map((bullet, bIdx) => (
                               <li key={bIdx} className="flex items-start gap-3">
-                                <span className="text-[#CCFF00] font-mono mt-0.5">•</span>
+                                <span className="text-[#EA5211] font-mono mt-0.5">•</span>
                                 <span className="leading-relaxed">{bullet}</span>
                               </li>
                             ))}
@@ -285,11 +277,11 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                     <div className="pt-2 flex justify-start">
                       <button
                         onClick={() => toggleExpand(index)}
-                        className="text-xs font-mono tracking-wider text-neutral-300 hover:text-[#CCFF00] transition-colors cursor-pointer flex items-center gap-2 group py-1.5 px-3 rounded-lg border border-white/10 hover:border-[#CCFF00]/40 bg-white/[0.02]"
+                        className="text-xs font-mono tracking-widest uppercase text-neutral-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full border border-white/15 hover:border-[#EA5211]/50 bg-white/[0.02] hover:bg-[#EA5211]/10 group"
                         aria-expanded={isExpanded}
                       >
                         <span>{isExpanded ? "View Less" : "View More"}</span>
-                        <span className="transition-transform duration-200 group-hover:translate-y-0.5">
+                        <span className="transition-transform duration-200 group-hover:translate-y-0.5 text-[#EA5211]">
                           {isExpanded ? "↑" : "↓"}
                         </span>
                       </button>
