@@ -1,6 +1,239 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus } from 'lucide-react'
+import { Sparkles, ArrowUpRight, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
+
+// Work project images array for the Juan Mora style inline banner pill
+const workPortfolioImages = [
+  {
+    id: 'flex-step',
+    src: '/flexstep-cover.png',
+    title: 'Flex Step E-Commerce',
+    category: 'Spatial Footwear UI/UX',
+    year: '2026',
+    accent: '#EA5211'
+  },
+  {
+    id: 'ecogrid',
+    src: '/ecogrid-cover.png',
+    title: 'EcoGrid SaaS Dashboard',
+    category: 'Smart City Data Vis',
+    year: '2025',
+    accent: '#38bdf8'
+  },
+  {
+    id: 'beheal',
+    src: '/beheal-cover.jpg',
+    title: 'BeHeal Health App',
+    category: 'Biometric Mobile UI',
+    year: '2025',
+    accent: '#10b981'
+  },
+  {
+    id: 'architect',
+    src: '/hero.jpg',
+    title: 'Humanshu Araspure',
+    category: 'UI/UX Architect & Product Designer',
+    year: '2026',
+    accent: '#EA5211'
+  }
+]
+
+function JuanMoraNameBanner() {
+  const [activeImgIdx, setActiveImgIdx] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+
+  // Auto-cycle through work images every 2.8 seconds when not paused by lightbox
+  useEffect(() => {
+    if (isLightboxOpen) return
+    const timer = setInterval(() => {
+      setActiveImgIdx((prev) => (prev + 1) % workPortfolioImages.length)
+    }, 2800)
+    return () => clearInterval(timer)
+  }, [isLightboxOpen])
+
+  const nextImage = (e) => {
+    e?.stopPropagation()
+    setActiveImgIdx((prev) => (prev + 1) % workPortfolioImages.length)
+  }
+
+  const prevImage = (e) => {
+    e?.stopPropagation()
+    setActiveImgIdx((prev) => (prev - 1 + workPortfolioImages.length) % workPortfolioImages.length)
+  }
+
+  const currentWork = workPortfolioImages[activeImgIdx]
+
+  return (
+    <div className="relative w-full py-8 sm:py-12 select-none">
+      {/* Background Soft Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-48 bg-[#EA5211]/15 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="relative z-10 flex flex-col items-center justify-center text-center">
+        {/* Top Eyebrow Tag */}
+        <div className="flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-[#EA5211] animate-pulse" />
+          <span className="font-mono text-xs text-neutral-300 uppercase tracking-widest">
+            01 // DESIGN DIRECTOR & UI/UX ARCHITECT
+          </span>
+        </div>
+
+        {/* Juan Mora Style Giant Name Banner with Inline Interactive Work Image Pill */}
+        <div className="flex flex-wrap items-center justify-center leading-none tracking-tighter font-sans font-bold text-[#FFB396] text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] xl:text-[11rem] gap-y-2">
+          {/* First Name Half */}
+          <span className="inline-block transition-transform duration-300 hover:scale-[1.01]">
+            Human
+          </span>
+
+          {/* Inline Interactive Work Image Pill Container */}
+          <div
+            onClick={() => setIsLightboxOpen(true)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group/pill relative inline-flex items-center justify-center align-middle mx-2 sm:mx-4 md:mx-6 my-auto w-32 sm:w-52 md:w-72 lg:w-96 h-16 sm:h-24 md:h-32 lg:h-40 rounded-2xl sm:rounded-3xl border-2 border-white/20 hover:border-[#EA5211] bg-black/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)] overflow-hidden cursor-pointer transition-all duration-500 transform hover:scale-105"
+          >
+            {/* Animated Work Image Slide */}
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={currentWork.id}
+                src={currentWork.src}
+                alt={currentWork.title}
+                initial={{ opacity: 0, scale: 1.15 }}
+                animate={{ opacity: 1, scale: isHovered ? 1.1 : 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </AnimatePresence>
+
+            {/* Gradient Dark Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+            {/* Floating Project Label inside the Pill */}
+            <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between z-10">
+              <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-black/70 backdrop-blur-md text-[9px] sm:text-[11px] font-mono text-white border border-white/20 truncate max-w-[80%] flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
+                {currentWork.title}
+              </span>
+
+              <span className="p-1 sm:p-1.5 rounded-full bg-[#EA5211] text-white opacity-0 group-hover/pill:opacity-100 transition-opacity duration-300 shadow-lg">
+                <Maximize2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
+              </span>
+            </div>
+
+            {/* Manual Image Controls on Hover */}
+            {isHovered && (
+              <div className="absolute inset-x-1 top-1/2 -translate-y-1/2 flex justify-between z-20 pointer-events-auto">
+                <button
+                  onClick={prevImage}
+                  className="p-1 rounded-full bg-black/60 hover:bg-[#EA5211] text-white backdrop-blur-md border border-white/20 transition-all active:scale-95"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="p-1 rounded-full bg-black/60 hover:bg-[#EA5211] text-white backdrop-blur-md border border-white/20 transition-all active:scale-95"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Second Name Half */}
+          <span className="inline-block transition-transform duration-300 hover:scale-[1.01]">
+            shu
+          </span>
+        </div>
+
+        {/* Sub-Headline & Work Counter */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base font-sans text-neutral-300 font-light">
+          <span>Humanshu Araspure</span>
+          <span className="text-[#EA5211] font-mono">•</span>
+          <span>Web & Brand Design Specialist</span>
+          <span className="text-[#EA5211] font-mono">•</span>
+          <span className="font-mono text-xs text-neutral-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+            {workPortfolioImages.length} Featured Case Studies
+          </span>
+        </div>
+      </div>
+
+      {/* Lightbox Preview Modal for Work Images */}
+      <AnimatePresence>
+        {isLightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsLightboxOpen(false)}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-8 cursor-pointer"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-5xl w-full bg-[#121214] border border-white/20 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-4 sm:p-6"
+            >
+              {/* Modal Top Bar */}
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <div>
+                  <h4 className="text-xl font-normal text-white font-sans">{currentWork.title}</h4>
+                  <p className="text-xs font-mono text-[#EA5211] mt-0.5">{currentWork.category} — {currentWork.year}</p>
+                </div>
+                <button
+                  onClick={() => setIsLightboxOpen(false)}
+                  className="p-2 rounded-full bg-white/10 hover:bg-[#EA5211] text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Large Image View */}
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black border border-white/10">
+                <img
+                  src={currentWork.src}
+                  alt={currentWork.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Modal Footer Controls */}
+              <div className="flex items-center justify-between pt-2">
+                <div className="flex items-center gap-2">
+                  {workPortfolioImages.map((img, idx) => (
+                    <button
+                      key={img.id}
+                      onClick={() => setActiveImgIdx(idx)}
+                      className={`h-2 rounded-full transition-all ${
+                        idx === activeImgIdx ? 'w-8 bg-[#EA5211]' : 'w-2 bg-white/20 hover:bg-white/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={prevImage}
+                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-[#EA5211] text-white text-xs font-mono transition-colors"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="px-4 py-2 rounded-full bg-[#EA5211] hover:bg-orange-600 text-white text-xs font-mono transition-colors"
+                  >
+                    Next Case Study
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 const previewData = {
   architect: {
@@ -250,7 +483,7 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
                 <motion.p 
                   initial={{ y: -6, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -4, opacity: 0 }}
+                  exit={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
                   className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl pt-1 pb-1"
                 >
@@ -290,37 +523,24 @@ export default function AboutIntroSection() {
   ]
 
   return (
-    <section className="w-full bg-[#050505] text-[#F5F5F5] py-16 sm:py-24 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-[#F5F5F5] py-12 sm:py-20 px-6 sm:px-12 lg:px-16 relative overflow-hidden border-b border-white/10">
 
       {/* Subtle Background Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto space-y-12 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-14 relative z-10">
 
-        {/* Editorial Minimal Header */}
+        {/* Juan Mora Inspired Large Name Hero Banner with Inline Work Image Pill */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.2em] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-              <span>01 / ABOUT ME</span>
-            </div>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight font-sans">
-              Humanshu Araspure
-            </h1>
-          </div>
-          <p className="font-sans text-xs text-neutral-400 uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right">
-            Crafting minimal, high-impact digital experiences
-          </p>
+          <JuanMoraNameBanner />
         </motion.div>
 
         {/* Interactive Bio with Hover Image Preview Popups */}
-        <div>
+        <div className="pt-4 border-t border-white/10">
           <InteractiveBio />
         </div>
 
@@ -360,3 +580,4 @@ export default function AboutIntroSection() {
     </section>
   )
 }
+
