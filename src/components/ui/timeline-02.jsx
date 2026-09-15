@@ -138,8 +138,8 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
                         {entry.type && <span className="text-neutral-400 font-medium">• {entry.type}</span>}
                       </div>
 
-                      {/* Date Badge - High Visibility */}
-                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-medium text-white self-start sm:self-auto shrink-0 tracking-wider shadow-sm">
+                      {/* Date Text (No background or stroke) */}
+                      <span className="text-xs font-mono text-neutral-400 self-start sm:self-auto shrink-0 tracking-wider">
                         {entry.date}
                       </span>
                     </div>
