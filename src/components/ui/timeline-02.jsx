@@ -257,7 +257,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 group ${
                     isActive
-                      ? "bg-[#09090b]/90 border-[#EA5211]/40 shadow-[0_20px_50px_rgba(234,82,17,0.15)] border-l-4 border-l-[#EA5211]"
+                      ? "bg-[#09090b]/90 border-white/40 shadow-[0_20px_50px_rgba(255,255,255,0.08)] border-l-4 border-l-white"
                       : "bg-[#09090c]/80 border-white/10 opacity-90 hover:opacity-100"
                   }`}
                 >
