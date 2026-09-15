@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const defaultTimelineData = [
   {
@@ -15,6 +16,10 @@ export const defaultTimelineData = [
       "Led the design process across user flows, Information Architecture, wireframes, responsive layouts, and high-fidelity UI designs in Figma.",
       "Focused on understanding user needs, simplifying complex journeys, and creating clear navigation patterns for seamless user experience.",
       "Maintained design direction and consistency across typography, spacing, components, and visual elements with a strong focus on accessibility (WCAG) and responsive behavior."
+    ],
+    ctas: [
+      { label: "Explore Case Studies", link: "/work", primary: true },
+      { label: "Discuss UI/UX Project", link: "/contact", primary: false }
     ]
   },
   {
@@ -29,6 +34,10 @@ export const defaultTimelineData = [
       "Worked on understanding product requirements, defining user flows, developing wireframes, and translating concepts into high-fidelity responsive interfaces using Figma.",
       "Created intuitive experiences while maintaining consistency across screens, components, and interactive micro-animations.",
       "Collaborated closely with product, development, and cross-functional teams to contribute to design systems, prototyping, and UX optimizations."
+    ],
+    ctas: [
+      { label: "View Design Systems", link: "/work", primary: true },
+      { label: "Book Consultation", link: "/contact", primary: false }
     ]
   },
   {
@@ -43,6 +52,10 @@ export const defaultTimelineData = [
       "Successfully designed 5 end-to-end e-commerce websites, managing full lifecycle from user research to developer handoff.",
       "Contributed to flagship platforms such as Seed to Soul and Lynk Sweets while establishing consistent design systems.",
       "Supported graphic design initiatives by creating high-impact visual assets and ensuring total brand consistency."
+    ],
+    ctas: [
+      { label: "View E-Commerce Work", link: "/work", primary: true },
+      { label: "Get In Touch", link: "/contact", primary: false }
     ]
   },
   {
@@ -57,6 +70,10 @@ export const defaultTimelineData = [
       "Developed the \"Connect – Collaborate – Create\" brand concept and logo direction.",
       "Contributed to website UI, visual hierarchy, user experience design, and design iterations.",
       "Refined designs through iterative founder feedback to build a cohesive, engaging brand touchpoint."
+    ],
+    ctas: [
+      { label: "View Brand Identity", link: "/work", primary: true },
+      { label: "Collaborate On Brand", link: "/contact", primary: false }
     ]
   },
   {
@@ -71,6 +88,10 @@ export const defaultTimelineData = [
       "Designed frictionless mobile task onboarding and task management flows.",
       "Created complete visual identity including logo mark, typography system, and color palette.",
       "Delivered high-fidelity mobile prototypes optimized for mobile touch interactions."
+    ],
+    ctas: [
+      { label: "View Mobile Prototypes", link: "/work", primary: true },
+      { label: "Discuss Mobile UI/UX", link: "/contact", primary: false }
     ]
   }
 ];
@@ -304,21 +325,42 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                     )}
                   </AnimatePresence>
 
-                  {/* View More / View Less Button */}
-                  {item.highlights && item.highlights.length > 0 && (
-                    <div className="pt-2 flex justify-start">
+                  {/* Action Bar: View More + Relevant Experience CTAs */}
+                  <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                    {/* View More / View Less Button */}
+                    {item.highlights && item.highlights.length > 0 && (
                       <button
                         onClick={() => toggleExpand(index)}
                         className="text-xs font-mono tracking-widest uppercase text-neutral-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full border border-white/15 hover:border-[#EA5211]/50 bg-white/[0.02] hover:bg-[#EA5211]/10 group"
                         aria-expanded={isExpanded}
                       >
-                        <span>{isExpanded ? "View Less" : "View More"}</span>
+                        <span>{isExpanded ? "View Less" : "View Details"}</span>
                         <span className="transition-transform duration-200 group-hover:translate-y-0.5 text-[#EA5211]">
                           {isExpanded ? "↑" : "↓"}
                         </span>
                       </button>
-                    </div>
-                  )}
+                    )}
+
+                    {/* Contextual CTAs tailored to each experience */}
+                    {item.ctas && item.ctas.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        {item.ctas.map((cta, cIdx) => (
+                          <Link
+                            key={cIdx}
+                            to={cta.link}
+                            className={`text-xs font-mono tracking-wider transition-all duration-300 inline-flex items-center gap-1.5 py-2 px-4 rounded-full ${
+                              cta.primary
+                                ? "bg-[#EA5211] text-white hover:bg-[#EA5211]/85 shadow-[0_4px_14px_rgba(234,82,17,0.35)]"
+                                : "bg-white/5 border border-white/15 text-neutral-300 hover:text-white hover:border-white/30"
+                            }`}
+                          >
+                            <span>{cta.label}</span>
+                            <span className="text-[11px] font-sans">↗</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
                 </motion.div>
               </div>
