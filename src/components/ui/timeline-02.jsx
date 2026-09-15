@@ -239,7 +239,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
         </div>
 
         {/* RIGHT COLUMN: Interactive Work Showcase Cards */}
-        <div className="lg:col-span-8 space-y-12 sm:space-y-16">
+        <div className="lg:col-span-8 space-y-10 sm:space-y-14">
           {data.map((item, index) => {
             const isActive = activeStep === index;
             const isExpanded = !!expandedItems[index];
@@ -251,36 +251,36 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                 className="scroll-mt-32"
               >
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 group ${
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className={`p-6 sm:p-9 rounded-2xl border transition-all duration-500 space-y-6 group ${
                     isActive
-                      ? "bg-[#09090b]/90 border-[#262626] border-l-4 border-l-[#262626]"
-                      : "bg-[#09090c]/80 border-[#262626]/60 opacity-90 hover:opacity-100"
+                      ? "bg-[#09090b] border-[#262626] shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+                      : "bg-[#08080a]/60 border-[#262626]/40 opacity-80 hover:opacity-100 hover:border-[#262626]"
                   }`}
                 >
                   {/* Header: Number, Date, Company & Role */}
-                  <div className="border-b border-[#262626] pb-6 space-y-2">
+                  <div className="border-b border-[#262626] pb-5 space-y-2">
                     <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
                       <div className="flex items-center gap-2">
                         <span className="text-[#EA5211] font-bold">{item.id}</span>
-                        <span className="text-white/40">•</span>
-                        <span className="text-white/80 tracking-wider uppercase font-medium">{item.date}</span>
+                        <span className="text-neutral-600">•</span>
+                        <span className="text-neutral-400 tracking-wider uppercase font-medium">{item.date}</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-white/5 border border-[#262626] text-white text-[11px] tracking-wider uppercase font-medium">
+                        <span className="px-3 py-1 rounded-full bg-[#141416] border border-[#262626] text-neutral-300 text-[10px] tracking-widest uppercase font-mono">
                           {item.type}
                         </span>
                       </div>
                     </div>
 
-                    <h3 className="text-2xl sm:text-4xl font-light tracking-tight text-white font-sans pt-2">
+                    <h3 className="text-2xl sm:text-3xl font-light tracking-tight text-white font-sans pt-1">
                       {item.company}
                     </h3>
-                    <p className="text-base sm:text-lg font-medium text-[#EA5211] tracking-tight font-sans">
+                    <p className="text-sm sm:text-base font-medium text-[#EA5211] tracking-wide font-mono">
                       {item.role || item.title}
                     </p>
                   </div>
@@ -291,14 +291,14 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                       <img
                         src={item.image}
                         alt={item.company}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-50" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-60" />
                     </div>
                   )}
 
                   {/* Description */}
-                  <p className="text-sm sm:text-base text-white/90 font-light leading-relaxed">
+                  <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
                     {item.summary || item.description}
                   </p>
 
@@ -330,7 +330,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                           <h5 className="text-xs font-mono uppercase tracking-widest text-[#EA5211] font-semibold">
                             Key Responsibilities & Impact:
                           </h5>
-                          <ul className="space-y-2.5 text-xs sm:text-sm text-white/90 font-light">
+                          <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300 font-light">
                             {item.highlights.map((bullet, bIdx) => (
                               <li key={bIdx} className="flex items-start gap-3">
                                 <span className="text-[#EA5211] font-mono mt-0.5">•</span>
@@ -369,7 +369,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                             className={`text-xs font-mono tracking-wider transition-all duration-300 inline-flex items-center gap-1.5 py-2 px-4 rounded-full ${
                               cta.primary
                                 ? "bg-[#EA5211] text-white hover:bg-[#EA5211]/85 shadow-[0_4px_14px_rgba(234,82,17,0.35)]"
-                                : "bg-white/5 border border-[#262626] text-neutral-300 hover:text-white hover:border-white/30"
+                                : "bg-[#141416] border border-[#262626] text-neutral-300 hover:text-white hover:border-neutral-500"
                             }`}
                           >
                             <span>{cta.label}</span>
