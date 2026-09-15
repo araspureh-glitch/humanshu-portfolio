@@ -16,29 +16,37 @@ export default function FloatingHobbiesCloud() {
       </div>
 
       <div className="max-w-6xl mx-auto w-full relative z-10 space-y-10 flex flex-col items-center">
-        {/* Central Editorial Header */}
+        {/* Editorial Split Header Layout */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center space-y-5 max-w-3xl mx-auto flex flex-col items-center"
+          className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end pb-4 border-b border-[#262626]"
         >
-          {/* Minimal Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#262626] bg-[#09090b]/80 backdrop-blur-md text-[11px] font-mono text-neutral-300 uppercase tracking-[0.2em]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
-            <span>06 • PERSONAL INTERESTS & HOBBIES</span>
+          {/* Left Column: Category Badge & Main Heading */}
+          <div className="md:col-span-7 space-y-4">
+            <div className="flex items-center gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
+              <span>06 • PERSONAL INTERESTS & HOBBIES</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.15] font-sans">
+              What fuels <span className="font-serif italic text-[#EA5211] font-normal">my everyday energy.</span>
+            </h2>
           </div>
 
-          {/* Aesthetic Heading Hierarchy */}
-          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight leading-[1.1] font-sans">
-            What fuels <span className="font-serif italic text-[#EA5211] font-normal">my everyday energy.</span>
-          </h2>
-
-          {/* Subtitle */}
-          <p className="text-sm sm:text-base text-neutral-400 font-light max-w-lg mx-auto leading-relaxed">
-            From fitness & sports to pets, nature trails, and travel—rotate through the 3D ring to explore life beyond design.
-          </p>
+          {/* Right Column: Description & Hint */}
+          <div className="md:col-span-5 space-y-3 md:pb-1">
+            <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
+              From fitness & sports to pets, nature trails, and travel—explore life beyond design.
+            </p>
+            
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400">
+              <span className="text-[#EA5211]">↻</span>
+              <span>Drag or scroll to rotate 360° ring</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* 3D 360 Fan Carousel Component */}
