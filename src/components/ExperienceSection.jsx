@@ -6,7 +6,7 @@ export default function ExperienceSection() {
   const experiences = [
     {
       id: '01',
-      date: 'Aug 2026 – Sep 10 2026',
+      date: 'Aug 2026 – Present',
       title: 'Senior UI/UX Designer',
       company: 'Saff co',
       type: 'Internship • Remote',

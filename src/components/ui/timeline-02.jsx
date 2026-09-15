@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const defaultTimelineData = [
   {
     id: "01",
-    date: "Aug 2026 – Sep 10 2026",
+    date: "Aug 2026 – Present",
     company: "Saff co",
     type: "Internship • Remote",
     role: "Senior UI/UX Designer",
@@ -227,7 +227,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                     </span>
                   </div>
 
-                  {isActive && (
+                  {item.id === "01" && (
                     <span className="text-[10px] font-mono text-[#EA5211] tracking-widest uppercase border border-[#EA5211]/40 px-1.5 py-0.5 rounded bg-[#EA5211]/10 shrink-0">
                       ACTIVE
                     </span>
