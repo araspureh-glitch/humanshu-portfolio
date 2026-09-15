@@ -271,12 +271,6 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        {isActive && (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EA5211]/15 border border-[#EA5211]/40 text-[10px] font-mono text-[#EA5211] font-semibold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse" />
-                            ACTIVE ROLE
-                          </span>
-                        )}
                         <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[11px] tracking-wider uppercase font-medium">
                           {item.type}
                         </span>
