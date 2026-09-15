@@ -137,7 +137,7 @@ function InteractiveBio() {
 
   return (
     <div className="relative">
-      <p className="text-lg sm:text-2xl md:text-3xl lg:text-[2rem] font-light leading-[1.4] tracking-tight font-sans text-neutral-300 max-w-4xl">
+      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] sm:leading-[1.35] tracking-tight font-sans text-neutral-100 max-w-5xl">
         I am Humanshu Araspure, a{" "}
         <HoverLink
           previewKey="architect"
