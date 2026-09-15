@@ -55,6 +55,9 @@ export const Carousel360 = () => {
   const [loadedThumbs, setLoadedThumbs] = useState(() =>
     hobbyImages.map(() => false),
   );
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const currentRotationStart = useRef(0);
 
   const numImages = hobbyImages.length;
   const angleStep = 360 / numImages;
@@ -85,7 +88,9 @@ export const Carousel360 = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRotation((prev) => prev + angleStep);
+      if (!isDragging.current) {
+        setRotation((prev) => prev + angleStep);
+      }
     }, AUTOPLAY_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [angleStep]);
@@ -108,11 +113,36 @@ export const Carousel360 = () => {
     });
   }, []);
 
+  // Pointer Drag Handlers
+  const handlePointerDown = (e) => {
+    isDragging.current = true;
+    startX.current = e.clientX;
+    currentRotationStart.current = rotation;
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging.current) return;
+    const deltaX = e.clientX - startX.current;
+    setRotation(currentRotationStart.current - deltaX * 0.4);
+  };
+
+  const handlePointerUp = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    // Snap to nearest angle step
+    const nearestStep = Math.round(rotation / angleStep);
+    setRotation(nearestStep * angleStep);
+  };
+
   return (
     <div className="relative w-full flex flex-col items-center justify-center select-none py-4 sm:py-8 z-20">
       <div
         ref={containerRef}
-        className="relative w-[95%] max-w-[650px] aspect-[5/3] flex items-center justify-center"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerUp}
+        className="relative w-[95%] max-w-[650px] aspect-[5/3] flex items-center justify-center cursor-grab active:cursor-grabbing touch-none"
       >
         {/* 3D Ring Container */}
         <div
@@ -130,7 +160,7 @@ export const Carousel360 = () => {
                 transition={springTransition}
               >
                 <motion.div
-                  className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.6)] border border-white/20 bg-neutral-900 cursor-pointer pointer-events-auto"
+                  className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.7)] border border-[#262626] bg-[#09090b] cursor-pointer pointer-events-auto hover:border-[#EA5211]/50 transition-colors"
                   style={{ transformStyle: "preserve-3d" }}
                   animate={{
                     rotateY: -targetAngle,
@@ -146,7 +176,7 @@ export const Carousel360 = () => {
                     alt={item.title}
                     onLoad={() => markThumbLoaded(index)}
                     className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 ${
-                      loadedThumbs[index] ? "opacity-90 hover:opacity-100 hover:scale-105" : "opacity-0"
+                      loadedThumbs[index] ? "opacity-85 hover:opacity-100 hover:scale-105" : "opacity-0"
                     }`}
                   />
                 </motion.div>
@@ -167,7 +197,7 @@ export const Carousel360 = () => {
                 duration: CROSSFADE_DURATION_S,
                 ease: CROSSFADE_EASE,
               }}
-              className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-white/30 bg-neutral-950 pointer-events-auto group"
+              className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(234,82,17,0.15)] border border-[#262626] bg-[#09090c] pointer-events-auto group hover:border-[#EA5211]/60 transition-colors"
             >
               {!centerLoaded && <ImageLoader />}
               <img
@@ -181,9 +211,10 @@ export const Carousel360 = () => {
               />
 
               {/* Bottom Vignette & Title Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-left">
-                <span className="font-sans text-[10px] text-emerald-400 font-semibold tracking-[0.18em] uppercase mb-1">
-                  {activeItem.tag}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-left">
+                <span className="font-mono text-[10px] text-[#EA5211] font-semibold tracking-[0.2em] uppercase mb-1 flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-[#EA5211]" />
+                  <span>{activeItem.tag}</span>
                 </span>
                 <h3 className="text-base sm:text-xl font-light text-white font-sans tracking-tight">
                   {activeItem.title}
@@ -193,17 +224,16 @@ export const Carousel360 = () => {
           </AnimatePresence>
         </div>
 
-        {/* Parallel Corner Navigation Buttons (Left & Right Sides) */}
+        {/* Navigation Buttons (Left & Right Sides) */}
         <button
           type="button"
           aria-label="Previous image"
           onClick={() => rotateCarousel("left")}
           className={`absolute left-0 sm:-left-6 top-1/2 -translate-y-1/2 z-30 group relative flex items-center justify-center ${BUTTON_SIZE_CLASSES} rounded-full overflow-hidden
-                     shadow-lg shadow-black/40 opacity-70 hover:opacity-100
-                     transition-all duration-200 active:scale-90 cursor-pointer border border-white/10 hover:border-white/30`}
+                     shadow-lg shadow-black/60 opacity-80 hover:opacity-100
+                     transition-all duration-200 active:scale-90 cursor-pointer border border-[#262626] hover:border-[#EA5211]/60 bg-[#09090b]/80 backdrop-blur-md`}
         >
-          <span className="absolute inset-0 rounded-full bg-white/[0.04] backdrop-blur-md transition-all duration-200 group-hover:bg-white/15" />
-          <FaArrowLeft className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-white transition-colors duration-200" />
+          <FaArrowLeft className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-[#EA5211] transition-colors duration-200" />
         </button>
 
         <button
@@ -211,18 +241,17 @@ export const Carousel360 = () => {
           aria-label="Next image"
           onClick={() => rotateCarousel("right")}
           className={`absolute right-0 sm:-right-6 top-1/2 -translate-y-1/2 z-30 group relative flex items-center justify-center ${BUTTON_SIZE_CLASSES} rounded-full overflow-hidden
-                     shadow-lg shadow-black/40 opacity-70 hover:opacity-100
-                     transition-all duration-200 active:scale-90 cursor-pointer border border-white/10 hover:border-white/30`}
+                     shadow-lg shadow-black/60 opacity-80 hover:opacity-100
+                     transition-all duration-200 active:scale-90 cursor-pointer border border-[#262626] hover:border-[#EA5211]/60 bg-[#09090b]/80 backdrop-blur-md`}
         >
-          <span className="absolute inset-0 rounded-full bg-white/[0.04] backdrop-blur-md transition-all duration-200 group-hover:bg-white/15" />
-          <FaArrowRight className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-white transition-colors duration-200" />
+          <FaArrowRight className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-[#EA5211] transition-colors duration-200" />
         </button>
       </div>
 
       {/* Centered Index Counter */}
-      <div className="mt-6 z-30">
-        <span className="font-sans font-medium text-[11px] text-neutral-500 uppercase tracking-[0.18em] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.02]">
-          {centerIndex + 1} / {numImages}
+      <div className="mt-6 z-30 flex items-center gap-2">
+        <span className="font-mono font-medium text-[11px] text-neutral-400 uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-[#262626] bg-[#09090b]/80">
+          <span className="text-[#EA5211]">{centerIndex + 1}</span> / {numImages}
         </span>
       </div>
     </div>
