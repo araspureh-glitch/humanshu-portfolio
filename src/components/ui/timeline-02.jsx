@@ -161,10 +161,6 @@ export default function Timeline_02({ data = defaultTimelineData }) {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white font-sans">
               WORK EXPERIENCE
             </h2>
-
-            <p className="text-xs font-mono text-neutral-400">
-              Humanshu Araspure • UI/UX & Graphic Designer
-            </p>
           </div>
 
           {/* Minimal Timeline Steps */}
