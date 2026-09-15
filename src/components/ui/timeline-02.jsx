@@ -10,6 +10,7 @@ export const defaultTimelineData = [
     company: "Saff co",
     type: "Internship • Remote",
     role: "Senior UI/UX Designer",
+    image: "/flexstep-cover.png",
     summary:
       "As Lead UI/UX Designer, worked on a responsive web-based digital product focusing on clean, intuitive, and user-friendly interaction design.",
     highlights: [
@@ -28,6 +29,7 @@ export const defaultTimelineData = [
     company: "Torkk (BLACKORIGINX)",
     type: "Internship • Remote",
     role: "Design Intern",
+    image: "/beheal-cover.jpg",
     summary:
       "Led UI/UX design direction at Torkk (BlackOriginX Private Limited), taking ownership of design process across digital product initiatives.",
     highlights: [
@@ -46,6 +48,7 @@ export const defaultTimelineData = [
     company: "ABIS Foods and Proteins (IB Group)",
     type: "Internship • Remote",
     role: "Design Intern",
+    image: "/ecogrid-cover.png",
     summary:
       "6-month UI/UX Design Internship designing 5 end-to-end e-commerce websites including flagship platforms Seed to Soul and Lynk Sweets.",
     highlights: [
@@ -64,6 +67,7 @@ export const defaultTimelineData = [
     company: "Prorion",
     type: "Freelance • Remote",
     role: "UI/UX & Brand Designer",
+    image: "/safetypulse-cover.png",
     summary:
       "Collaborated directly with the founder to translate Prorion’s product vision into a clear visual and digital experience.",
     highlights: [
@@ -82,6 +86,7 @@ export const defaultTimelineData = [
     company: "Checklist Mobile App",
     type: "Freelance • Remote",
     role: "UI/UX Designer",
+    image: "/mindspace-cover.png",
     summary:
       "Designed a checklist-based mobile experience focused on intuitive onboarding, smooth task management, and minimal UI interface.",
     highlights: [
@@ -130,6 +135,11 @@ export default function Timeline_02({ data = defaultTimelineData }) {
   };
 
   const scrollToStep = (index) => {
+    setActiveStep(index);
+    setExpandedItems((prev) => ({
+      ...prev,
+      [index]: true
+    }));
     if (itemRefs.current[index]) {
       const targetPos = itemRefs.current[index].offsetTop - 120;
       window.scrollTo({
@@ -209,7 +219,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Premium Editorial Cards */}
+        {/* RIGHT COLUMN: Interactive Work Showcase Cards */}
         <div className="lg:col-span-8 space-y-12 sm:space-y-16">
           {data.map((item, index) => {
             const isActive = activeStep === index;
@@ -226,9 +236,9 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 ${
+                  className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 group ${
                     isActive
-                      ? "bg-[#09090b]/90 border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                      ? "bg-[#09090b]/90 border-[#EA5211]/30 shadow-[0_20px_50px_rgba(234,82,17,0.1)] border-l-4 border-l-[#EA5211]"
                       : "bg-[#070709]/50 border-white/5 opacity-70 hover:opacity-90"
                   }`}
                 >
@@ -240,9 +250,18 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                         <span className="text-neutral-600">•</span>
                         <span className="text-neutral-400 tracking-wider uppercase">{item.date}</span>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] tracking-wider uppercase">
-                        {item.type}
-                      </span>
+
+                      <div className="flex items-center gap-2">
+                        {isActive && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EA5211]/10 border border-[#EA5211]/30 text-[10px] font-mono text-[#EA5211]">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse" />
+                            ACTIVE ROLE
+                          </span>
+                        )}
+                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] tracking-wider uppercase">
+                          {item.type}
+                        </span>
+                      </div>
                     </div>
 
                     <h3 className="text-2xl sm:text-4xl font-light tracking-tight text-white font-sans pt-2">
@@ -252,6 +271,18 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                       {item.role || item.title}
                     </p>
                   </div>
+
+                  {/* Work Cover Image Preview */}
+                  {item.image && (
+                    <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#121214] max-h-56 sm:max-h-72">
+                      <img
+                        src={item.image}
+                        alt={item.company}
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-60" />
+                    </div>
+                  )}
 
                   {/* Description */}
                   <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
@@ -299,7 +330,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                     )}
                   </AnimatePresence>
 
-                  {/* Action Bar: View More + Relevant Experience CTAs */}
+                  {/* Action Bar: View Details + Relevant Experience CTAs */}
                   <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
                     {/* View Details Toggle Link */}
                     {item.highlights && item.highlights.length > 0 && (
