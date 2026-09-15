@@ -126,17 +126,41 @@ export default function Timeline_02({ data = defaultTimelineData }) {
         <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-8 z-20">
           
           {/* Label & Title */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
-              <span>MY JOURNEY</span>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
+                <span>MY JOURNEY</span>
+              </div>
+              <span className="text-neutral-500 font-normal text-[11px]">
+                {activeStep + 1} OF {data.length}
+              </span>
             </div>
+
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white font-sans">
               WORK EXPERIENCE
             </h2>
+
             <p className="text-xs font-mono text-neutral-400">
               Humanshu Araspure • UI/UX & Graphic Designer
             </p>
+
+            {/* Currently Active Experience Indicator Badge */}
+            <div className="pt-1">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#EA5211]/10 border border-[#EA5211]/30 text-xs font-mono"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse shrink-0" />
+                <span className="text-neutral-400">VIEWING:</span>
+                <span className="font-semibold text-white tracking-wide truncate max-w-[200px]">
+                  {data[activeStep]?.id} • {data[activeStep]?.company}
+                </span>
+              </motion.div>
+            </div>
           </div>
 
           {/* Minimal Timeline Steps */}
@@ -158,24 +182,32 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                 <button
                   key={item.id}
                   onClick={() => scrollToStep(idx)}
-                  className={`w-full text-left flex items-center gap-4 transition-all duration-300 group cursor-pointer ${
+                  className={`w-full text-left flex items-center justify-between gap-3 transition-all duration-300 group cursor-pointer ${
                     isActive ? "opacity-100" : "opacity-40 hover:opacity-75"
                   }`}
                 >
-                  <span
-                    className={`font-mono text-xs transition-colors duration-300 ${
-                      isActive ? "text-[#EA5211] font-bold" : "text-neutral-500 group-hover:text-white"
-                    }`}
-                  >
-                    {item.id}
-                  </span>
-                  <span
-                    className={`text-sm sm:text-base tracking-tight font-sans transition-colors duration-300 truncate ${
-                      isActive ? "text-white font-medium" : "text-neutral-400 group-hover:text-white"
-                    }`}
-                  >
-                    {item.company}
-                  </span>
+                  <div className="flex items-center gap-3 truncate">
+                    <span
+                      className={`font-mono text-xs transition-colors duration-300 ${
+                        isActive ? "text-[#EA5211] font-bold" : "text-neutral-500 group-hover:text-white"
+                      }`}
+                    >
+                      {item.id}
+                    </span>
+                    <span
+                      className={`text-sm sm:text-base tracking-tight font-sans transition-colors duration-300 truncate ${
+                        isActive ? "text-white font-medium" : "text-neutral-400 group-hover:text-white"
+                      }`}
+                    >
+                      {item.company}
+                    </span>
+                  </div>
+
+                  {isActive && (
+                    <span className="text-[10px] font-mono text-[#EA5211] tracking-widest uppercase border border-[#EA5211]/30 px-1.5 py-0.5 rounded bg-[#EA5211]/10 shrink-0">
+                      ACTIVE
+                    </span>
+                  )}
                 </button>
               );
             })}
