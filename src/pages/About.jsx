@@ -17,7 +17,7 @@ function About() {
         <PhilosophySection />
         <ExperienceSection />
         <SkillsSection />
-        <FloatingHobbiesCloud />
+        {/* <FloatingHobbiesCloud /> */}
       </main>
       <Footer />
     </div>
