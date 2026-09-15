@@ -179,17 +179,19 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
                     {/* Stack Pills + High Visibility View More in Right Hand Side Bottom Corner */}
                     <div className="flex flex-wrap items-center justify-between gap-2.5 pt-3 border-t border-white/10">
                       {displaySkills.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-1.5">
+                        <div className="flex flex-wrap items-center gap-2">
                           <span className="text-[10px] font-mono text-neutral-400 font-semibold uppercase tracking-widest mr-1">
                             STACK:
                           </span>
                           {displaySkills.map((skill, sIdx) => (
                             <span
                               key={sIdx}
-                              className="px-2.5 py-0.5 text-xs rounded-md bg-white/[0.06] text-neutral-200 border border-white/15 font-mono hover:border-white/35 hover:bg-white/10 hover:text-white transition-all duration-300 flex items-center gap-1.5"
+                              className="text-xs font-mono text-neutral-300 flex items-center gap-2"
                             >
-                              <span className="w-1 h-1 rounded-full bg-emerald-400/80 shrink-0" />
-                              {skill}
+                              <span>{skill}</span>
+                              {sIdx < displaySkills.length - 1 && (
+                                <span className="text-neutral-500 font-mono">•</span>
+                              )}
                             </span>
                           ))}
                         </div>
