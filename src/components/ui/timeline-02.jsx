@@ -232,22 +232,18 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
                       </div>
                     )}
 
-                    {/* Read More / Collapse Interactive Button */}
-                    <div className="mt-6 pt-3 flex justify-between items-center border-t border-white/5">
-                      <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
-                        {isExpanded ? "FULL DETAILS EXPANDED" : "CLICK TO EXPAND DETAILS"}
-                      </span>
-
+                    {/* Read More / Read Less Interactive Button */}
+                    <div className="mt-5 pt-3 flex justify-end">
                       <button
                         onClick={() => toggleExpand(index)}
                         className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white hover:text-neutral-200 py-1.5 px-4 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 hover:border-white/40 transition-all duration-300 cursor-pointer group/btn"
                         aria-expanded={isExpanded}
                       >
-                        <span>{isExpanded ? "COLLAPSE" : "READ DETAILS"}</span>
+                        <span>{isExpanded ? "READ LESS" : "READ MORE"}</span>
                         {isExpanded ? (
-                          <Minus className="w-3.5 h-3.5 text-white group-hover/btn:rotate-180 transition-transform duration-300" />
+                          <Minus className="w-3.5 h-3.5 text-white transition-transform duration-300" />
                         ) : (
-                          <Plus className="w-3.5 h-3.5 text-white group-hover/btn:rotate-90 transition-transform duration-300" />
+                          <Plus className="w-3.5 h-3.5 text-white transition-transform duration-300" />
                         )}
                       </button>
                     </div>
