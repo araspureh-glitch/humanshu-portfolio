@@ -148,14 +148,9 @@ export default function Timeline_02({ data = defaultTimelineData }) {
           
           {/* Label & Title */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
-                <span>MY JOURNEY</span>
-              </div>
-              <span className="text-neutral-500 font-normal text-[11px]">
-                {activeStep + 1} OF {data.length}
-              </span>
+            <div className="flex items-center gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
+              <span>MY JOURNEY</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white font-sans">
