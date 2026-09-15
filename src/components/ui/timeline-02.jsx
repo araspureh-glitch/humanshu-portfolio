@@ -165,23 +165,6 @@ export default function Timeline_02({ data = defaultTimelineData }) {
             <p className="text-xs font-mono text-neutral-400">
               Humanshu Araspure • UI/UX & Graphic Designer
             </p>
-
-            {/* Currently Active Experience Indicator Badge */}
-            <div className="pt-1">
-              <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#EA5211]/10 border border-[#EA5211]/30 text-xs font-mono"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse shrink-0" />
-                <span className="text-neutral-400">VIEWING:</span>
-                <span className="font-semibold text-white tracking-wide truncate max-w-[200px]">
-                  {data[activeStep]?.id} • {data[activeStep]?.company}
-                </span>
-              </motion.div>
-            </div>
           </div>
 
           {/* Minimal Timeline Steps */}
