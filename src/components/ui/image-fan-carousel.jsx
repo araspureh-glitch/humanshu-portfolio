@@ -169,7 +169,7 @@ export const Carousel360 = ({ activeTab = "ALL" }) => {
                 transition={springTransition}
               >
                 <motion.div
-                  className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.7)] border border-[#262626] bg-[#09090b] cursor-pointer pointer-events-auto hover:border-[#EA5211]/50 transition-colors"
+                  className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.7)] bg-[#09090b] cursor-pointer pointer-events-auto transition-colors"
                   style={{ transformStyle: "preserve-3d" }}
                   animate={{
                     rotateY: -targetAngle,
@@ -205,7 +205,7 @@ export const Carousel360 = ({ activeTab = "ALL" }) => {
                 duration: CROSSFADE_DURATION_S,
                 ease: CROSSFADE_EASE,
               }}
-              className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(234,82,17,0.15)] border border-[#262626] bg-[#09090c] pointer-events-auto group hover:border-[#EA5211]/60 transition-colors"
+              className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(234,82,17,0.15)] bg-[#09090c] pointer-events-auto group transition-colors"
             >
               {!centerLoaded && <ImageLoader />}
               <img
