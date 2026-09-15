@@ -1,7 +1,12 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Carousel360 } from './ui/image-fan-carousel'
 
 export default function FloatingHobbiesCloud() {
+  const [activeTab, setActiveTab] = useState('ALL')
+
+  const tabs = ['ALL', 'PETS', 'SPORTS', 'TRAVEL', 'FITNESS', 'DESIGN']
+
   return (
     <section 
       id="hobbies"
@@ -15,42 +20,45 @@ export default function FloatingHobbiesCloud() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
       </div>
 
-      <div className="max-w-6xl mx-auto w-full relative z-10 space-y-10 flex flex-col items-center">
-        {/* Editorial Split Header Layout */}
+      <div className="max-w-6xl mx-auto w-full relative z-10 space-y-12 flex flex-col items-center">
+        {/* Section Header Replicated From Skills & Tools */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end pb-4 border-b border-[#262626]"
+          transition={{ duration: 0.6 }}
+          className="w-full flex flex-col sm:flex-row sm:items-end justify-between pb-10 border-b border-white/10 gap-6"
         >
-          {/* Left Column: Category Badge & Main Heading */}
-          <div className="md:col-span-7 space-y-4">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#EA5211] uppercase tracking-[0.2em] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
-              <span>06 • PERSONAL INTERESTS & HOBBIES</span>
+          <div>
+            <div className="flex items-center gap-2.5 font-sans text-[11px] font-medium text-neutral-400 uppercase tracking-[0.2em]">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/80"></span>
+              <span>06 / PERSONAL INTERESTS & HOBBIES</span>
             </div>
-
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.15] font-sans">
-              What fuels <span className="font-serif italic text-[#EA5211] font-normal">my everyday energy.</span>
+            <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight mt-3 font-sans">
+              Personal interests & hobbies
             </h2>
           </div>
 
-          {/* Right Column: Description & Hint */}
-          <div className="md:col-span-5 space-y-3 md:pb-1">
-            <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
-              From fitness & sports to pets, nature trails, and travel—explore life beyond design.
-            </p>
-            
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400">
-              <span className="text-[#EA5211]">↻</span>
-              <span>Drag or scroll to rotate 360° ring</span>
-            </div>
+          {/* Interactive Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2 font-sans text-xs font-medium">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 rounded-full transition-all cursor-pointer uppercase tracking-wider ${
+                  activeTab === tab
+                    ? 'bg-white text-black font-semibold shadow-lg'
+                    : 'bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:border-white/30'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
           </div>
         </motion.div>
 
         {/* 3D 360 Fan Carousel Component */}
-        <Carousel360 />
+        <Carousel360 activeTab={activeTab} />
       </div>
     </section>
   )

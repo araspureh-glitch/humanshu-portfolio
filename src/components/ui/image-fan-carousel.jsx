@@ -5,15 +5,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const hobbyImages = [
-  { src: "/hobbies/puppy.jpg", title: "Golden Retriever Companion", tag: "PETS & COMPANIONSHIP" },
-  { src: "/hobbies/football.jpg", title: "Football / Turf Match", tag: "SPORTS & AGILITY" },
-  { src: "/hobbies/cricket.jpg", title: "Cricket Batting Practice", tag: "ATHLETIC FOCUS" },
-  { src: "/hobbies/travel.jpg", title: "Varanasi Ghats & Travel", tag: "HERITAGE & DISCOVERY" },
-  { src: "/hobbies/physique.jpg", title: "Gym & Physique Conditioning", tag: "DEDICATION & STRENGTH" },
-  { src: "/hobbies/nature.jpg", title: "Forest Trail & Hiking", tag: "NATURE & MINDFULNESS" },
-  { src: "/hobbies/fitness.jpg", title: "Fitness & Arms Workout", tag: "DISCIPLINE" },
-  { src: "/hobbies/lifestyle.jpg", title: "Outdoor Garden & Architecture", tag: "LIFESTYLE & DESIGN" },
-  { src: "/hobbies/design.png", title: "UI/UX Interface Design", tag: "DIGITAL CRAFT" },
+  { src: "/hobbies/puppy.jpg", title: "Golden Retriever Companion", category: "PETS", tag: "PETS & COMPANIONSHIP" },
+  { src: "/hobbies/football.jpg", title: "Football / Turf Match", category: "SPORTS", tag: "SPORTS & AGILITY" },
+  { src: "/hobbies/cricket.jpg", title: "Cricket Batting Practice", category: "SPORTS", tag: "ATHLETIC FOCUS" },
+  { src: "/hobbies/travel.jpg", title: "Varanasi Ghats & Travel", category: "TRAVEL", tag: "HERITAGE & DISCOVERY" },
+  { src: "/hobbies/physique.jpg", title: "Gym & Physique Conditioning", category: "FITNESS", tag: "DEDICATION & STRENGTH" },
+  { src: "/hobbies/nature.jpg", title: "Forest Trail & Hiking", category: "TRAVEL", tag: "NATURE & MINDFULNESS" },
+  { src: "/hobbies/fitness.jpg", title: "Fitness & Arms Workout", category: "FITNESS", tag: "DISCIPLINE" },
+  { src: "/hobbies/lifestyle.jpg", title: "Outdoor Garden & Architecture", category: "DESIGN", tag: "LIFESTYLE & DESIGN" },
+  { src: "/hobbies/design.png", title: "UI/UX Interface Design", category: "DESIGN", tag: "DIGITAL CRAFT" },
 ];
 
 const AUTOPLAY_INTERVAL_MS = 2800;
@@ -48,7 +48,7 @@ const ImageLoader = () => (
   </div>
 );
 
-export const Carousel360 = () => {
+export const Carousel360 = ({ activeTab = "ALL" }) => {
   const containerRef = useRef(null);
   const [rotation, setRotation] = useState(0);
   const [radius, setRadius] = useState(240);
@@ -61,6 +61,15 @@ export const Carousel360 = () => {
 
   const numImages = hobbyImages.length;
   const angleStep = 360 / numImages;
+
+  // Handle activeTab filtering rotation
+  useEffect(() => {
+    if (!activeTab || activeTab === "ALL") return;
+    const targetIdx = hobbyImages.findIndex((item) => item.category === activeTab);
+    if (targetIdx !== -1) {
+      setRotation(-angleStep * targetIdx);
+    }
+  }, [activeTab, angleStep]);
 
   const steps = Math.round(rotation / angleStep);
   const centerIndex = ((-steps % numImages) + numImages) % numImages;
@@ -175,9 +184,8 @@ export const Carousel360 = () => {
                     src={item.src}
                     alt={item.title}
                     onLoad={() => markThumbLoaded(index)}
-                    className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 ${
-                      loadedThumbs[index] ? "opacity-85 hover:opacity-100 hover:scale-105" : "opacity-0"
-                    }`}
+                    className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 ${loadedThumbs[index] ? "opacity-85 hover:opacity-100 hover:scale-105" : "opacity-0"
+                      }`}
                   />
                 </motion.div>
               </motion.div>
@@ -205,9 +213,8 @@ export const Carousel360 = () => {
                 alt={activeItem.title}
                 loading="lazy"
                 onLoad={() => setCenterLoaded(true)}
-                className={`object-cover ${CENTER_SIZE_CLASSES} transition-opacity duration-300 ${
-                  centerLoaded ? "opacity-100" : "opacity-0"
-                }`}
+                className={`object-cover ${CENTER_SIZE_CLASSES} transition-opacity duration-300 ${centerLoaded ? "opacity-100" : "opacity-0"
+                  }`}
               />
 
               {/* Bottom Vignette & Title Overlay */}
