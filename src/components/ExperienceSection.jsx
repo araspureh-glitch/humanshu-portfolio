@@ -122,32 +122,10 @@ export default function ExperienceSection() {
 
   return (
     <section id="experience" className="w-full bg-[#050505] text-[#F5F5F5] py-24 px-6 sm:px-12 lg:px-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto space-y-16">
+      <div className="max-w-7xl mx-auto space-y-20">
         
-        {/* Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 border-b border-white/10 gap-4"
-        >
-          <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span>04 / WORK EXPERIENCE</span>
-            </div>
-            <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight mt-3 font-sans">
-              Work experience
-            </h2>
-          </div>
-          <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">
-            CAREER TIMELINE & HIGHLIGHTS
-          </span>
-        </motion.div>
-
-        {/* Timeline Component */}
-        <Timeline_02 data={experiences} title="" />
+        {/* Interactive Sticky Timeline Component */}
+        <Timeline_02 data={experiences} />
 
         {/* Certifications Block */}
         <div className="pt-20 border-t border-white/10 space-y-10">
