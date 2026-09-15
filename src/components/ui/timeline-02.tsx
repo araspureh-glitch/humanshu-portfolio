@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronDown, ChevronUp, Briefcase, Calendar, Sparkles } from "lucide-react";
+import { Plus, Minus, CheckCircle2, Layers } from "lucide-react";
 
 export type TimelineItem = {
   id?: string;
@@ -16,84 +16,89 @@ export type TimelineItem = {
   summary?: string;
   content?: string;
   highlights?: string[];
+  artifacts?: string[];
   skills?: string[];
 };
 
 export const defaultTimelineData: TimelineItem[] = [
   {
     id: "01",
-    date: "Aug 2026 – Present",
+    date: "AUG 2026 – PRESENT",
     title: "Senior UI/UX Designer",
     company: "Saff co",
     type: "Internship • Remote",
     location: "Remote",
-    summary: "Lead UI/UX Designer responsible for end-to-end responsive web products, user flows, Information Architecture, and high-fidelity Figma design systems.",
+    summary: "Leading the core product design direction for responsive web platforms, mapping complex user flows, and crafting scalable Figma design systems.",
     highlights: [
-      "Led full product design lifecycle across user journeys, wireframes, and responsive layouts.",
-      "Established centralized Figma design token library ensuring typography & spacing consistency.",
-      "Iterated interfaces through user research, usability testing, and accessibility guidelines (WCAG)."
+      "Architected end-to-end user journeys, wireframes, and high-fidelity responsive layouts in Figma.",
+      "Established a centralized design system with strict spacing tokens, typography scales, and reusable UI components.",
+      "Conducted iterative usability tests and accessibility audits (WCAG 2.1 AA) to simplify complex workflows."
     ],
-    skills: ["UI/UX Design", "Figma", "Information Architecture", "User Flows", "Design Systems", "Accessibility"],
+    artifacts: ["Figma Token System", "Responsive Layout Maps", "Usability Audit", "Interactive Prototypes"],
+    skills: ["Teamwork", "Team Leadership", "UI/UX Design", "Figma", "Information Architecture", "User Flows", "Responsive Design"],
   },
   {
     id: "02",
-    date: "Jul 2026 – Present",
+    date: "JUL 2026 – PRESENT",
     title: "Design Intern",
     company: "Torkk (BLACKORIGINX)",
     type: "Internship • Remote",
     location: "Remote",
-    summary: "Spearheaded UI/UX design direction for web and mobile digital product initiatives, transforming complex requirements into refined interactive interfaces.",
+    summary: "Took full ownership of UI/UX design initiatives across web and mobile digital products, translating product requirements into elegant interactive interfaces.",
     highlights: [
-      "Designed high-impact wireframes and high-fidelity interactive prototypes in Figma.",
-      "Collaborated directly with engineering and product leaders for seamless developer handoff.",
-      "Enhanced overall UX friction points, boosting user engagement and visual clarity."
+      "Designed high-impact wireframes and high-fidelity interactive prototypes for key user touchpoints.",
+      "Collaborated closely with engineering and product leaders for precise component spec handoffs.",
+      "Refined design tokens and visual hierarchy, elevating interface clarity and reducing user friction."
     ],
-    skills: ["Web Design", "Figma", "Wireframing", "Prototyping", "UX Optimization", "Developer Handoff"],
+    skills: ["Web Design", "Teamwork", "UI/UX Design", "Figma", "Wireframing", "Prototyping", "Design Systems"],
   },
   {
     id: "03",
-    date: "Sep 2025 – Feb 2026",
+    date: "SEP 2025 – FEB 2026",
     title: "Design Intern",
-    company: "ABIS Foods and Proteins (IB Group)",
-    type: "Internship / Hybrid",
+    company: "ABIS Foods & Proteins (IB Group)",
+    type: "Internship / Hybrid • Remote / Hybrid",
     location: "Remote / Hybrid",
-    summary: "6-month UI/UX Internship designing 5 end-to-end e-commerce websites including flagship platforms Seed to Soul and Lynk Sweets.",
+    summary: "Completed an intensive 6-month UI/UX design internship, successfully launching 5 end-to-end e-commerce platforms including flagship storefronts Seed to Soul and Lynk Sweets.",
     highlights: [
-      "Crafted 5 end-to-end e-commerce web platforms from user research to production handoff.",
-      "Designed flagship digital storefronts 'Seed to Soul' and 'Lynk Sweets'.",
-      "Created promotional digital assets and enforced brand visual consistency across touchpoints."
+      "Spearheaded end-to-end design for 5 e-commerce websites from user research to production developer handoff.",
+      "Designed flagship digital storefronts 'Seed to Soul' and 'Lynk Sweets' with a focus on conversion and luxury aesthetics.",
+      "Crafted promotional graphic assets, design systems, and brand visual guidelines across touchpoints."
     ],
-    skills: ["E-Commerce Design", "User Research", "Web Design", "Lynk Sweets", "Graphic Design"],
+    artifacts: ["Seed to Soul Web App", "Lynk Sweets Storefront", "E-Commerce Checkout UX", "Brand Stylebook"],
+    skills: ["UI/UX", "Web Design", "E-Commerce Design", "User Research", "Graphic Design"],
   },
   {
     id: "04",
-    date: "Nov 2025 – Dec 2025",
+    date: "NOV 2025 – DEC 2025",
     title: "UI/UX & Brand Designer",
     company: "Prorion",
     type: "Freelance • Remote",
     location: "Remote",
-    summary: "Partnered directly with the founder to define the 'Connect – Collaborate – Create' brand identity, website UI, and visual hierarchy.",
+    summary: "Partnered directly with the founder to translate Prorion's product vision into a cohesive digital brand identity around the 'Connect – Collaborate – Create' philosophy.",
     highlights: [
-      "Conceptualized full visual identity including logo system, color schemes, and brand voice.",
-      "Designed responsive marketing website UI with clean hierarchy and engaging micro-interactions.",
-      "Incorporated founder feedback loops to polish user touchpoints and value proposition."
+      "Conceptualized full visual identity system including logo mark, typography pairs, and color spectrum.",
+      "Designed responsive marketing website UI with clear visual hierarchy and subtle micro-interactions.",
+      "Incorporated rapid founder feedback loops to refine landing page conversion and user engagement."
     ],
-    skills: ["Branding", "Logo Design", "Visual Hierarchy", "Website UI", "Client Collaboration"],
+    artifacts: ["Connect-Collaborate-Create Identity", "Website UI Kit", "Vector Logo Mark"],
+    skills: ["UI/UX Designer", "User Experience Design (UED)", "Branding", "Logo Design", "Visual Hierarchy"],
   },
   {
     id: "05",
-    date: "Oct 2025 – Nov 2025",
+    date: "OCT 2025 – NOV 2025",
     title: "UI/UX Designer",
-    company: "Freelance Checklist App",
+    company: "Checklist Mobile App",
     type: "Freelance • Remote",
     location: "Remote",
-    summary: "Designed a checklist-based mobile experience focused on intuitive onboarding, smooth task management, and minimal UI aesthetic.",
+    summary: "Designed an intuitive checklist-based mobile application focused on frictionless user onboarding, minimal task management interfaces, and bespoke visual identity.",
     highlights: [
-      "Created frictionless mobile task onboarding flows with clear state indicators.",
-      "Built complete visual identity kit including logo, typography matrix, and palette.",
-      "Delivered interactive prototype with smooth transition physics."
+      "Crafted frictionless mobile onboarding user flows with immediate visual task state feedback.",
+      "Designed complete mobile identity system including typography hierarchy, color palette, and app icons.",
+      "Delivered interactive mobile prototypes with smooth touch gestures and micro-animations."
     ],
-    skills: ["Mobile UI/UX", "Visual Identity", "Typography", "Task Management UI"],
+    artifacts: ["Mobile iOS UI Kit", "Task Onboarding Flow", "App Iconography System"],
+    skills: ["User Interface Design", "UI & UX", "Mobile Design", "Visual Identity", "Typography"],
   },
 ];
 
@@ -113,23 +118,28 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
   };
 
   return (
-    <section className="bg-[#050505] text-[#F5F5F5] py-20 px-4 sm:px-6 lg:px-8">
+    <section className="bg-[#050505] text-[#F5F5F5] py-16 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto">
         {title && (
-          <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Career Journey</span>
+          <div className="mb-16 pb-6 border-b border-white/10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-mono font-medium tracking-[0.2em] text-neutral-400 uppercase">
+                04 — CAREER TIMELINE
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-light text-white tracking-tight mt-2 font-sans">
+                {title}
+              </h2>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-light text-white tracking-tight font-sans">
-              {title}
-            </h2>
+            <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">
+              2025 — PRESENT
+            </span>
           </div>
         )}
 
-        <div className="relative border-l border-white/10 ml-3 sm:ml-6 pl-6 sm:pl-10 space-y-12">
+        {/* Timeline Axis Container */}
+        <div className="relative border-l border-white/10 ml-2 sm:ml-6 pl-6 sm:pl-10 space-y-12">
           {/* Subtle gradient line overlay */}
-          <div className="absolute top-0 bottom-0 -left-[1px] w-[2px] bg-gradient-to-b from-cyan-500 via-white/20 to-transparent pointer-events-none" />
+          <div className="absolute top-0 bottom-0 -left-[1px] w-[2px] bg-gradient-to-b from-white/40 via-white/10 to-transparent pointer-events-none" />
 
           {data.map((entry, index) => {
             const isExpanded = expandedItems[index];
@@ -137,82 +147,105 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
             return (
               <motion.div
                 key={entry.id || index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
                 className="relative group"
               >
-                {/* Timeline dot */}
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 flex items-center justify-center">
-                  <div className="h-4 w-4 rounded-full bg-cyan-400 ring-4 ring-[#050505] shadow-[0_0_12px_rgba(6,182,212,0.8)] transition-all duration-300 group-hover:scale-125 group-hover:bg-white group-hover:shadow-[0_0_20px_rgba(255,255,255,0.9)]" />
+                {/* Timeline node */}
+                <div className="absolute -left-[31px] sm:-left-[47px] top-7 flex items-center justify-center">
+                  <div className="h-3.5 w-3.5 rounded-full border border-white/60 bg-[#050505] transition-all duration-500 group-hover:scale-125 group-hover:bg-white group-hover:border-white group-hover:shadow-[0_0_15px_rgba(255,255,255,0.8)]" />
                 </div>
 
-                <Card className="border border-white/10 bg-neutral-900/50 backdrop-blur-md shadow-md transition-all duration-300 hover:border-white/25 hover:bg-neutral-900/80">
-                  <CardContent className="p-6 sm:p-7">
-                    {/* Header: Company & Role */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <Card className="border border-white/10 bg-[#0a0a0a]/90 backdrop-blur-xl shadow-xl transition-all duration-500 hover:border-white/25 hover:bg-[#0d0d0d]">
+                  <CardContent className="p-6 sm:p-8">
+                    
+                    {/* Top Row: Date & Role Meta */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                       <div>
-                        <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 mb-1">
-                          <Briefcase className="w-3.5 h-3.5" />
-                          <span className="font-semibold">{entry.company}</span>
-                          {entry.type && (
-                            <span className="text-neutral-500">• {entry.type}</span>
-                          )}
+                        <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 tracking-wider mb-1 uppercase">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/70 group-hover:bg-white transition-colors" />
+                          <span className="text-white font-medium">@{entry.company}</span>
+                          {entry.type && <span className="text-neutral-500">• {entry.type}</span>}
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight">
+                        <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight font-sans">
                           {entry.title}
                         </h3>
                       </div>
 
-                      {/* Date Badge */}
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-neutral-300 self-start sm:self-center shrink-0">
-                        <Calendar className="w-3 h-3 text-cyan-400" />
-                        <span>{entry.date}</span>
+                      {/* Period Badge */}
+                      <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-neutral-300 self-start sm:self-center shrink-0 tracking-wider">
+                        {entry.date}
                       </div>
                     </div>
 
-                    {/* Summary text */}
-                    <p className="text-sm text-neutral-300 leading-relaxed mb-4">
+                    {/* Summary */}
+                    <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-light mb-5">
                       {entry.summary || entry.content}
                     </p>
 
-                    {/* Expandable Section */}
+                    {/* Expandable Case Study Details */}
                     <AnimatePresence>
                       {isExpanded && (
                         <motion.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.35, ease: "easeInOut" }}
-                          className="overflow-hidden border-t border-white/10 pt-4 mt-2 space-y-4"
+                          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden border-t border-white/10 pt-5 mt-3 space-y-5"
                         >
+                          {/* Highlights */}
                           {entry.highlights && entry.highlights.length > 0 && (
-                            <div>
-                              <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-2">
-                                Key Achievements & Responsibilities
+                            <div className="space-y-3">
+                              <h4 className="text-xs font-mono uppercase tracking-[0.18em] text-neutral-400 flex items-center gap-2">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-white/80" />
+                                <span>Core Impact & Responsibilities</span>
                               </h4>
-                              <ul className="space-y-2 text-sm text-neutral-300">
+                              <ul className="space-y-2.5 text-sm text-neutral-300 font-light">
                                 {entry.highlights.map((item, hIdx) => (
-                                  <li key={hIdx} className="flex items-start gap-2">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" />
-                                    <span>{item}</span>
+                                  <li key={hIdx} className="flex items-start gap-3">
+                                    <span className="text-neutral-500 font-mono text-xs mt-0.5">—</span>
+                                    <span className="leading-relaxed">{item}</span>
                                   </li>
                                 ))}
                               </ul>
+                            </div>
+                          )}
+
+                          {/* Artifacts / Deliverables */}
+                          {entry.artifacts && entry.artifacts.length > 0 && (
+                            <div className="space-y-2.5 pt-2 border-t border-white/5">
+                              <h4 className="text-xs font-mono uppercase tracking-[0.18em] text-neutral-400 flex items-center gap-2">
+                                <Layers className="w-3.5 h-3.5 text-white/80" />
+                                <span>Key Deliverables</span>
+                              </h4>
+                              <div className="flex flex-wrap gap-2">
+                                {entry.artifacts.map((art, aIdx) => (
+                                  <span
+                                    key={aIdx}
+                                    className="px-2.5 py-1 text-xs font-mono rounded bg-white/[0.03] text-neutral-300 border border-white/10"
+                                  >
+                                    {art}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
                           )}
                         </motion.div>
                       )}
                     </AnimatePresence>
 
-                    {/* Skills pills */}
+                    {/* Skill Tags */}
                     {entry.skills && entry.skills.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-white/5">
+                      <div className="flex flex-wrap items-center gap-2 mt-5 pt-4 border-t border-white/5">
+                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mr-1">
+                          STACK:
+                        </span>
                         {entry.skills.map((skill, sIdx) => (
                           <span
                             key={sIdx}
-                            className="px-2.5 py-0.5 text-xs rounded-full bg-white/5 text-neutral-400 border border-white/5 font-mono"
+                            className="px-2.5 py-1 text-xs rounded-full bg-white/[0.03] text-neutral-300 border border-white/10 font-mono hover:border-white/30 hover:text-white transition-colors"
                           >
                             {skill}
                           </span>
@@ -220,21 +253,26 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
                       </div>
                     )}
 
-                    {/* Read More / Read Less Button */}
-                    <div className="mt-5 pt-2 flex justify-end">
+                    {/* Read More / Collapse Interactive Button */}
+                    <div className="mt-6 pt-3 flex justify-between items-center border-t border-white/5">
+                      <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
+                        {isExpanded ? "FULL DETAILS EXPANDED" : "CLICK TO EXPAND DETAILS"}
+                      </span>
+
                       <button
                         onClick={() => toggleExpand(index)}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors py-1 px-3 rounded-lg bg-cyan-950/30 border border-cyan-500/20 hover:border-cyan-500/40 hover:bg-cyan-950/50 cursor-pointer"
+                        className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white hover:text-neutral-200 py-1.5 px-4 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 hover:border-white/40 transition-all duration-300 cursor-pointer group/btn"
                         aria-expanded={isExpanded}
                       >
-                        <span>{isExpanded ? "READ LESS" : "READ MORE"}</span>
+                        <span>{isExpanded ? "COLLAPSE" : "READ DETAILS"}</span>
                         {isExpanded ? (
-                          <ChevronUp className="w-3.5 h-3.5 text-cyan-400" />
+                          <Minus className="w-3.5 h-3.5 text-white group-hover/btn:rotate-180 transition-transform duration-300" />
                         ) : (
-                          <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />
+                          <Plus className="w-3.5 h-3.5 text-white group-hover/btn:rotate-90 transition-transform duration-300" />
                         )}
                       </button>
                     </div>
+
                   </CardContent>
                 </Card>
               </motion.div>
