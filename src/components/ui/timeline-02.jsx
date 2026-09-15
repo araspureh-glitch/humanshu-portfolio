@@ -46,7 +46,7 @@ export const defaultTimelineData = [
     id: "03",
     date: "Sep 2025 – Feb 2026",
     company: "ABIS Foods and Proteins (IB Group)",
-    type: "Internship • Remote",
+    type: "Internship • Hybrid",
     role: "Design Intern",
     image: "/ecogrid-cover.png",
     summary:

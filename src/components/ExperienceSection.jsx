@@ -39,7 +39,7 @@ export default function ExperienceSection() {
       date: 'Sep 2025 – Feb 2026',
       title: 'Design Intern',
       company: 'ABIS Foods and Proteins (IB Group)',
-      type: 'Internship • Remote',
+      type: 'Internship • Hybrid',
       location: 'Remote / Hybrid',
       summary: '6-month UI/UX Design Internship designing 5 end-to-end e-commerce websites including flagship platforms Seed to Soul and Lynk Sweets.',
       highlights: [
