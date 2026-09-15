@@ -36,10 +36,11 @@ export default function ContactSection() {
           <div className="pt-6 flex flex-wrap items-center gap-4">
             <a 
               href="mailto:humanshu.araspure@gmail.com" 
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black font-mono text-sm uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl shadow-lg cursor-pointer"
+              style={{ border: '1px solid rgba(255,255,255,0.6)' }}
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-mono text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-200 cursor-pointer"
             >
               <span>Let's talk</span>
-              <span className="text-lg">↗</span>
+              <span>→</span>
             </a>
 
             <a 

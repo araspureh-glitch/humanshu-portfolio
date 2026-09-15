@@ -79,10 +79,11 @@ export default function Navigation({ introComplete = true, activeSection: active
         <div className="flex items-center gap-3">
           <Link 
             to="/contact"
-            className="hidden sm:flex px-4 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 items-center gap-1.5 text-xs font-mono tracking-widest uppercase cursor-pointer shadow-sm"
+            style={{ border: '1px solid rgba(255,255,255,0.6)' }}
+            className="hidden sm:flex px-5 py-2 rounded-full text-white hover:bg-white hover:text-black transition-all duration-200 items-center gap-2 text-[11px] font-mono tracking-widest uppercase cursor-pointer"
           >
             <span>Let's talk</span>
-            <span className="text-xs">↗</span>
+            <span>→</span>
           </Link>
 
           {/* Mobile Menu Toggle Button */}
