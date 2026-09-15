@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const defaultTimelineData = [
   {
     id: "01",
-    date: "Aug 2026 – Present",
+    date: "Aug 2026 – Sep 10 2026",
     company: "Saff co",
     type: "Internship • Remote",
     role: "Senior UI/UX Designer",
@@ -25,7 +25,7 @@ export const defaultTimelineData = [
   },
   {
     id: "02",
-    date: "Jul 2026 – Present",
+    date: "Jul 2026 – Sep 10 2026",
     company: "Torkk (BLACKORIGINX)",
     type: "Internship • Remote",
     role: "Design Intern",
