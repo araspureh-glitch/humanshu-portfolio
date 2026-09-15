@@ -201,14 +201,15 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
                     <div className="flex flex-wrap items-center justify-between gap-2.5 pt-3 border-t border-white/10">
                       {displaySkills.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="text-[11px] font-mono text-neutral-400 font-semibold uppercase tracking-widest mr-1">
+                          <span className="text-[10px] font-mono text-neutral-400 font-semibold uppercase tracking-widest mr-1">
                             STACK:
                           </span>
                           {displaySkills.map((skill, sIdx) => (
                             <span
                               key={sIdx}
-                              className="px-2.5 py-0.5 text-xs rounded-full bg-neutral-900 text-neutral-200 border border-white/20 font-mono hover:border-white/40 hover:text-white transition-colors"
+                              className="px-2.5 py-0.5 text-xs rounded-md bg-white/[0.06] text-neutral-200 border border-white/15 font-mono hover:border-white/35 hover:bg-white/10 hover:text-white transition-all duration-300 flex items-center gap-1.5"
                             >
+                              <span className="w-1 h-1 rounded-full bg-emerald-400/80 shrink-0" />
                               {skill}
                             </span>
                           ))}

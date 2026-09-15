@@ -17,7 +17,7 @@ export default function ExperienceSection() {
         'Focused on understanding user needs, simplifying complex journeys, and creating clear navigation patterns for seamless user experience.',
         'Maintained design direction and consistency across typography, spacing, components, and visual elements with a strong focus on accessibility (WCAG) and responsive behavior.'
       ],
-      skills: ['Teamwork', 'Team Leadership', 'UI/UX Design', 'Figma', 'Information Architecture', 'User Flows', 'Responsive Design'],
+      skills: ['UI/UX Design', 'Figma', 'Information Architecture', 'User Flows', 'Responsive Design'],
     },
     {
       id: '02',
@@ -32,7 +32,7 @@ export default function ExperienceSection() {
         'Created intuitive experiences while maintaining consistency across screens, components, and interactive micro-animations.',
         'Collaborated closely with product, development, and cross-functional teams to contribute to design systems, prototyping, and UX optimizations.'
       ],
-      skills: ['Web Design', 'Teamwork', 'UI/UX Design', 'Figma', 'Wireframing', 'Prototyping', 'Design Systems'],
+      skills: ['UI/UX Design', 'Figma', 'Wireframing', 'Prototyping', 'Design Systems'],
     },
     {
       id: '03',
@@ -47,7 +47,7 @@ export default function ExperienceSection() {
         'Contributed to flagship platforms such as Seed to Soul and Lynk Sweets while establishing consistent design systems.',
         'Supported graphic design initiatives by creating high-impact visual assets and ensuring total brand consistency.'
       ],
-      skills: ['UI/UX', 'Web Design', 'E-Commerce Design', 'User Research', 'Graphic Design', 'Seed to Soul', 'Lynk Sweets'],
+      skills: ['UI/UX Design', 'E-Commerce Design', 'User Research', 'Seed to Soul', 'Lynk Sweets'],
     },
     {
       id: '04',
@@ -62,7 +62,7 @@ export default function ExperienceSection() {
         'Contributed to website UI, visual hierarchy, user experience design, and design iterations.',
         'Refined designs through iterative founder feedback to build a cohesive, engaging brand touchpoint.'
       ],
-      skills: ['UI/UX Designer', 'User Experience Design (UED)', 'Branding', 'Logo Design', 'Visual Hierarchy'],
+      skills: ['UI/UX Design', 'Branding', 'Logo Design', 'Visual Hierarchy'],
     },
     {
       id: '05',
@@ -77,7 +77,7 @@ export default function ExperienceSection() {
         'Created complete visual identity including logo mark, typography system, and color palette.',
         'Delivered high-fidelity mobile prototypes optimized for mobile touch interactions.'
       ],
-      skills: ['User Interface Design', 'UI & UX', 'Mobile Design', 'Visual Identity', 'Typography'],
+      skills: ['Mobile UI/UX', 'Visual Identity', 'Typography', 'Prototyping'],
     }
   ]
 
@@ -134,7 +134,7 @@ export default function ExperienceSection() {
         >
           <div>
             <div className="flex items-center gap-2.5 font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               <span>04 / WORK EXPERIENCE</span>
             </div>
             <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight mt-3 font-sans">
