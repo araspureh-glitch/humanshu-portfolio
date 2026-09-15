@@ -105,20 +105,30 @@ export default function Timeline_02({ data = defaultTimelineData }) {
   const [activeStep, setActiveStep] = useState(0);
   const [expandedItems, setExpandedItems] = useState({});
   const itemRefs = useRef([]);
+  const stepBtnRefs = useRef([]);
+  const [dotTop, setDotTop] = useState(16);
 
-  // Scroll tracking to highlight current active step
+  // Viewport scroll tracking to highlight exact active card in view
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      const viewportCenter = window.innerHeight * 0.45;
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
       itemRefs.current.forEach((ref, index) => {
         if (ref) {
-          const top = ref.offsetTop;
-          const height = ref.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveStep(index);
+          const rect = ref.getBoundingClientRect();
+          const distance = Math.abs(rect.top - viewportCenter);
+          if (rect.top <= viewportCenter + 200 && rect.bottom >= 150) {
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestIndex = index;
+            }
           }
         }
       });
+
+      setActiveStep(closestIndex);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -126,6 +136,14 @@ export default function Timeline_02({ data = defaultTimelineData }) {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [data]);
+
+  // Recalculate dynamic dot position to align center with active left step button
+  useEffect(() => {
+    if (stepBtnRefs.current[activeStep]) {
+      const btn = stepBtnRefs.current[activeStep];
+      setDotTop(btn.offsetTop + btn.offsetHeight / 2 - 4);
+    }
+  }, [activeStep]);
 
   const toggleExpand = (index) => {
     setExpandedItems((prev) => ({
@@ -171,11 +189,11 @@ export default function Timeline_02({ data = defaultTimelineData }) {
           {/* Minimal Timeline Steps */}
           <div className="relative pl-6 py-2 border-l border-white/10 space-y-6">
             
-            {/* Active Orange Accent Bar/Dot */}
+            {/* Active Orange Accent Bar/Dot (Dynamically aligned) */}
             <motion.div
               className="absolute left-[-4px] w-2 h-2 rounded-full bg-[#EA5211] shadow-[0_0_10px_rgba(234,82,17,0.8)]"
               animate={{
-                top: `${activeStep * 54 + 14}px`
+                top: `${dotTop}px`
               }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             />
@@ -186,6 +204,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
               return (
                 <button
                   key={item.id}
+                  ref={(el) => (stepBtnRefs.current[idx] = el)}
                   onClick={() => scrollToStep(idx)}
                   className={`w-full text-left flex items-center justify-between gap-3 transition-all duration-300 group cursor-pointer ${
                     isActive ? "opacity-100" : "opacity-40 hover:opacity-75"
