@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 
 export type TimelineItem = {
@@ -26,6 +27,11 @@ export const defaultTimelineData: TimelineItem[] = [
     company: "Saff co",
     type: "Internship • Remote",
     summary: "Led responsive web app UI/UX design, user flows, Information Architecture, and Figma design systems.",
+    highlights: [
+      "Architected end-to-end user flows, wireframes, and responsive layouts in Figma.",
+      "Established centralized design tokens for typography, spacing, and UI components.",
+      "Iterated interfaces through user research, usability testing, and WCAG accessibility guidelines."
+    ],
     skills: ["UI/UX Design", "Figma", "Information Architecture", "User Flows", "Responsive Design"],
   },
   {
@@ -35,6 +41,11 @@ export const defaultTimelineData: TimelineItem[] = [
     company: "Torkk (BLACKORIGINX)",
     type: "Internship • Remote",
     summary: "Spearheaded UI/UX design direction, wireframes, interactive prototypes, and design system tokens.",
+    highlights: [
+      "Designed wireframes and interactive prototypes for core web and mobile touchpoints.",
+      "Collaborated directly with product and development teams for seamless design handoffs.",
+      "Contributed to design systems, component libraries, and interface UX improvements."
+    ],
     skills: ["UI/UX Design", "Figma", "Wireframing", "Prototyping", "Design Systems"],
   },
   {
@@ -44,6 +55,11 @@ export const defaultTimelineData: TimelineItem[] = [
     company: "ABIS Foods and Proteins (IB Group)",
     type: "Internship / Hybrid",
     summary: "Designed 5 end-to-end e-commerce platforms including flagship storefronts Seed to Soul and Lynk Sweets.",
+    highlights: [
+      "Managed full design lifecycle from user research and wireframing to production handoff.",
+      "Established consistent design systems and improved user journeys for e-commerce storefronts.",
+      "Created visual marketing assets and maintained overall brand consistency."
+    ],
     skills: ["UI/UX Design", "Web Design", "E-Commerce Design", "User Research", "Graphic Design"],
   },
   {
@@ -53,6 +69,10 @@ export const defaultTimelineData: TimelineItem[] = [
     company: "Prorion",
     type: "Freelance • Remote",
     summary: "Defined the 'Connect – Collaborate – Create' brand concept, vector logo direction, and website UI.",
+    highlights: [
+      "Developed full brand identity concept, typography scale, and vector logo mark.",
+      "Designed responsive marketing website UI with clear visual hierarchy."
+    ],
     skills: ["UI/UX Design", "Branding", "Logo Design", "Visual Hierarchy"],
   },
   {
@@ -62,6 +82,10 @@ export const defaultTimelineData: TimelineItem[] = [
     company: "Checklist Mobile App",
     type: "Freelance • Remote",
     summary: "Designed a minimalist checklist mobile experience focused on intuitive onboarding and task management.",
+    highlights: [
+      "Created frictionless mobile task onboarding and state feedback flows.",
+      "Built complete visual identity system including logo, typography, and color palette."
+    ],
     skills: ["Mobile UI/UX", "Visual Identity", "Typography", "Prototyping"],
   },
 ];
@@ -72,6 +96,15 @@ interface TimelineProps {
 }
 
 export default function Timeline_02({ data = defaultTimelineData, title = "Work Experience" }: TimelineProps) {
+  const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
+
+  const toggleExpand = (index: number) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   return (
     <section className="bg-[#050505] text-[#F5F5F5] py-10 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto">
@@ -98,6 +131,7 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
 
           {data.map((entry, index) => {
             const displaySkills = entry.skills ? entry.skills.slice(0, 5) : [];
+            const isExpanded = expandedItems[index];
 
             return (
               <motion.div
@@ -141,22 +175,60 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
                       {entry.summary || entry.description || entry.content}
                     </p>
 
-                    {/* Max 5 Stack Pills */}
-                    {displaySkills.length > 0 && (
-                      <div className="flex flex-wrap items-center gap-1.5 pt-2.5 border-t border-white/5">
-                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mr-1">
-                          STACK:
-                        </span>
-                        {displaySkills.map((skill, sIdx) => (
-                          <span
-                            key={sIdx}
-                            className="px-2.5 py-0.5 text-xs rounded-full bg-white/[0.03] text-neutral-300 border border-white/10 font-mono hover:border-white/25 transition-colors"
-                          >
-                            {skill}
+                    {/* Expandable Details */}
+                    <AnimatePresence>
+                      {isExpanded && entry.highlights && entry.highlights.length > 0 && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden pt-2 space-y-1.5 border-t border-white/5"
+                        >
+                          <ul className="space-y-1 text-xs text-neutral-400 font-light">
+                            {entry.highlights.map((item, hIdx) => (
+                              <li key={hIdx} className="flex items-start gap-2">
+                                <span className="text-neutral-500 font-mono">—</span>
+                                <span className="leading-normal">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Stack Pills + View More in Right Hand Side Bottom Corner */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-white/5">
+                      {displaySkills.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mr-1">
+                            STACK:
                           </span>
-                        ))}
-                      </div>
-                    )}
+                          {displaySkills.map((skill, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="px-2.5 py-0.5 text-xs rounded-full bg-white/[0.03] text-neutral-300 border border-white/10 font-mono hover:border-white/25 transition-colors"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* View More / View Less in Right Hand Corner */}
+                      {entry.highlights && entry.highlights.length > 0 && (
+                        <button
+                          onClick={() => toggleExpand(index)}
+                          className="text-xs font-mono text-neutral-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 ml-auto shrink-0 group/link py-0.5"
+                          aria-expanded={isExpanded}
+                        >
+                          <span>{isExpanded ? "View Less" : "View More"}</span>
+                          <span className="group-hover/link:translate-x-0.5 transition-transform">
+                            {isExpanded ? "↑" : "→"}
+                          </span>
+                        </button>
+                      )}
+                    </div>
 
                   </CardContent>
                 </Card>
