@@ -66,12 +66,7 @@ export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0,
           <ProjectLink key={link.heading} {...link} onProjectSelect={onProjectSelect} />
         ))}
 
-        {/* View More Button */}
-        <div className="mt-12 flex justify-center">
-          <RouterLink to="/work">
-            <LiquidMetalButton label="VIEW MORE PROJECTS" showArrow={true} />
-          </RouterLink>
-        </div>
+
       </div>
     </section>
   );
