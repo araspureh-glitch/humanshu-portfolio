@@ -9,13 +9,8 @@ export const defaultTimelineData = [
     title: "Senior UI/UX Designer",
     company: "Saff co",
     type: "Internship • Remote",
-    summary: "As Lead UI/UX Designer, worked on a responsive web-based digital product focusing on clean, intuitive, and user-friendly interaction design.",
-    highlights: [
-      "Architected end-to-end user flows, wireframes, and high-fidelity responsive layouts in Figma.",
-      "Established centralized design tokens for consistent typography, spacing, and UI components.",
-      "Iterated interfaces through user research, usability testing, and WCAG accessibility guidelines."
-    ],
-    skills: ["Teamwork", "Team Leadership", "UI/UX Design", "Figma", "Information Architecture", "User Flows", "Responsive Design"],
+    summary: "Led responsive web app UI/UX design, user flows, Information Architecture, and Figma design systems.",
+    skills: ["UI/UX Design", "Figma", "Information Architecture", "User Flows", "Responsive Design"],
   },
   {
     id: "02",
@@ -23,13 +18,8 @@ export const defaultTimelineData = [
     title: "Design Intern",
     company: "Torkk (BLACKORIGINX)",
     type: "Internship • Remote",
-    summary: "Led UI/UX design direction across digital product initiatives, translating product requirements into high-fidelity responsive interfaces in Figma.",
-    highlights: [
-      "Designed wireframes and interactive prototypes for core web and mobile touchpoints.",
-      "Collaborated directly with product and development teams for seamless design handoffs.",
-      "Contributed to design systems, component libraries, and interface UX improvements."
-    ],
-    skills: ["Web Design", "Teamwork", "UI/UX Design", "Figma", "Wireframing", "Prototyping", "Design Systems"],
+    summary: "Spearheaded UI/UX design direction, wireframes, interactive prototypes, and design system tokens.",
+    skills: ["UI/UX Design", "Figma", "Wireframing", "Prototyping", "Design Systems"],
   },
   {
     id: "03",
@@ -37,13 +27,8 @@ export const defaultTimelineData = [
     title: "Design Intern",
     company: "ABIS Foods and Proteins (IB Group)",
     type: "Internship / Hybrid",
-    summary: "Completed a 6-month UI/UX Internship designing 5 end-to-end e-commerce websites including flagship platforms Seed to Soul and Lynk Sweets.",
-    highlights: [
-      "Managed full design lifecycle from user research and wireframing to production handoff.",
-      "Established consistent design systems and improved user journeys for e-commerce storefronts.",
-      "Created visual marketing assets and maintained overall brand consistency."
-    ],
-    skills: ["UI/UX", "Web Design", "E-Commerce Design", "User Research", "Graphic Design"],
+    summary: "Designed 5 end-to-end e-commerce platforms including flagship storefronts Seed to Soul and Lynk Sweets.",
+    skills: ["UI/UX Design", "Web Design", "E-Commerce Design", "User Research", "Graphic Design"],
   },
   {
     id: "04",
@@ -51,12 +36,8 @@ export const defaultTimelineData = [
     title: "UI/UX & Brand Designer",
     company: "Prorion",
     type: "Freelance • Remote",
-    summary: "Collaborated directly with the founder to define the 'Connect – Collaborate – Create' brand identity, logo direction, website UI, and visual hierarchy.",
-    highlights: [
-      "Developed full brand identity concept, typography scale, and vector logo mark.",
-      "Designed responsive marketing website UI with clear visual hierarchy."
-    ],
-    skills: ["UI/UX Designer", "Branding", "Logo Design", "Visual Hierarchy"],
+    summary: "Defined the 'Connect – Collaborate – Create' brand concept, vector logo direction, and website UI.",
+    skills: ["UI/UX Design", "Branding", "Logo Design", "Visual Hierarchy"],
   },
   {
     id: "05",
@@ -64,21 +45,17 @@ export const defaultTimelineData = [
     title: "UI/UX Designer",
     company: "Checklist Mobile App",
     type: "Freelance • Remote",
-    summary: "Designed a checklist-based mobile experience focused on intuitive task onboarding, smooth task management, and a clean minimal interface.",
-    highlights: [
-      "Created frictionless mobile task onboarding and state feedback flows.",
-      "Built complete visual identity system including logo, typography, and color palette."
-    ],
-    skills: ["User Interface Design", "Mobile Design", "Visual Identity", "Typography"],
+    summary: "Designed a minimalist checklist mobile experience focused on intuitive onboarding and task management.",
+    skills: ["Mobile UI/UX", "Visual Identity", "Typography", "Prototyping"],
   },
 ];
 
 export default function Timeline_02({ data = defaultTimelineData, title = "Work Experience" }) {
   return (
-    <section className="bg-[#050505] text-[#F5F5F5] py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <section className="bg-[#050505] text-[#F5F5F5] py-10 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto">
         {title && (
-          <div className="mb-10 pb-4 border-b border-white/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div className="mb-8 pb-4 border-b border-white/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
               <span className="text-xs font-mono font-medium tracking-[0.2em] text-neutral-400 uppercase">
                 04 — WORK EXPERIENCE
@@ -93,86 +70,78 @@ export default function Timeline_02({ data = defaultTimelineData, title = "Work 
           </div>
         )}
 
-        {/* Timeline Axis Container - Reduced vertical gaps */}
-        <div className="relative border-l border-white/10 ml-2 sm:ml-4 pl-5 sm:pl-8 space-y-6 sm:space-y-8">
+        {/* Timeline Axis Container */}
+        <div className="relative border-l border-white/10 ml-2 sm:ml-4 pl-5 sm:pl-8 space-y-5 sm:space-y-6">
           {/* Subtle line overlay */}
           <div className="absolute top-0 bottom-0 -left-[1px] w-[2px] bg-gradient-to-b from-white/30 via-white/10 to-transparent pointer-events-none" />
 
-          {data.map((entry, index) => (
-            <motion.div
-              key={entry.id || index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
-              className="relative group"
-            >
-              {/* Timeline dot */}
-              <div className="absolute -left-[27px] sm:-left-[39px] top-6 flex items-center justify-center">
-                <div className="h-3 w-3 rounded-full border border-white/50 bg-[#050505] transition-all duration-300 group-hover:scale-125 group-hover:bg-white group-hover:border-white" />
-              </div>
+          {data.map((entry, index) => {
+            const displaySkills = entry.skills ? entry.skills.slice(0, 5) : [];
 
-              {/* Compact Card with no unnecessary negative space */}
-              <Card className="border border-white/10 bg-[#0a0a0a]/90 backdrop-blur-xl transition-all duration-300 hover:border-white/25 hover:bg-[#0d0d0d]">
-                <CardContent className="p-5 sm:p-6 space-y-3.5">
-                  
-                  {/* Top Row: Meta Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div className="flex items-center flex-wrap gap-2 text-xs font-mono text-neutral-400 tracking-wide uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
-                      <span className="text-white font-medium">@{entry.company}</span>
-                      {entry.type && <span className="text-neutral-500">• {entry.type}</span>}
-                    </div>
+            return (
+              <motion.div
+                key={entry.id || index}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
+                className="relative group"
+              >
+                {/* Timeline dot */}
+                <div className="absolute -left-[27px] sm:-left-[39px] top-5 flex items-center justify-center">
+                  <div className="h-3 w-3 rounded-full border border-white/50 bg-[#050505] transition-all duration-300 group-hover:scale-125 group-hover:bg-white group-hover:border-white" />
+                </div>
 
-                    {/* Date Badge */}
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-neutral-300 self-start sm:self-auto shrink-0 tracking-wider">
-                      {entry.date}
-                    </span>
-                  </div>
+                {/* Minimal Card */}
+                <Card className="border border-white/10 bg-[#0a0a0a]/90 backdrop-blur-xl transition-all duration-300 hover:border-white/25 hover:bg-[#0d0d0d]">
+                  <CardContent className="p-4 sm:p-5 space-y-2.5">
+                    
+                    {/* Top Row: Company & Date */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                      <div className="flex items-center flex-wrap gap-2 text-xs font-mono text-neutral-400 tracking-wide uppercase">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                        <span className="text-white font-medium">{entry.company}</span>
+                        {entry.type && <span className="text-neutral-500">• {entry.type}</span>}
+                      </div>
 
-                  {/* Role Title */}
-                  <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight font-sans">
-                    {entry.title}
-                  </h3>
-
-                  {/* Summary */}
-                  <p className="text-sm text-neutral-300 leading-relaxed font-light">
-                    {entry.summary || entry.description || entry.content}
-                  </p>
-
-                  {/* Bullet Highlights (if available) */}
-                  {entry.highlights && entry.highlights.length > 0 && (
-                    <ul className="space-y-1.5 pt-1 text-xs text-neutral-400 font-light">
-                      {entry.highlights.map((item, hIdx) => (
-                        <li key={hIdx} className="flex items-start gap-2">
-                          <span className="text-neutral-500 font-mono">—</span>
-                          <span className="leading-normal">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Skill Stack Tags */}
-                  {entry.skills && entry.skills.length > 0 && (
-                    <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-white/5">
-                      <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mr-1">
-                        STACK:
+                      {/* Date Badge */}
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-neutral-300 self-start sm:self-auto shrink-0 tracking-wider">
+                        {entry.date}
                       </span>
-                      {entry.skills.map((skill, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className="px-2.5 py-0.5 text-xs rounded-full bg-white/[0.03] text-neutral-300 border border-white/10 font-mono hover:border-white/25 transition-colors"
-                        >
-                          {skill}
-                        </span>
-                      ))}
                     </div>
-                  )}
 
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+                    {/* Role Title */}
+                    <h3 className="text-lg sm:text-xl font-light text-white tracking-tight font-sans">
+                      {entry.title}
+                    </h3>
+
+                    {/* Short Summary */}
+                    <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light">
+                      {entry.summary || entry.description || entry.content}
+                    </p>
+
+                    {/* Max 5 Stack Pills */}
+                    {displaySkills.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-1.5 pt-2.5 border-t border-white/5">
+                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mr-1">
+                          STACK:
+                        </span>
+                        {displaySkills.map((skill, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-2.5 py-0.5 text-xs rounded-full bg-white/[0.03] text-neutral-300 border border-white/10 font-mono hover:border-white/25 transition-colors"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
