@@ -257,12 +257,12 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 group ${
                     isActive
-                      ? "bg-[#09090b]/90 border-white/40 border-l-4 border-l-white"
-                      : "bg-[#09090c]/80 border-white/10 opacity-90 hover:opacity-100"
+                      ? "bg-[#09090b]/90 border-[#262626]"
+                      : "bg-[#09090c]/80 border-[#262626]/50 opacity-90 hover:opacity-100 hover:border-[#262626]"
                   }`}
                 >
                   {/* Header: Number, Date, Company & Role */}
-                  <div className="border-b border-white/15 pb-6 space-y-2">
+                  <div className="border-b border-[#262626] pb-6 space-y-2">
                     <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
                       <div className="flex items-center gap-2">
                         <span className="text-[#EA5211] font-bold">{item.id}</span>
@@ -271,7 +271,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[11px] tracking-wider uppercase font-medium">
+                        <span className="px-3 py-1 rounded-full bg-white/5 border border-[#262626] text-white/90 text-[11px] tracking-wider uppercase font-medium">
                           {item.type}
                         </span>
                       </div>
@@ -287,7 +287,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
 
                   {/* Work Cover Image Preview */}
                   {item.image && (
-                    <div className="relative overflow-hidden rounded-xl border border-white/15 bg-[#121214] max-h-56 sm:max-h-72">
+                    <div className="relative overflow-hidden rounded-xl border border-[#262626] bg-[#121214] max-h-56 sm:max-h-72">
                       <img
                         src={item.image}
                         alt={item.company}
@@ -324,7 +324,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                             opacity: { duration: 0.15 }
                           }
                         }}
-                        className="overflow-hidden pt-2 border-t border-white/15"
+                        className="overflow-hidden pt-2 border-t border-[#262626]"
                       >
                         <div className="space-y-3 py-2">
                           <h5 className="text-xs font-mono uppercase tracking-widest text-[#EA5211] font-semibold">
@@ -344,7 +344,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   </AnimatePresence>
 
                   {/* Action Bar: View Details + Relevant Experience CTAs */}
-                  <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                  <div className="pt-4 border-t border-[#262626] flex flex-wrap items-center justify-between gap-3">
                     {/* View Details Toggle Link */}
                     {item.highlights && item.highlights.length > 0 && (
                       <button
@@ -369,7 +369,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                             className={`text-xs font-mono tracking-wider transition-all duration-300 inline-flex items-center gap-1.5 py-2 px-4 rounded-full ${
                               cta.primary
                                 ? "bg-[#EA5211] text-white hover:bg-[#EA5211]/85 shadow-[0_4px_14px_rgba(234,82,17,0.35)]"
-                                : "bg-white/5 border border-white/15 text-neutral-300 hover:text-white hover:border-white/30"
+                                : "bg-white/5 border border-[#262626] text-neutral-300 hover:text-white hover:border-white/30"
                             }`}
                           >
                             <span>{cta.label}</span>
