@@ -9,7 +9,8 @@ export const PORTFOLIO_PROJECT_LINKS = [
     heading: "Flex Step",
     subheading: "UI/UX · Next-Gen Footwear E-Commerce",
     imgSrc: "/flexstep-cover.png",
-    href: "/project/flex-step",
+    href: "https://www.behance.net/gallery/227307379/Flexstep-Sneaker-E-Commerce-Website-UIUX-Case-Study",
+    external: true,
   },
   {
     heading: "EcoGrid",

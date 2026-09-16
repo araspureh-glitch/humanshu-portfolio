@@ -18,6 +18,7 @@ export const projects = [
     role: 'Lead UI/UX Designer',
     timeline: '3 Months (2026)',
     tools: ['Figma', 'Illustrator', 'Framer Motion', 'Protopie'],
+    behanceUrl: 'https://www.behance.net/gallery/227307379/Flexstep-Sneaker-E-Commerce-Website-UIUX-Case-Study',
     caseStudy: {
       overview: 'Flex Step is a luxury performance footwear brand designed for modern urban athletes. The objective was to transform standard static e-commerce listings into a dynamic, motion-driven spatial experience that reduces cart abandonment and highlights material engineering.',
       problem: 'Traditional shoe e-commerce platforms overwhelm users with clunky filters and static 2D product photos that fail to communicate texture, flexibility, and cushion technology, leading to high return rates and drop-offs during sizing selection.',
