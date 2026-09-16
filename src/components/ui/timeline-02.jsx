@@ -69,7 +69,7 @@ export const defaultTimelineData = [
     role: "UI/UX & Brand Designer",
     image: "/safetypulse-cover.png",
     summary:
-      "Collaborated directly with the founder to translate Prorion's product vision into a clear visual and digital experience.",
+      "Collaborated directly with the founder to translate Prorion’s product vision into a clear visual and digital experience.",
     highlights: [
       "Developed the \"Connect – Collaborate – Create\" brand concept and logo direction.",
       "Contributed to website UI, visual hierarchy, user experience design, and design iterations.",
@@ -176,7 +176,6 @@ export default function Timeline_02({ data = defaultTimelineData }) {
           
           {/* Label & Title */}
           <div className="space-y-3">
-            {/* "MY JOURNEY" label — keep orange dot, grey text */}
             <div className="flex items-center gap-2 font-mono text-xs text-neutral-400 uppercase tracking-[0.2em] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211]" />
               <span>MY JOURNEY</span>
@@ -190,9 +189,9 @@ export default function Timeline_02({ data = defaultTimelineData }) {
           {/* Minimal Timeline Steps */}
           <div className="relative pl-6 py-2 border-l border-white/10 space-y-6">
             
-            {/* Active Accent Dot — orange only here */}
+            {/* Active Orange Accent Bar/Dot (Dynamically aligned) */}
             <motion.div
-              className="absolute left-[-4px] w-2 h-2 rounded-full bg-[#EA5211] shadow-[0_0_10px_rgba(234,82,17,0.6)]"
+              className="absolute left-[-4px] w-2 h-2 rounded-full bg-[#EA5211] shadow-[0_0_10px_rgba(234,82,17,0.8)]"
               animate={{
                 top: `${dotTop}px`
               }}
@@ -208,30 +207,28 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   ref={(el) => (stepBtnRefs.current[idx] = el)}
                   onClick={() => scrollToStep(idx)}
                   className={`w-full text-left flex items-center justify-between gap-3 transition-all duration-300 group cursor-pointer ${
-                    isActive ? "opacity-100 font-semibold" : "opacity-60 hover:opacity-100"
+                    isActive ? "opacity-100 font-semibold" : "opacity-75 hover:opacity-100"
                   }`}
                 >
                   <div className="flex items-center gap-3 truncate">
-                    {/* ID number — grey, white when active */}
                     <span
                       className={`font-mono text-xs transition-colors duration-300 ${
-                        isActive ? "text-white font-bold" : "text-white/40 group-hover:text-white/70"
+                        isActive ? "text-neutral-300 font-bold" : "text-white/40 group-hover:text-white/70"
                       }`}
                     >
                       {item.id}
                     </span>
                     <span
                       className={`text-sm sm:text-base tracking-tight font-sans transition-colors duration-300 truncate ${
-                        isActive ? "text-white font-medium" : "text-white/60 group-hover:text-white"
+                        isActive ? "text-white font-medium" : "text-white/80 group-hover:text-white"
                       }`}
                     >
                       {item.company}
                     </span>
                   </div>
 
-                  {/* ACTIVE badge — subtle grey instead of bright orange */}
                   {item.id === "01" && (
-                    <span className="text-[10px] font-mono text-neutral-300 tracking-widest uppercase border border-white/20 px-1.5 py-0.5 rounded bg-white/5 shrink-0">
+                    <span className="text-[10px] font-mono text-neutral-400 tracking-widest uppercase border border-white/15 px-1.5 py-0.5 rounded bg-white/5 shrink-0">
                       ACTIVE
                     </span>
                   )}
@@ -260,53 +257,48 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className={`p-6 sm:p-10 rounded-2xl border transition-all duration-500 space-y-6 group ${
                     isActive
-                      ? "bg-[#0f0f10] border-white/15 border-l-2 border-l-[#EA5211]"
-                      : "bg-[#09090c]/80 border-white/[0.07] opacity-85 hover:opacity-100 hover:border-white/12"
+                      ? "bg-[#09090b]/90 border-[#262626] border-l-4 border-l-[#262626]"
+                      : "bg-[#09090c]/80 border-[#262626]/60 opacity-90 hover:opacity-100"
                   }`}
                 >
                   {/* Header: Number, Date, Company & Role */}
-                  <div className="border-b border-white/[0.08] pb-6 space-y-2">
+                  <div className="border-b border-[#262626] pb-6 space-y-2">
                     <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
                       <div className="flex items-center gap-2">
-                        {/* ID number — grey */}
                         <span className="text-neutral-500 font-bold">{item.id}</span>
-                        <span className="text-white/20">•</span>
-                        {/* Date — light grey */}
+                        <span className="text-white/30">•</span>
                         <span className="text-neutral-400 tracking-wider uppercase font-medium">{item.date}</span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        {/* Type badge — neutral grey */}
-                        <span className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-neutral-400 text-[11px] tracking-wider uppercase font-medium">
+                        <span className="px-3 py-1 rounded-full bg-white/5 border border-[#262626] text-white text-[11px] tracking-wider uppercase font-medium">
                           {item.type}
                         </span>
                       </div>
                     </div>
 
-                    {/* Company name — white */}
                     <h3 className="text-2xl sm:text-4xl font-light tracking-tight text-white font-sans pt-2">
                       {item.company}
                     </h3>
-                    {/* Role — light grey instead of orange */}
-                    <p className="text-base sm:text-lg font-medium text-neutral-400 tracking-tight font-sans">
+                    <p className="text-sm sm:text-base font-medium text-neutral-400 tracking-tight font-sans">
                       {item.role || item.title}
                     </p>
                   </div>
 
                   {/* Work Cover Image Preview */}
                   {item.image && (
-                    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-[#121214] max-h-56 sm:max-h-72">
+                    <div className="relative overflow-hidden rounded-xl border border-[#262626] bg-[#121214] max-h-56 sm:max-h-72">
                       <img
                         src={item.image}
                         alt={item.company}
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-40" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-50" />
                     </div>
                   )}
 
                   {/* Description */}
-                  <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
+                  <p className="text-sm sm:text-base text-white/90 font-light leading-relaxed">
                     {item.summary || item.description}
                   </p>
 
@@ -332,18 +324,16 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                             opacity: { duration: 0.15 }
                           }
                         }}
-                        className="overflow-hidden pt-2 border-t border-white/[0.08]"
+                        className="overflow-hidden pt-2 border-t border-[#262626]"
                       >
                         <div className="space-y-3 py-2">
-                          {/* Section label — grey */}
-                          <h5 className="text-xs font-mono uppercase tracking-widest text-neutral-500 font-semibold">
-                            Key Responsibilities & Impact:
+                          <h5 className="text-xs font-mono uppercase tracking-widest text-neutral-400 font-semibold">
+                             Key Responsibilities & Impact:
                           </h5>
-                          <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300 font-light">
+                          <ul className="space-y-2.5 text-xs sm:text-sm text-white/90 font-light">
                             {item.highlights.map((bullet, bIdx) => (
                               <li key={bIdx} className="flex items-start gap-3">
-                                {/* Bullet — grey dash instead of orange */}
-                                <span className="text-neutral-600 font-mono mt-0.5">–</span>
+                                <span className="text-neutral-500 font-mono mt-0.5">–</span>
                                 <span className="leading-relaxed">{bullet}</span>
                               </li>
                             ))}
@@ -353,23 +343,23 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                     )}
                   </AnimatePresence>
 
-                  {/* Action Bar */}
-                  <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
-                    {/* View Details Toggle */}
+                  {/* Action Bar: View Details + Relevant Experience CTAs */}
+                  <div className="pt-4 border-t border-[#262626] flex flex-wrap items-center justify-between gap-3">
+                    {/* View Details Toggle Link */}
                     {item.highlights && item.highlights.length > 0 && (
                       <button
                         onClick={() => toggleExpand(index)}
-                        className="text-xs font-mono tracking-widest uppercase text-neutral-500 hover:text-white transition-colors duration-300 cursor-pointer py-1 group"
+                        className="text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-[#EA5211] transition-colors duration-300 cursor-pointer py-1 group"
                         aria-expanded={isExpanded}
                       >
                         <span className="relative">
                           {isExpanded ? "View Less" : "View Details"}
-                          <span className="absolute -bottom-0.5 left-0 w-full h-[1px] bg-white/40 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                          <span className="absolute -bottom-0.5 left-0 w-full h-[1px] bg-neutral-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                         </span>
                       </button>
                     )}
 
-                    {/* CTAs */}
+                    {/* Contextual CTAs tailored to each experience */}
                     {item.ctas && item.ctas.length > 0 && (
                       <div className="flex flex-wrap items-center gap-2.5">
                         {item.ctas.map((cta, cIdx) => (
@@ -378,8 +368,8 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                             to={cta.link}
                             className={`text-xs font-mono tracking-wider transition-all duration-300 inline-flex items-center gap-1.5 py-2 px-4 rounded-full ${
                               cta.primary
-                                ? "bg-white/10 border border-white/20 text-white hover:bg-white/15 hover:border-white/30"
-                                : "bg-transparent border border-white/10 text-neutral-400 hover:text-white hover:border-white/20"
+                                ? "bg-[#EA5211] text-white hover:bg-[#EA5211]/85 shadow-[0_4px_14px_rgba(234,82,17,0.35)]"
+                                : "bg-white/5 border border-[#262626] text-neutral-300 hover:text-white hover:border-white/30"
                             }`}
                           >
                             <span>{cta.label}</span>
