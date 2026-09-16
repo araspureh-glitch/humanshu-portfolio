@@ -271,7 +271,7 @@ export default function Timeline_02({ data = defaultTimelineData }) {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-white/5 text-white text-[11px] tracking-wider uppercase font-medium">
+                        <span className="px-3 py-1 text-neutral-400 text-[11px] tracking-wider uppercase font-medium">
                           {item.type}
                         </span>
                       </div>
