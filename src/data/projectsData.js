@@ -165,6 +165,7 @@ export const projects = [
     role: 'Product Designer & Researcher',
     timeline: '2 Months (2024)',
     tools: ['Figma', 'Krita', 'Sound Design'],
+    behanceUrl: 'https://www.seedtosoul.co/',
     caseStudy: {
       overview: 'Seed to Soul creates a tranquil digital sanctuary. By linking daily personal mindfulness habits (hydration, meditation, reflection) with real-life indoor plant growth schedules, users cultivate routines with quiet delight.',
       problem: 'Most habit-tracking apps rely on aggressive notifications, streak punishment, and gamified pressure, which increases digital anxiety rather than fostering genuine mental wellbeing.',

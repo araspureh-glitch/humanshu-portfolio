@@ -36,7 +36,8 @@ export const PORTFOLIO_PROJECT_LINKS = [
     heading: "Seed to Soul",
     subheading: "Mobile App · Plant Care & Mindful Habits",
     imgSrc: "/hero.jpg",
-    href: "/project/seed-to-soul",
+    href: "https://www.seedtosoul.co/",
+    external: true,
   },
   {
     heading: "Hgraphix",
