@@ -8,6 +8,7 @@ export const projects = [
     subtitle: 'Next-gen footwear e-commerce experience focused on motion architecture & conversion.',
     description: 'An immersive digital shopping platform built for high-performance athletic footwear, combining spatial 3D previewing, fluid page transitions, and frictionless checkout flow.',
     coverImage: '/flexstep-cover.png',
+    fullCaseStudyImage: '/flexstep-full-casestudy.png',
     imageBg: 'from-[#12141d] via-[#161a26] to-[#0c0d14]',
     accentColor: '#EA5211',
     accentHex: '#EA5211',

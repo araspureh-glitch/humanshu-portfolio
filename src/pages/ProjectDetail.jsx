@@ -202,6 +202,35 @@ export default function ProjectDetail() {
               )}
             </div>
           </section>
+
+          {/* Full Case Study Presentation Image */}
+          {project.fullCaseStudyImage && (
+            <section className="space-y-6 pt-12 border-t border-white/10">
+              <div className="flex items-center justify-between">
+                <span className="font-sans text-xs text-[#EA5211] uppercase tracking-[0.2em] font-semibold">
+                  04 // FULL DESIGN SYSTEM & CASE STUDY PRESENTATION
+                </span>
+                <a
+                  href={project.fullCaseStudyImage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-sans text-neutral-400 hover:text-white transition-colors flex items-center gap-1 uppercase tracking-wider"
+                >
+                  <span>Open Full Resolution</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
+              <div className="w-full rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#09090b]">
+                <img
+                  src={project.fullCaseStudyImage}
+                  alt={`${project.name} Full Case Study Presentation`}
+                  className="w-full h-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
+            </section>
+          )}
         </div>
 
         {/* Prev / Next Case Study Navigation Footer */}
