@@ -203,32 +203,51 @@ export default function ProjectDetail() {
             </div>
           </section>
 
-          {/* Full Case Study Presentation Image */}
-          {project.fullCaseStudyImage && (
-            <section className="space-y-6 pt-12 border-t border-white/10">
-              <div className="flex items-center justify-between">
-                <span className="font-sans text-xs text-[#EA5211] uppercase tracking-[0.2em] font-semibold">
-                  04 // FULL DESIGN SYSTEM & CASE STUDY PRESENTATION
-                </span>
-                <a
-                  href={project.fullCaseStudyImage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-sans text-neutral-400 hover:text-white transition-colors flex items-center gap-1 uppercase tracking-wider"
-                >
-                  <span>Open Full Resolution</span>
-                  <span>↗</span>
-                </a>
+          {/* Full Case Study Presentation Showcase */}
+          {(project.hdPresentationImage || project.fullCaseStudyImage) && (
+            <section className="space-y-8 pt-12 border-t border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="font-sans text-xs text-[#EA5211] uppercase tracking-[0.2em] font-semibold block mb-1">
+                    04 // FULL DESIGN SYSTEM & CASE STUDY PRESENTATION
+                  </span>
+                  <h3 className="text-2xl font-light text-white font-sans">High-Definition Visual Artifacts</h3>
+                </div>
+                {project.fullCaseStudyImage && (
+                  <a
+                    href={project.fullCaseStudyImage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-xs font-sans text-white uppercase tracking-wider transition-colors w-fit"
+                  >
+                    <span>Open Original Presentation</span>
+                    <span>↗</span>
+                  </a>
+                )}
               </div>
 
-              <div className="w-full rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#09090b]">
-                <img
-                  src={project.fullCaseStudyImage}
-                  alt={`${project.name} Full Case Study Presentation`}
-                  className="w-full h-auto object-contain"
-                  loading="lazy"
-                />
-              </div>
+              {/* HD Presentation Banner */}
+              {project.hdPresentationImage && (
+                <div className="w-full rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#09090b]">
+                  <img
+                    src={project.hdPresentationImage}
+                    alt={`${project.name} HD Design System`}
+                    className="w-full h-auto object-cover max-h-[700px] [image-rendering:high-quality]"
+                  />
+                </div>
+              )}
+
+              {/* Vertical Case Study Image (Centered in optimal width to prevent blur/pixelation) */}
+              {project.fullCaseStudyImage && (
+                <div className="max-w-xl mx-auto rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#09090b] p-2 sm:p-4">
+                  <img
+                    src={project.fullCaseStudyImage}
+                    alt={`${project.name} Full Case Study Presentation`}
+                    className="w-full h-auto object-contain rounded-2xl [image-rendering:high-quality]"
+                    loading="lazy"
+                  />
+                </div>
+              )}
             </section>
           )}
         </div>
