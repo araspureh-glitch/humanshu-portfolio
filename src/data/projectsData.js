@@ -129,6 +129,7 @@ export const projects = [
     role: 'UI/UX & Mobile Designer',
     timeline: '3 Months (2025)',
     tools: ['Figma', 'Photoshop', 'Protopie'],
+    behanceUrl: 'https://lynkfoods.com/',
     caseStudy: {
       overview: 'Lynk Sweets elevates dessert delivery into a premium gifting experience. Users can order handcrafted sweets or customize bespoke celebration cakes with real-time 3D tier visualization.',
       problem: 'Existing food delivery apps treat gourmet pastries like fast food, resulting in damaged delicate cakes, lack of customization options, and impersonal delivery experiences.',

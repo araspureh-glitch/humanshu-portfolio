@@ -30,7 +30,8 @@ export const PORTFOLIO_PROJECT_LINKS = [
     heading: "Lynk Sweets",
     subheading: "Mobile App · Artisanal Pastry Marketplace",
     imgSrc: "/skater-portrait.png",
-    href: "/project/lynk-sweets",
+    href: "https://lynkfoods.com/",
+    external: true,
   },
   {
     heading: "Seed to Soul",
