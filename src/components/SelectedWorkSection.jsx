@@ -17,15 +17,15 @@ function TiltWorkCard({ project, onClick }) {
     const centerX = rect.width / 2
     const centerY = rect.height / 2
 
-    const rotateX = ((y - centerY) / centerY) * -4
-    const rotateY = ((x - centerX) / centerX) * 4
+    const rotateX = ((y - centerY) / centerY) * -3
+    const rotateY = ((x - centerX) / centerX) * 3
 
-    setTransform(`perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.01, 1.01, 1.01)`)
+    setTransform(`perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.008, 1.008, 1.008)`)
     setSpotlightPos({ x, y })
   }
 
   const handleMouseLeave = () => {
-    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)')
+    setTransform('perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)')
     setOpacity(0)
   }
 
@@ -37,82 +37,79 @@ function TiltWorkCard({ project, onClick }) {
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={handleMouseLeave}
       style={{ transform, transition: 'transform 0.15s ease-out' }}
-      className="group cursor-pointer flex flex-col justify-between p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.035] hover:border-white/30 shadow-2xl relative overflow-hidden will-change-transform h-full"
+      className="group cursor-pointer flex flex-col justify-between p-4 sm:p-5 rounded-2xl border border-white/10 bg-white/[0.012] hover:bg-white/[0.03] hover:border-white/20 shadow-xl relative overflow-hidden will-change-transform h-full"
     >
-      {/* Interactive Cursor Radial Spotlight */}
+      {/* Interactive Cursor Spotlight */}
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-30"
         style={{
           opacity,
-          background: `radial-gradient(600px circle at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(255,255,255,0.08), transparent 40%)`,
+          background: `radial-gradient(400px circle at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(255,255,255,0.06), transparent 40%)`,
         }}
       />
 
-      <div className="space-y-5 relative z-10">
-        {/* Top Card Bar */}
-        <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b border-white/10 pb-4 text-neutral-400">
-          <div className="flex items-center gap-2.5">
-            <span className="text-xl font-bold text-[#EA5211] font-sans">{project.id}</span>
-            <span>//</span>
-            <span className="truncate max-w-[180px] sm:max-w-none">{project.client}</span>
+      <div className="space-y-3.5 relative z-10">
+        {/* Top Minimal Card Header */}
+        <div className="flex items-center justify-between font-mono text-[11px] border-b border-white/5 pb-2.5 text-neutral-400">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-[#EA5211]">{project.id}</span>
+            <span className="text-neutral-600">//</span>
+            <span className="truncate max-w-[150px] text-neutral-300 font-sans font-medium">{project.client}</span>
           </div>
-          <span>{project.year}</span>
+          <span className="text-neutral-500 font-mono text-[10px]">{project.year}</span>
         </div>
 
         {/* Role & Timeline Badges */}
-        <div className="flex items-center justify-between gap-2 pt-1">
-          <span className="px-3 py-1 rounded-full bg-white/5 backdrop-blur-md text-[11px] font-sans font-medium text-neutral-200 uppercase tracking-wider border border-white/10">
+        <div className="flex items-center justify-between gap-2">
+          <span className="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/10 text-[10px] font-sans font-medium text-neutral-300 uppercase tracking-wider">
             {project.role}
           </span>
-          <span className="font-sans text-xs font-medium text-neutral-400 bg-white/5 px-3 py-1 rounded-full backdrop-blur-md border border-white/10">
+          <span className="font-mono text-[10px] text-neutral-500">
             {project.timeline}
           </span>
         </div>
 
-        {/* Complete Visual Preview Container (Full Uncropped Image) */}
-        <div className="relative rounded-2xl overflow-hidden bg-[#0a0a0c] border border-white/10 group-hover:border-[#EA5211]/40 transition-all duration-300 aspect-[16/10] w-full flex items-center justify-center p-2 sm:p-3">
+        {/* Minimal Uncropped Image Preview */}
+        <div className="relative rounded-xl overflow-hidden bg-[#08080a] border border-white/10 group-hover:border-[#EA5211]/30 transition-all duration-300 aspect-[16/9] w-full flex items-center justify-center p-1.5 sm:p-2">
           {project.coverImage ? (
             <img
               src={project.coverImage}
               alt={project.name}
-              className="w-full h-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-[1.02]"
+              className="w-full h-full object-contain rounded-lg transition-transform duration-500 group-hover:scale-[1.02]"
             />
           ) : (
-            <div className={`w-full h-full rounded-xl bg-gradient-to-br ${project.imageBg} p-6 flex flex-col justify-center items-center text-center space-y-3`}>
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold text-white">
+            <div className={`w-full h-full rounded-lg bg-gradient-to-br ${project.imageBg} p-4 flex flex-col justify-center items-center text-center space-y-2`}>
+              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-lg font-bold text-white">
                 {project.name.charAt(0)}
               </div>
-              <div>
-                <h4 className="text-lg font-medium text-white">{project.name}</h4>
-                <p className="text-xs text-neutral-400 mt-1">{project.category}</p>
-              </div>
+              <p className="text-xs text-neutral-400 font-sans">{project.category}</p>
             </div>
           )}
         </div>
 
         {/* Title & Category */}
-        <div className="pt-2">
-          <span className="text-[11px] font-sans tracking-[0.18em] uppercase text-[#EA5211] block font-semibold mb-1">
+        <div>
+          <span className="text-[10px] font-mono tracking-[0.18em] uppercase text-[#EA5211] block font-semibold mb-0.5">
             {project.category}
           </span>
-          <h3 className="text-2xl sm:text-3xl font-light text-white font-sans group-hover:text-[#EA5211] transition-colors duration-300">
+          <h3 className="text-lg sm:text-xl font-medium text-white font-sans group-hover:text-[#EA5211] transition-colors duration-300">
             {project.name}
           </h3>
         </div>
 
         {/* Description */}
-        <p className="text-sm text-neutral-300 font-light leading-relaxed line-clamp-3">
+        <p className="text-xs text-neutral-400 font-light leading-relaxed line-clamp-2">
           {project.description}
         </p>
       </div>
 
-      {/* Bottom Button */}
-      <div className="pt-5 border-t border-white/10 flex items-center justify-between relative z-10 mt-6">
-        <span className="text-xs font-sans tracking-[0.18em] uppercase text-white font-medium group-hover:text-[#EA5211] transition-colors">
-          View Case Study Page
+      {/* Sleek Minimal Footer */}
+      <div className="pt-3 border-t border-white/5 flex items-center justify-between relative z-10 mt-3">
+        <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-white transition-colors">
+          View Case Study
         </span>
-        <div className="w-10 h-10 rounded-full bg-[#EA5211] text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(234,82,17,0.6)] transition-all duration-300 flex-shrink-0">
-          <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-7 h-7 rounded-full bg-[#EA5211] text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:shadow-[0_0_12px_rgba(234,82,17,0.5)] transition-all duration-300 flex-shrink-0">
+          <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" />
           </svg>
         </div>
@@ -130,28 +127,28 @@ export default function SelectedWorkSection() {
   }
 
   return (
-    <section id="work" className="w-full bg-[#050505] text-[#F5F5F5] py-24 px-6 sm:px-12 lg:px-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="work" className="w-full bg-[#050505] text-[#F5F5F5] py-20 px-4 sm:px-8 lg:px-12 border-t border-white/10">
+      <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-12 border-b border-white/10 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-white/10 gap-4">
           <div>
-            <div className="flex items-center gap-2.5 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.18em] font-medium">
+            <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-400 uppercase tracking-[0.2em] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-ping"></span>
               <span>01 / FEATURED CASE STUDIES</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight mt-3 font-sans">
+            <h2 className="text-3xl sm:text-5xl font-light text-white tracking-tight mt-2 font-sans">
               Selected work
             </h2>
           </div>
-          <p className="text-xs font-sans text-neutral-400 uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right">
+          <p className="text-[11px] font-mono text-neutral-400 uppercase tracking-[0.18em] max-w-xs sm:text-right">
             UI/UX · Graphic Design · Research
-            <span className="block text-white font-medium mt-1">2024 – 2026 ARCHIVE</span>
+            <span className="block text-white font-medium mt-0.5">2024 – 2026 ARCHIVE</span>
           </p>
         </div>
 
-        {/* 2-Column Side by Side Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {/* Minimal 3-Column Aesthetic Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <TiltWorkCard 
               key={project.id} 
@@ -173,4 +170,5 @@ export default function SelectedWorkSection() {
     </section>
   )
 }
+
 
