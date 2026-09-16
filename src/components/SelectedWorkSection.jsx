@@ -52,23 +52,23 @@ function TiltWorkCard({ project, onClick }) {
         {/* Top Header Bar */}
         <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b border-white/10 pb-2.5 text-neutral-400">
           <div className="flex items-center gap-2">
-            <span className="text-base font-bold text-[#EA5211] font-sans">{project.id}</span>
+            <span className="text-base font-bold text-white font-sans">{project.id}</span>
             <span>//</span>
             <span className="truncate max-w-[160px] sm:max-w-none text-neutral-200">{project.client}</span>
           </div>
           <span className="text-[11px] text-neutral-400">{project.year}</span>
         </div>
 
-        {/* Complete Image Preview (Compact 16:9 Aspect Ratio) */}
-        <div className="relative rounded-xl overflow-hidden bg-[#09090b] border border-white/10 group-hover:border-[#EA5211]/40 transition-all duration-300 aspect-[16/9] w-full flex items-center justify-center p-1.5">
+        {/* Adjusted Image Preview (Fills Layout Edge-to-Edge, No Orange Stroke) */}
+        <div className="relative rounded-xl overflow-hidden bg-[#09090b] border border-white/10 group-hover:border-white/25 transition-all duration-300 aspect-[16/10] w-full">
           {project.coverImage ? (
             <img
               src={project.coverImage}
               alt={project.name}
-              className="w-full h-full object-contain rounded-lg transition-transform duration-500 group-hover:scale-[1.02]"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
           ) : (
-            <div className={`w-full h-full rounded-lg bg-gradient-to-br ${project.imageBg} p-4 flex flex-col justify-center items-center text-center space-y-2`}>
+            <div className={`w-full h-full bg-gradient-to-br ${project.imageBg} p-4 flex flex-col justify-center items-center text-center space-y-2`}>
               <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-lg font-bold text-white">
                 {project.name.charAt(0)}
               </div>
@@ -82,10 +82,10 @@ function TiltWorkCard({ project, onClick }) {
 
         {/* Title & Category */}
         <div>
-          <span className="text-[10px] font-sans tracking-[0.18em] uppercase text-[#EA5211] block font-semibold mb-0.5">
+          <span className="text-[10px] font-sans tracking-[0.18em] uppercase text-neutral-400 block font-semibold mb-0.5">
             {project.category}
           </span>
-          <h3 className="text-xl sm:text-2xl font-light text-white font-sans group-hover:text-[#EA5211] transition-colors duration-300">
+          <h3 className="text-xl sm:text-2xl font-light text-white font-sans group-hover:text-amber-100 transition-colors duration-300">
             {project.name}
           </h3>
         </div>
@@ -98,10 +98,10 @@ function TiltWorkCard({ project, onClick }) {
 
       {/* Bottom Simplified Action Footer */}
       <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 mt-3">
-        <span className="text-[11px] font-sans tracking-[0.14em] uppercase text-neutral-300 group-hover:text-[#EA5211] transition-colors">
+        <span className="text-[11px] font-sans tracking-[0.14em] uppercase text-neutral-300 group-hover:text-white transition-colors">
           View Case Study →
         </span>
-        <div className="w-7 h-7 rounded-full bg-[#EA5211]/90 text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-[#EA5211] transition-all duration-300 flex-shrink-0">
+        <div className="w-7 h-7 rounded-full bg-white/10 text-white border border-white/15 flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-white/20 group-hover:border-white/30 transition-all duration-300 flex-shrink-0">
           <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
@@ -127,7 +127,7 @@ export default function SelectedWorkSection() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 border-b border-white/10 gap-6">
           <div>
             <div className="flex items-center gap-2.5 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.18em] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-ping"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-ping"></span>
               <span>01 / FEATURED CASE STUDIES</span>
             </div>
             <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight mt-3 font-sans">
