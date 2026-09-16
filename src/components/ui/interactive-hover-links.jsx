@@ -15,7 +15,8 @@ export const PORTFOLIO_PROJECT_LINKS = [
     heading: "EcoGrid",
     subheading: "UI/UX · Smart City Energy Dashboard",
     imgSrc: "/ecogrid-cover.png",
-    href: "/project/ecogrid",
+    href: "https://www.behance.net/gallery/241356631/Smart-Energy-Dashboard-UIUX-Case-Study",
+    external: true,
   },
   {
     heading: "BeHeal",
@@ -72,7 +73,7 @@ export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0,
   );
 }
 
-function ProjectLink({ heading, imgSrc, subheading, href, onProjectSelect }) {
+function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSelect }) {
   const ref = useRef(null);
 
   const x = useMotionValue(0);
@@ -101,12 +102,84 @@ function ProjectLink({ heading, imgSrc, subheading, href, onProjectSelect }) {
     y.set(yPct);
   };
 
-  const handleClick = (e) => {
-    if (onProjectSelect) {
-      const slug = href.replace('/project/', '');
-      onProjectSelect(slug);
-    }
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
   };
+
+  const innerContent = (
+    <>
+      <div className="relative z-10">
+        <motion.span
+          variants={{
+            initial: { x: 0 },
+            whileHover: { x: -16 },
+          }}
+          transition={{
+            type: "spring",
+            staggerChildren: 0.075,
+            delayChildren: 0.25,
+          }}
+          className="relative z-10 block text-4xl font-medium text-neutral-400 transition-colors duration-500 group-hover:text-white md:text-6xl"
+        >
+          {heading.split("").map((l, i) => (
+            <motion.span
+              variants={{
+                initial: { x: 0 },
+                whileHover: { x: 16 },
+              }}
+              transition={{ type: "spring" }}
+              className="inline-block"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          ))}
+        </motion.span>
+        <span className="relative z-10 mt-2 block font-sans text-xs sm:text-sm text-neutral-400 font-light tracking-wide transition-colors duration-500 group-hover:text-neutral-200">
+          {subheading}
+        </span>
+      </div>
+
+      <motion.img
+        style={{
+          top,
+          left,
+          translateX: "-10%",
+          translateY: "-50%",
+        }}
+        variants={{
+          initial: { scale: 0, rotate: "-12.5deg", opacity: 0 },
+          whileHover: { scale: 1, rotate: "12.5deg", opacity: 1 },
+        }}
+        transition={{ type: "spring" }}
+        src={imgSrc}
+        className="absolute z-30 h-24 w-32 rounded-lg object-cover shadow-2xl pointer-events-none md:h-48 md:w-64 border border-white/20"
+        alt={`Image representing ${heading}`}
+      />
+
+      <div className="overflow-hidden relative z-10">
+        <motion.div
+          variants={{
+            initial: {
+              x: "100%",
+              opacity: 0,
+            },
+            whileHover: {
+              x: "0%",
+              opacity: 1,
+            },
+          }}
+          transition={{ type: "spring" }}
+          className="p-3"
+        >
+          <ArrowRight className="size-6 text-white md:size-10" />
+        </motion.div>
+      </div>
+    </>
+  );
+
+  const linkClassName = "group relative flex items-center justify-between border-b border-white/10 py-6 md:py-10 transition-colors duration-500 hover:border-white/40";
 
   return (
     <motion.div
@@ -114,85 +187,35 @@ function ProjectLink({ heading, imgSrc, subheading, href, onProjectSelect }) {
       whileHover="whileHover"
       className="relative"
     >
-      <RouterLink
-        to={href}
-        ref={ref}
-        onClick={handleClick}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={() => {
-          x.set(0);
-          y.set(0);
-        }}
-        className="group relative flex items-center justify-between border-b border-white/10 py-6 md:py-10 transition-colors duration-500 hover:border-white/40"
-      >
-        <div className="relative z-10">
-          <motion.span
-            variants={{
-              initial: { x: 0 },
-              whileHover: { x: -16 },
-            }}
-            transition={{
-              type: "spring",
-              staggerChildren: 0.075,
-              delayChildren: 0.25,
-            }}
-            className="relative z-10 block text-4xl font-medium text-neutral-400 transition-colors duration-500 group-hover:text-white md:text-6xl"
-          >
-            {heading.split("").map((l, i) => (
-              <motion.span
-                variants={{
-                  initial: { x: 0 },
-                  whileHover: { x: 16 },
-                }}
-                transition={{ type: "spring" }}
-                className="inline-block"
-                key={i}
-              >
-                {l === " " ? "\u00A0" : l}
-              </motion.span>
-            ))}
-          </motion.span>
-          <span className="relative z-10 mt-2 block font-sans text-xs sm:text-sm text-neutral-400 font-light tracking-wide transition-colors duration-500 group-hover:text-neutral-200">
-            {subheading}
-          </span>
-        </div>
-
-        <motion.img
-          style={{
-            top,
-            left,
-            translateX: "-10%",
-            translateY: "-50%",
+      {external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          ref={ref}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={linkClassName}
+        >
+          {innerContent}
+        </a>
+      ) : (
+        <RouterLink
+          to={href}
+          ref={ref}
+          onClick={() => {
+            if (onProjectSelect) {
+              const slug = href.replace('/project/', '');
+              onProjectSelect(slug);
+            }
           }}
-          variants={{
-            initial: { scale: 0, rotate: "-12.5deg", opacity: 0 },
-            whileHover: { scale: 1, rotate: "12.5deg", opacity: 1 },
-          }}
-          transition={{ type: "spring" }}
-          src={imgSrc}
-          className="absolute z-30 h-24 w-32 rounded-lg object-cover shadow-2xl pointer-events-none md:h-48 md:w-64 border border-white/20"
-          alt={`Image representing ${heading}`}
-        />
-
-        <div className="overflow-hidden relative z-10">
-          <motion.div
-            variants={{
-              initial: {
-                x: "100%",
-                opacity: 0,
-              },
-              whileHover: {
-                x: "0%",
-                opacity: 1,
-              },
-            }}
-            transition={{ type: "spring" }}
-            className="p-3"
-          >
-            <ArrowRight className="size-6 text-white md:size-10" />
-          </motion.div>
-        </div>
-      </RouterLink>
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={linkClassName}
+        >
+          {innerContent}
+        </RouterLink>
+      )}
     </motion.div>
   );
 }

@@ -99,7 +99,7 @@ function TiltWorkCard({ project, onClick }) {
       {/* Bottom Simplified Action Footer */}
       <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 mt-3">
         <span className="text-[11px] font-sans tracking-[0.14em] uppercase text-neutral-300 group-hover:text-white transition-colors">
-          View Case Study →
+          {project.behanceUrl ? 'View Behance Case Study ↗' : 'View Case Study →'}
         </span>
         <div className="w-7 h-7 rounded-full bg-white/10 text-white border border-white/15 flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-white/20 group-hover:border-white/30 transition-all duration-300 flex-shrink-0">
           <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,11 @@ export default function SelectedWorkSection() {
   const navigate = useNavigate()
 
   const handleProjectClick = (project) => {
-    navigate(`/project/${project.slug}`)
+    if (project.behanceUrl) {
+      window.open(project.behanceUrl, '_blank', 'noopener,noreferrer')
+    } else {
+      navigate(`/project/${project.slug}`)
+    }
   }
 
   return (

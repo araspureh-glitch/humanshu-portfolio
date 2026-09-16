@@ -54,6 +54,7 @@ export const projects = [
     role: 'UI/UX & Data Vis Specialist',
     timeline: '4 Months (2025)',
     tools: ['Figma', 'D3.js Concepts', 'Design Systems'],
+    behanceUrl: 'https://www.behance.net/gallery/241356631/Smart-Energy-Dashboard-UIUX-Case-Study',
     caseStudy: {
       overview: 'EcoGrid provides municipal energy dispatchers with real-time telemetry across 1,200+ solar microgrids and wind farms. The system synthesizes complex AI load forecasting into actionable grid stabilization controls.',
       problem: 'Legacy grid monitoring software relied on dense spreadsheet tables and multi-monitor clutter, causing cognitive overload and slow response times during unexpected grid surges or storm disruptions.',
