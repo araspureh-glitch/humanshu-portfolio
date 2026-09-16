@@ -22,7 +22,8 @@ export const PORTFOLIO_PROJECT_LINKS = [
     heading: "BeHeal",
     subheading: "Mobile App · Health & Wellness Tracking",
     imgSrc: "/beheal-cover.jpg",
-    href: "/project/beheal",
+    href: "https://www.behance.net/gallery/227465197/BeHeal-Health-Tracking-App-UXUI-Case-Study",
+    external: true,
   },
   {
     heading: "Lynk Sweets",
