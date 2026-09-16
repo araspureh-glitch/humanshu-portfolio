@@ -50,19 +50,19 @@ export const PORTFOLIO_PROJECT_LINKS = [
 
 export function InteractiveHoverLinks({ links = PORTFOLIO_PROJECT_LINKS.slice(0, 3), onProjectSelect }) {
   return (
-    <section className="bg-[#050505] text-[#F5F5F5] py-12 md:py-20 px-4 md:px-8 w-full border-t border-b border-white/10">
+    <section className="py-12 md:py-20 px-4 md:px-8 w-full border-t border-b" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)', borderColor: 'var(--border-primary)' }}>
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8 mb-4 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b pb-8 mb-4 gap-4" style={{ borderColor: 'var(--border-primary)' }}>
           <div>
-            <div className="flex items-center gap-2.5 font-sans font-medium text-[11px] text-neutral-400 uppercase tracking-[0.18em]">
+            <div className="flex items-center gap-2.5 font-sans font-medium text-[11px] uppercase tracking-[0.18em]" style={{ color: 'var(--text-secondary)' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-[#EA5211] animate-pulse"></span>
               <span>SELECTED PROJECTS</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-light text-white tracking-tight mt-2 font-sans">
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight mt-2 font-sans" style={{ color: 'var(--text-primary)' }}>
               Interactive Case Studies
             </h2>
           </div>
-          <span className="font-sans font-medium text-xs text-neutral-500 uppercase tracking-[0.18em]">
+          <span className="font-sans font-medium text-xs uppercase tracking-[0.18em]" style={{ color: 'var(--text-muted)' }}>
             Hover to preview work
           </span>
         </div>
@@ -124,7 +124,8 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
             staggerChildren: 0.075,
             delayChildren: 0.25,
           }}
-          className="relative z-10 block text-4xl font-medium text-neutral-400 transition-colors duration-500 group-hover:text-white md:text-6xl"
+          className="relative z-10 block text-4xl font-medium transition-colors duration-500 md:text-6xl"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {heading.split("").map((l, i) => (
             <motion.span
@@ -140,7 +141,7 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
             </motion.span>
           ))}
         </motion.span>
-        <span className="relative z-10 mt-2 block font-sans text-xs sm:text-sm text-neutral-400 font-light tracking-wide transition-colors duration-500 group-hover:text-neutral-200">
+        <span className="relative z-10 mt-2 block font-sans text-xs sm:text-sm font-light tracking-wide transition-colors duration-500" style={{ color: 'var(--text-muted)' }}>
           {subheading}
         </span>
       </div>
@@ -158,7 +159,8 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
         }}
         transition={{ type: "spring" }}
         src={imgSrc}
-        className="absolute z-30 h-24 w-32 rounded-lg object-cover shadow-2xl pointer-events-none md:h-48 md:w-64 border border-white/20"
+        className="absolute z-30 h-24 w-32 rounded-lg object-cover shadow-2xl pointer-events-none md:h-48 md:w-64 border"
+        style={{ borderColor: 'var(--border-nav)' }}
         alt={`Image representing ${heading}`}
       />
 
@@ -177,13 +179,13 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
           transition={{ type: "spring" }}
           className="p-3"
         >
-          <ArrowRight className="size-6 text-white md:size-10" />
+          <ArrowRight className="size-6 md:size-10" style={{ color: 'var(--text-primary)' }} />
         </motion.div>
       </div>
     </>
   );
 
-  const linkClassName = "group relative flex items-center justify-between border-b border-white/10 py-6 md:py-10 transition-colors duration-500 hover:border-white/40";
+  const linkClassName = "group relative flex items-center justify-between border-b py-6 md:py-10 transition-colors duration-500";
 
   return (
     <motion.div
@@ -200,6 +202,7 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={linkClassName}
+          style={{ borderColor: 'var(--border-primary)' }}
         >
           {innerContent}
         </a>
@@ -216,6 +219,7 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={linkClassName}
+          style={{ borderColor: 'var(--border-primary)' }}
         >
           {innerContent}
         </RouterLink>
@@ -223,3 +227,4 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
     </motion.div>
   );
 }
+

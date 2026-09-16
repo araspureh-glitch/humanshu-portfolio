@@ -33,12 +33,13 @@ function HoverLink({
 }) {
   return (
     <span
-      className="inline-block relative text-white cursor-pointer px-1 group"
+      className="inline-block relative cursor-pointer px-1 group"
+      style={{ color: 'var(--text-primary)' }}
       onMouseEnter={(e) => onHoverStart(previewKey, e)}
       onMouseMove={onHoverMove}
       onMouseLeave={onHoverEnd}
     >
-      <span className="relative z-10 font-serif italic text-white group-hover:text-[#EA5211] transition-colors duration-300">
+      <span className="relative z-10 font-serif italic group-hover:text-[#EA5211] transition-colors duration-300" style={{ color: 'var(--text-primary)' }}>
         {children}
       </span>
       {/* Accent underline visible only on hover */}
@@ -63,15 +64,16 @@ function PreviewCard({
         top: `${position.y}px`,
       }}
     >
-      <div className="bg-[#121214]/95 border border-white/20 p-2.5 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.9)] backdrop-blur-xl w-72 space-y-2">
+      <div className="border p-2.5 rounded-2xl shadow-2xl backdrop-blur-xl w-72 space-y-2" style={{ background: 'var(--bg-nav-scrolled)', borderColor: 'var(--border-nav)' }}>
         <img
           src={data.image}
           alt={data.title}
-          className="w-full h-40 object-cover rounded-xl border border-white/10"
+          className="w-full h-40 object-cover rounded-xl border"
+          style={{ borderColor: 'var(--border-primary)' }}
         />
         <div className="px-1.5 pb-1">
-          <h5 className="text-xs font-mono font-medium text-white tracking-wide">{data.title}</h5>
-          <p className="text-[11px] font-mono text-neutral-400 mt-0.5">{data.subtitle}</p>
+          <h5 className="text-xs font-mono font-medium tracking-wide" style={{ color: 'var(--text-primary)' }}>{data.title}</h5>
+          <p className="text-[11px] font-mono mt-0.5" style={{ color: 'var(--text-secondary)' }}>{data.subtitle}</p>
         </div>
       </div>
     </div>
@@ -136,7 +138,7 @@ function InteractiveBio() {
 
   return (
     <div className="relative">
-      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] sm:leading-[1.35] tracking-tight font-sans text-neutral-100 max-w-5xl">
+      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] sm:leading-[1.35] tracking-tight font-sans max-w-5xl" style={{ color: 'var(--text-primary)' }}>
         I am Humanshu Araspure, a{" "}
         <HoverLink
           previewKey="architect"
@@ -188,24 +190,23 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
       layout="position"
       onMouseEnter={onHover}
       onClick={onToggle}
-      className={`border-b border-white/10 group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] py-4 sm:py-5 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl cursor-pointer ${
-        isOpen ? 'bg-white/[0.03]' : 'hover:bg-white/[0.015]'
-      }`}
+      className={`border-b group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] py-4 sm:py-5 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl cursor-pointer`}
+      style={{ borderColor: 'var(--border-primary)' }}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-3 md:gap-6">
         {/* Left Column: Number & Sub-label */}
         <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
           <span
             className={`block font-sans text-xs tracking-tight transition-colors duration-400 ease-out ${
-              isOpen ? 'text-[#EA5211] font-medium' : 'text-neutral-500 group-hover:text-neutral-300 font-light'
+              isOpen ? 'text-[#EA5211] font-medium' : 'font-light'
             }`}
+            style={{ color: isOpen ? '#EA5211' : 'var(--text-muted)' }}
           >
             {item.num}
           </span>
           <span
-            className={`block font-sans text-xs transition-colors duration-400 ease-out ${
-              isOpen ? 'text-white font-medium' : 'text-neutral-400 group-hover:text-white font-light'
-            }`}
+            className={`block font-sans text-xs transition-colors duration-400 ease-out`}
+            style={{ color: isOpen ? 'var(--text-primary)' : 'var(--text-secondary)' }}
           >
             {item.sublabel}
           </span>
@@ -214,11 +215,8 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
         {/* Right Column: Statement Headline & Expandable Description */}
         <div className="md:col-span-9 sm:col-span-8 space-y-2">
           <h3 
-            className={`text-base sm:text-lg lg:text-xl font-sans tracking-tight leading-snug transition-colors duration-400 ease-out ${
-              isOpen 
-                ? 'text-white font-normal' 
-                : 'text-neutral-400/80 font-light group-hover:text-white'
-            }`}
+            className={`text-base sm:text-lg lg:text-xl font-sans tracking-tight leading-snug transition-colors duration-400 ease-out`}
+            style={{ color: isOpen ? 'var(--text-primary)' : 'var(--text-secondary)' }}
           >
             {item.title}
           </h3>
@@ -251,7 +249,8 @@ function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -4, opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                  className="text-xs sm:text-sm font-sans text-neutral-400 font-light leading-relaxed max-w-2xl pt-1 pb-1"
+                  className="text-xs sm:text-sm font-sans font-light leading-relaxed max-w-2xl pt-1 pb-1"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   {item.desc}
                 </motion.p>
@@ -289,10 +288,7 @@ export default function AboutIntroSection() {
   ]
 
   return (
-    <section className="w-full bg-[#050505] text-[#F5F5F5] py-12 sm:py-20 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
-
-      {/* Subtle Background Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-white/[0.02] rounded-full blur-[160px] pointer-events-none" />
+    <section className="w-full py-12 sm:py-20 px-6 sm:px-12 lg:px-16 relative overflow-hidden" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
 
       <div className="max-w-7xl mx-auto space-y-14 relative z-10">
 
@@ -303,16 +299,16 @@ export default function AboutIntroSection() {
 
         {/* Sleek Minimalist Core Disciplines Layout */}
         <div className="space-y-4 pt-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-white/10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b" style={{ borderColor: 'var(--border-primary)' }}>
             <div className="space-y-0.5">
-              <p className="text-xs sm:text-sm font-sans font-medium text-white tracking-tight">
+              <p className="text-xs sm:text-sm font-sans font-medium tracking-tight" style={{ color: 'var(--text-primary)' }}>
                 At Humanshu Studio
               </p>
               <p className="text-xs sm:text-sm font-sans font-medium text-[#EA5211] tracking-tight">
                 We make digital experiences better
               </p>
             </div>
-            <span className="font-sans text-[11px] text-neutral-400 uppercase tracking-[0.2em] font-medium">
+            <span className="font-sans text-[11px] uppercase tracking-[0.2em] font-medium" style={{ color: 'var(--text-secondary)' }}>
               CORE DISCIPLINES
             </span>
           </div>
@@ -337,4 +333,5 @@ export default function AboutIntroSection() {
     </section>
   )
 }
+
 

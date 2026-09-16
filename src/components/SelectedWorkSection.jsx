@@ -36,31 +36,31 @@ function TiltWorkCard({ project, onClick }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={handleMouseLeave}
-      style={{ transform, transition: 'transform 0.15s ease-out' }}
-      className="group cursor-pointer flex flex-col justify-between p-4 sm:p-5 rounded-2xl border border-white/10 bg-white/[0.015] hover:bg-white/[0.035] hover:border-white/30 shadow-xl relative overflow-hidden will-change-transform h-full"
+      style={{ transform, transition: 'transform 0.15s ease-out', borderColor: 'var(--border-nav)', background: 'var(--bg-card)' }}
+      className="group cursor-pointer flex flex-col justify-between p-4 sm:p-5 rounded-2xl border shadow-xl relative overflow-hidden will-change-transform h-full"
     >
       {/* Interactive Cursor Radial Spotlight */}
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-30"
         style={{
           opacity,
-          background: `radial-gradient(400px circle at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(255,255,255,0.08), transparent 40%)`,
+          background: `radial-gradient(400px circle at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(150,150,150,0.12), transparent 40%)`,
         }}
       />
 
       <div className="space-y-3 relative z-10">
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b border-white/10 pb-2.5 text-neutral-400">
+        <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b pb-2.5" style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }}>
           <div className="flex items-center gap-2">
-            <span className="text-base font-bold text-white font-sans">{project.id}</span>
+            <span className="text-base font-bold font-sans" style={{ color: 'var(--text-primary)' }}>{project.id}</span>
             <span>//</span>
-            <span className="truncate max-w-[160px] sm:max-w-none text-neutral-200">{project.client}</span>
+            <span className="truncate max-w-[160px] sm:max-w-none" style={{ color: 'var(--text-secondary)' }}>{project.client}</span>
           </div>
-          <span className="text-[11px] text-neutral-400">{project.year}</span>
+          <span className="text-[11px]" style={{ color: 'var(--text-muted)' }}>{project.year}</span>
         </div>
 
-        {/* Adjusted Image Preview (Fills Layout Edge-to-Edge, No Orange Stroke) */}
-        <div className="relative rounded-xl overflow-hidden bg-[#09090b] border border-white/10 group-hover:border-white/25 transition-all duration-300 aspect-[16/10] w-full">
+        {/* Adjusted Image Preview */}
+        <div className="relative rounded-xl overflow-hidden border transition-all duration-300 aspect-[16/10] w-full" style={{ borderColor: 'var(--border-primary)', background: 'var(--bg-secondary)' }}>
           {project.coverImage ? (
             <img
               src={project.coverImage}
@@ -82,26 +82,26 @@ function TiltWorkCard({ project, onClick }) {
 
         {/* Title & Category */}
         <div>
-          <span className="text-[10px] font-sans tracking-[0.18em] uppercase text-neutral-400 block font-semibold mb-0.5">
+          <span className="text-[10px] font-sans tracking-[0.18em] uppercase block font-semibold mb-0.5" style={{ color: 'var(--text-muted)' }}>
             {project.category}
           </span>
-          <h3 className="text-xl sm:text-2xl font-light text-white font-sans group-hover:text-amber-100 transition-colors duration-300">
+          <h3 className="text-xl sm:text-2xl font-light font-sans transition-colors duration-300" style={{ color: 'var(--text-primary)' }}>
             {project.name}
           </h3>
         </div>
 
         {/* Short Description */}
-        <p className="text-xs text-neutral-300 font-light leading-relaxed line-clamp-2">
+        <p className="text-xs font-light leading-relaxed line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
           {project.description}
         </p>
       </div>
 
       {/* Bottom Simplified Action Footer */}
-      <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 mt-3">
-        <span className="text-[11px] font-sans tracking-[0.14em] uppercase text-neutral-300 group-hover:text-white transition-colors">
+      <div className="pt-3 border-t flex items-center justify-between relative z-10 mt-3" style={{ borderColor: 'var(--border-primary)' }}>
+        <span className="text-[11px] font-sans tracking-[0.14em] uppercase transition-colors" style={{ color: 'var(--text-secondary)' }}>
           {project.behanceUrl ? 'View Behance Case Study ↗' : 'View Case Study →'}
         </span>
-        <div className="w-7 h-7 rounded-full bg-white/10 text-white border border-white/15 flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-white/20 group-hover:border-white/30 transition-all duration-300 flex-shrink-0">
+        <div className="w-7 h-7 rounded-full border flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-300 flex-shrink-0" style={{ background: 'var(--toggle-bg)', borderColor: 'var(--border-nav)', color: 'var(--text-primary)' }}>
           <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
@@ -124,23 +124,23 @@ export default function SelectedWorkSection() {
   }
 
   return (
-    <section id="work" className="w-full bg-[#050505] text-[#F5F5F5] py-20 px-6 sm:px-12 lg:px-16 border-t border-white/10">
+    <section id="work" className="w-full py-20 px-6 sm:px-12 lg:px-16 border-t" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)', borderColor: 'var(--border-primary)' }}>
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 border-b border-white/10 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-10 border-b gap-6" style={{ borderColor: 'var(--border-primary)' }}>
           <div>
-            <div className="flex items-center gap-2.5 font-sans text-[11px] text-neutral-400 uppercase tracking-[0.18em] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-ping"></span>
+            <div className="flex items-center gap-2.5 font-sans text-[11px] uppercase tracking-[0.18em] font-medium" style={{ color: 'var(--text-secondary)' }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-ping" style={{ background: 'var(--text-primary)' }}></span>
               <span>01 / FEATURED CASE STUDIES</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight mt-3 font-sans">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight mt-3 font-sans" style={{ color: 'var(--text-primary)' }}>
               Selected work
             </h2>
           </div>
-          <p className="text-xs font-sans text-neutral-400 uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right">
+          <p className="text-xs font-sans uppercase tracking-[0.18em] font-medium max-w-xs sm:text-right" style={{ color: 'var(--text-secondary)' }}>
             UI/UX · Graphic Design · Research
-            <span className="block text-white font-medium mt-1">2024 – 2026 ARCHIVE</span>
+            <span className="block font-medium mt-1" style={{ color: 'var(--text-primary)' }}>2024 – 2026 ARCHIVE</span>
           </p>
         </div>
 
@@ -167,5 +167,6 @@ export default function SelectedWorkSection() {
     </section>
   )
 }
+
 
 

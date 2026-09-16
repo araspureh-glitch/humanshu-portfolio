@@ -6,14 +6,18 @@ import Footer from '../components/Footer'
 
 function Work() {
   return (
-    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen pt-16">
+    <div
+      className="font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen pt-16 flex flex-col justify-between"
+      style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+    >
       <CustomCursor />
       <Navigation />
-      <main>
+      <main className="flex-1">
         <SelectedWorkSection />
       </main>
       <Footer />
     </div>
+
   )
 }
 
