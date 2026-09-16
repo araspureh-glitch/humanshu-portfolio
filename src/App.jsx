@@ -6,6 +6,7 @@ import ProjectDetail from './pages/ProjectDetail'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import { AudioProvider } from './components/BackgroundAudio'
+import { ThemeProvider } from './context/ThemeContext'
 
 // Route Change Analytics Tracker for GA4
 function AnalyticsTracker() {
@@ -34,19 +35,21 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AudioProvider videoId="rVD-zV6ctoM">
-        <ScrollToTop />
-        <AnalyticsTracker />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/project/:slug" element={<ProjectDetail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </AudioProvider>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AudioProvider videoId="rVD-zV6ctoM">
+          <ScrollToTop />
+          <AnalyticsTracker />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/project/:slug" element={<ProjectDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </AudioProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 

@@ -19,7 +19,10 @@ function Home() {
   const { isPlaying, toggleAudio } = useAudio()
 
   return (
-    <div className="bg-[#050505] text-[#F5F5F5] font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen flex flex-col justify-between">
+    <div
+      className="font-sans antialiased selection:bg-[#EA5211] selection:text-white min-h-screen flex flex-col justify-between"
+      style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+    >
       <HelloIntro onComplete={() => setIntroComplete(true)} />
       <CustomCursor />
       <Navigation introComplete={introComplete} />

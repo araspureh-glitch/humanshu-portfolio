@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
+import { useTheme } from '../context/ThemeContext'
 
 import MosaicHeroCanvas from './MosaicHeroCanvas'
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function CinematicHero({ introComplete = true, onAudioToggle, isPlaying }) {
+  const { theme } = useTheme()
   // Motion variants for container and elements
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -29,7 +31,11 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
   }
 
   return (
-    <section id="hero" className="relative w-full h-screen min-h-[700px] bg-[#050505] text-[#F5F5F5] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-28 pb-10">
+    <section
+      id="hero"
+      className="relative w-full h-screen min-h-[700px] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-28 pb-10"
+      style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+    >
       
       {/* Mosaic Pixel Tile Layer with Ambient Depth (Static, Zero Hover Lag) */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
@@ -39,8 +45,8 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
         <MosaicHeroCanvas imageSrc="/hero.jpg" />
 
         {/* Minimal Editorial Gradient Overlays for Readability & Depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-[#050505]/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/50 to-transparent" />
+        <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'linear-gradient(to top, #050505, rgba(5,5,5,0.30), rgba(5,5,5,0.50))' : 'linear-gradient(to top, #F8F7F4, rgba(248,247,244,0.30), rgba(248,247,244,0.50))' }} />
+        <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'linear-gradient(to right, #050505, rgba(5,5,5,0.50), transparent)' : 'linear-gradient(to right, #F8F7F4, rgba(248,247,244,0.50), transparent)' }} />
       </div>
 
       <motion.div

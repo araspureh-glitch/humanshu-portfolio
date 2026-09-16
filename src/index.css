@@ -1,5 +1,127 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────
+   THEME TOKENS
+   Applied via  html[data-theme="dark|light"]
+───────────────────────────────────────── */
+:root,
+html[data-theme="dark"] {
+  --bg-primary:        #050505;
+  --bg-secondary:      #0c0c0e;
+  --bg-nav:            rgba(5,5,5,0.90);
+  --bg-nav-scrolled:   rgba(5,5,5,0.95);
+  --bg-card:           rgba(255,255,255,0.04);
+  --bg-overlay:        rgba(5,5,5,0.60);
+
+  --text-primary:      #F5F5F5;
+  --text-secondary:    #8A8A8A;
+  --text-muted:        #6b6b6b;
+  --text-nav:          #e5e5e5;
+
+  --border-primary:    rgba(255,255,255,0.08);
+  --border-nav:        rgba(255,255,255,0.12);
+  --border-subtle:     rgba(255,255,255,0.06);
+
+  --gradient-hero-b:   linear-gradient(to top,  #050505, rgba(5,5,5,0.30), rgba(5,5,5,0.50));
+  --gradient-hero-r:   linear-gradient(to right, #050505, rgba(5,5,5,0.50), transparent);
+  --shadow-nav:        0 8px 32px rgba(0,0,0,0.6);
+
+  /* Toggle button colours */
+  --toggle-bg:         rgba(255,255,255,0.08);
+  --toggle-border:     rgba(255,255,255,0.20);
+  --toggle-icon-color: #F5F5F5;
+  --toggle-hover-bg:   rgba(255,255,255,0.14);
+}
+
+html[data-theme="light"] {
+  --bg-primary:        #F8F7F4;
+  --bg-secondary:      #EFEFEC;
+  --bg-nav:            rgba(248,247,244,0.90);
+  --bg-nav-scrolled:   rgba(248,247,244,0.97);
+  --bg-card:           rgba(0,0,0,0.04);
+  --bg-overlay:        rgba(248,247,244,0.60);
+
+  --text-primary:      #111111;
+  --text-secondary:    #555555;
+  --text-muted:        #888888;
+  --text-nav:          #1a1a1a;
+
+  --border-primary:    rgba(0,0,0,0.08);
+  --border-nav:        rgba(0,0,0,0.10);
+  --border-subtle:     rgba(0,0,0,0.05);
+
+  --gradient-hero-b:   linear-gradient(to top,  #F8F7F4, rgba(248,247,244,0.30), rgba(248,247,244,0.50));
+  --gradient-hero-r:   linear-gradient(to right, #F8F7F4, rgba(248,247,244,0.50), transparent);
+  --shadow-nav:        0 4px 24px rgba(0,0,0,0.10);
+
+  /* Toggle button colours */
+  --toggle-bg:         rgba(0,0,0,0.06);
+  --toggle-border:     rgba(0,0,0,0.18);
+  --toggle-icon-color: #111111;
+  --toggle-hover-bg:   rgba(0,0,0,0.12);
+}
+
+/* Global background + text apply theme */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.45s cubic-bezier(0.4,0,0.2,1),
+              color 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─────────────────────────────────────────
+   THEME TOGGLE BUTTON
+───────────────────────────────────────── */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--toggle-icon-color);
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--toggle-hover-bg);
+  transform: scale(1.08);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.94);
+}
+
+.theme-toggle-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+  position: absolute;
+}
+
+.theme-toggle-icon--enter {
+  animation: icon-pop-in 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+.theme-toggle-icon--exit {
+  animation: icon-pop-out 0.25s ease forwards;
+}
+
+@keyframes icon-pop-in {
+  from { transform: rotate(-90deg) scale(0.4); opacity: 0; }
+  to   { transform: rotate(0deg)   scale(1);   opacity: 1; }
+}
+
+@keyframes icon-pop-out {
+  from { transform: rotate(0deg)  scale(1);   opacity: 1; }
+  to   { transform: rotate(90deg) scale(0.4); opacity: 0; }
+}
+
 @layer base {
   body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
@@ -12,3 +134,4 @@
     font-family: "DM Mono", "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
   }
 }
+
