@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 
+import MosaicHeroCanvas from './MosaicHeroCanvas'
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function CinematicHero({ introComplete = true, onAudioToggle, isPlaying }) {
@@ -36,13 +37,9 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
       style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
     >
       
-      {/* Full-Screen Portrait Hero Background Image */}
+      {/* Pixelated Hero Background Image Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden select-none">
-        <img
-          src="/hero.jpg"
-          alt="Humanshu Araspure - UI/UX Designer"
-          className="w-full h-full object-cover object-[70%_25%] sm:object-right-top contrast-105 opacity-100 brightness-110 dark:brightness-105 transition-all duration-700"
-        />
+        <MosaicHeroCanvas imageSrc="/hero.jpg" tileSize={8} />
 
         {/* Minimal Subtle Gradients for Legibility Without Dimming the Portrait */}
         <div 

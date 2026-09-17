@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
+export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg', tileSize = 8 }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -27,8 +27,6 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
         canvas.height = height
       }
 
-      // 6px tile size for high definition grid
-      const tileSize = 6
       const cols = Math.ceil(width / tileSize)
       const rows = Math.ceil(height / tileSize)
 
@@ -40,7 +38,7 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
 
       const imgAspect = img.width / img.height
       const canvasAspect = width / height
-      const zoomFactor = 1.10
+      const zoomFactor = 1.05
       let drawWidth = cols * zoomFactor
       let drawHeight = rows * zoomFactor
       let offsetX = 0
@@ -48,79 +46,62 @@ export default function MosaicHeroCanvas({ imageSrc = '/hero.jpg' }) {
 
       if (imgAspect > canvasAspect) {
         drawWidth = rows * imgAspect * zoomFactor
-        offsetX = (cols - drawWidth) * 0.72
-        offsetY = (rows - drawHeight) * 0.45
+        offsetX = (cols - drawWidth) * 0.70
+        offsetY = (rows - drawHeight) * 0.35
       } else {
         drawHeight = (cols / imgAspect) * zoomFactor
         offsetX = (cols - drawWidth) * 0.65
-        offsetY = (rows - drawHeight) * 0.35
+        offsetY = (rows - drawHeight) * 0.25
       }
 
       offCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
       const imgData = offCtx.getImageData(0, 0, cols, rows).data
 
-      // Background fill
-      ctx.fillStyle = '#050505'
-      ctx.fillRect(0, 0, width, height)
+      // Clear canvas before drawing tiles
+      ctx.clearRect(0, 0, width, height)
 
       const padding = 0.5
       const cornerRadius = 1.0
 
-      // Render mosaic pixel tiles with subtle slate-steel editorial tint
+      // Render pixelated tiles preserving full image colors and details
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const index = (r * cols + c) * 4
-          const red = imgData[index]
-          const green = imgData[index + 1]
-          const blue = imgData[index + 2]
+          const rCol = imgData[index]
+          const gCol = imgData[index + 1]
+          const bCol = imgData[index + 2]
+          const alpha = imgData[index + 3]
 
-          let brightness = (red * 0.299 + green * 0.587 + blue * 0.114) / 255
-          brightness = Math.pow(brightness, 0.65) * 2.0
-          if (brightness > 1) brightness = 1
+          if (alpha < 10) continue
 
           const posX = c * tileSize + padding
           const posY = r * tileSize + padding
           const w = tileSize - padding * 2
           const h = tileSize - padding * 2
 
-          let color
-          const val = Math.floor(brightness * 255)
-
-          if (val < 15) {
-            color = '#050507'
-          } else {
-            const rCol = Math.min(255, val)
-            const gCol = Math.min(255, Math.floor(val * 1.02))
-            const bCol = Math.min(255, Math.floor(val * 1.06))
-            color = `rgb(${rCol}, ${gCol}, ${bCol})`
-          }
-
-          ctx.fillStyle = color
+          ctx.fillStyle = `rgb(${rCol}, ${gCol}, ${bCol})`
           ctx.beginPath()
-          ctx.roundRect(posX, posY, w, h, cornerRadius)
+          if (cornerRadius > 0 && typeof ctx.roundRect === 'function') {
+            ctx.roundRect(posX, posY, w, h, cornerRadius)
+          } else {
+            ctx.rect(posX, posY, w, h)
+          }
           ctx.fill()
         }
       }
     }
 
-    img.onload = () => {
-      renderGrid()
-    }
+    img.onload = () => renderGrid()
+    if (img.complete) renderGrid()
 
-    if (img.complete) {
-      renderGrid()
-    }
-
-    const resizeObserver = new ResizeObserver(() => {
-      renderGrid()
-    })
+    const resizeObserver = new ResizeObserver(() => renderGrid())
     resizeObserver.observe(canvas)
 
     return () => {
       isDisposed = true
       resizeObserver.disconnect()
     }
-  }, [imageSrc])
+  }, [imageSrc, tileSize])
 
   return (
     <canvas 
