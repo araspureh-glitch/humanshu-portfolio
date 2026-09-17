@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 
-import MosaicHeroCanvas from './MosaicHeroCanvas'
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function CinematicHero({ introComplete = true, onAudioToggle, isPlaying }) {
@@ -37,16 +36,31 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
       style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
     >
       
-      {/* Mosaic Pixel Tile Layer with Ambient Depth (Static, Zero Hover Lag) */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
-        {/* Subtle Ambient Light Orb behind portrait */}
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-white/[0.04] blur-[150px] pointer-events-none" />
+      {/* Full-Screen Portrait Hero Background Image */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden select-none">
+        <img
+          src="/hero.jpg"
+          alt="Humanshu Araspure - UI/UX Designer"
+          className="w-full h-full object-cover object-[70%_25%] sm:object-right-top contrast-105 opacity-100 brightness-110 dark:brightness-105 transition-all duration-700"
+        />
 
-        <MosaicHeroCanvas imageSrc="/hero.jpg" />
-
-        {/* Minimal Editorial Gradient Overlays for Readability & Depth */}
-        <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'linear-gradient(to top, #050505, rgba(5,5,5,0.30), rgba(5,5,5,0.50))' : 'linear-gradient(to top, #F8F7F4, rgba(248,247,244,0.30), rgba(248,247,244,0.50))' }} />
-        <div className="absolute inset-0" style={{ background: theme === 'dark' ? 'linear-gradient(to right, #050505, rgba(5,5,5,0.50), transparent)' : 'linear-gradient(to right, #F8F7F4, rgba(248,247,244,0.50), transparent)' }} />
+        {/* Minimal Subtle Gradients for Legibility Without Dimming the Portrait */}
+        <div 
+          className="absolute inset-0 pointer-events-none" 
+          style={{ 
+            background: theme === 'dark' 
+              ? 'linear-gradient(to top, #050505 5%, rgba(5,5,5,0.2) 50%, transparent 100%)' 
+              : 'linear-gradient(to top, #F8F7F4 5%, rgba(248,247,244,0.2) 50%, transparent 100%)' 
+          }} 
+        />
+        <div 
+          className="absolute inset-0 pointer-events-none" 
+          style={{ 
+            background: theme === 'dark' 
+              ? 'linear-gradient(to right, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.35) 45%, transparent 80%)' 
+              : 'linear-gradient(to right, rgba(248,247,244,0.85) 0%, rgba(248,247,244,0.35) 45%, transparent 80%)' 
+          }} 
+        />
       </div>
 
       <motion.div

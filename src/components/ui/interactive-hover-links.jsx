@@ -152,6 +152,7 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
           left,
           translateX: "-10%",
           translateY: "-50%",
+          borderColor: 'var(--border-nav)',
         }}
         variants={{
           initial: { scale: 0, rotate: "-12.5deg", opacity: 0 },
@@ -160,7 +161,6 @@ function ProjectLink({ heading, imgSrc, subheading, href, external, onProjectSel
         transition={{ type: "spring" }}
         src={imgSrc}
         className="absolute z-30 h-24 w-32 rounded-lg object-cover shadow-2xl pointer-events-none md:h-48 md:w-64 border"
-        style={{ borderColor: 'var(--border-nav)' }}
         alt={`Image representing ${heading}`}
       />
 
