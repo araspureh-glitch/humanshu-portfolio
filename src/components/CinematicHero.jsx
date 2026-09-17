@@ -118,7 +118,7 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
                   initial={{ y: '100%', opacity: 0 }}
                   animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
                   transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                  className="font-serif italic font-normal bg-gradient-to-r from-white via-amber-100 to-white bg-clip-text text-transparent tracking-normal px-1 inline-block cursor-default" 
+                  className="font-serif italic font-normal text-[#EA5211] tracking-normal px-1 inline-block cursor-default" 
                   style={{ fontFamily: '"Instrument Serif", "Alex Brush", serif' }}
                 >
                   experiences
@@ -179,7 +179,7 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
                   initial={{ y: '100%', opacity: 0 }}
                   animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
                   transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.68 }}
-                  className="font-serif italic font-normal bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent tracking-normal px-0.5 inline-block cursor-default" 
+                  className="font-serif italic font-normal text-[#EA5211] tracking-normal px-0.5 inline-block cursor-default" 
                   style={{ fontFamily: '"Instrument Serif", "Alex Brush", serif' }}
                 >
                   use.
