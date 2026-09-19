@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 
-import MosaicHeroCanvas from './MosaicHeroCanvas'
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
 
 export default function CinematicHero({ introComplete = true, onAudioToggle, isPlaying }) {
@@ -37,25 +36,29 @@ export default function CinematicHero({ introComplete = true, onAudioToggle, isP
       style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
     >
       
-      {/* Pixelated Hero Background Image Layer */}
+      {/* Clean Full-Resolution Hero Background Image Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden select-none">
-        <MosaicHeroCanvas imageSrc="/hero.jpg" tileSize={8} />
+        <img
+          src="/hero.jpg"
+          alt="Hero background"
+          className="w-full h-full object-cover object-[70%_25%] opacity-85 transition-opacity duration-700 font-sans"
+        />
 
-        {/* Minimal Subtle Gradients for Legibility Without Dimming the Portrait */}
+        {/* Gradient Overlays for Optimum Legibility in Dark & Light Modes */}
         <div 
           className="absolute inset-0 pointer-events-none" 
           style={{ 
             background: theme === 'dark' 
-              ? 'linear-gradient(to top, #050505 5%, rgba(5,5,5,0.2) 50%, transparent 100%)' 
-              : 'linear-gradient(to top, #F8F7F4 5%, rgba(248,247,244,0.2) 50%, transparent 100%)' 
+              ? 'linear-gradient(to top, #050505 8%, rgba(5,5,5,0.3) 50%, transparent 100%)' 
+              : 'linear-gradient(to top, #F8F7F4 8%, rgba(248,247,244,0.3) 50%, transparent 100%)' 
           }} 
         />
         <div 
           className="absolute inset-0 pointer-events-none" 
           style={{ 
             background: theme === 'dark' 
-              ? 'linear-gradient(to right, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.35) 45%, transparent 80%)' 
-              : 'linear-gradient(to right, rgba(248,247,244,0.85) 0%, rgba(248,247,244,0.35) 45%, transparent 80%)' 
+              ? 'linear-gradient(to right, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.4) 50%, transparent 85%)' 
+              : 'linear-gradient(to right, rgba(248,247,244,0.85) 0%, rgba(248,247,244,0.4) 50%, transparent 85%)' 
           }} 
         />
       </div>
