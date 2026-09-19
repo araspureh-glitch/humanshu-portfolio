@@ -48,16 +48,17 @@ export default function Navigation({ introComplete = true, activeSection: active
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between font-mono uppercase" style={{ color: 'var(--text-nav)' }}>
         
-        {/* Left: Minimal Editorial Brand Logo */}
+        {/* Left: Signature HA. Monogram Logo */}
         <Link 
           to="/" 
           onClick={() => setMobileMenuOpen(false)}
-          className="group flex items-center gap-2 text-sm tracking-tight hover:opacity-80 transition-opacity"
-          style={{ color: 'var(--text-primary)' }}
+          className="group flex items-center tracking-tight hover:opacity-90 transition-opacity"
         >
-          <span className="font-sans font-semibold tracking-wider text-sm sm:text-base uppercase" style={{ color: 'var(--text-primary)' }}>
-            HUMANSHU <span className="font-mono text-[11px] lowercase tracking-normal" style={{ color: 'var(--text-secondary)' }}>°26</span>
-          </span>
+          <img
+            src="/assets/ha_signature_logo.png"
+            alt="HA. Logo"
+            className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+          />
         </Link>
 
         {/* Center Desktop Nav with Optimized Minimal Font Size */}

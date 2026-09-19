@@ -1,204 +1,108 @@
-import { motion } from 'framer-motion'
-import { useTheme } from '../context/ThemeContext'
+import React, { useState } from 'react'
 
-import { LiquidMetalButton } from '@/components/ui/liquid-metal-button'
-
-export default function CinematicHero({ introComplete = true, onAudioToggle, isPlaying }) {
-  const { theme } = useTheme()
-  // Motion variants for container and elements
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  }
+export default function CinematicHero() {
+  const [isCameraHovered, setIsCameraHovered] = useState(false)
 
   return (
     <section
       id="hero"
-      className="relative w-full h-screen min-h-[700px] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-28 pb-10"
-      style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+      className="relative w-full h-screen min-h-[760px] max-h-[1150px] overflow-hidden bg-[#050505] text-[#F5F5F5] select-none flex flex-col justify-between pt-20 pb-4"
     >
-      
-      {/* Clean Full-Resolution Hero Background Image Layer */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden select-none">
-        <img
-          src="/hero.jpg"
-          alt="Hero background"
-          className="w-full h-full object-cover object-[70%_25%] opacity-85 transition-opacity duration-700 font-sans"
+      {/* ==========================================
+          1. BLACK CRUSHED PAPER BACKGROUND & CORNERS
+          ========================================== */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+        {/* Solid dark crushed paper base */}
+        <div className="absolute inset-0 bg-[#050505]" />
+
+        {/* Paper texture noise filter */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.22] mix-blend-overlay">
+          <filter id="crushedPaperNoise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#crushedPaperNoise)" />
+        </svg>
+
+        {/* Crushed paper wrinkles overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.16] mix-blend-screen"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 25% 35%, rgba(255,255,255,0.18) 0%, transparent 45%),
+              radial-gradient(circle at 75% 70%, rgba(255,255,255,0.15) 0%, transparent 40%),
+              linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%),
+              linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%)
+            `,
+          }}
         />
 
-        {/* Gradient Overlays for Optimum Legibility in Dark & Light Modes */}
-        <div 
-          className="absolute inset-0 pointer-events-none" 
-          style={{ 
-            background: theme === 'dark' 
-              ? 'linear-gradient(to top, #050505 8%, rgba(5,5,5,0.3) 50%, transparent 100%)' 
-              : 'linear-gradient(to top, #F8F7F4 8%, rgba(248,247,244,0.3) 50%, transparent 100%)' 
-          }} 
+        {/* 11. Green Crumpled Torn Corner (Top Left) - Half Size (1/2) */}
+        <img
+          src="/assets/11_green_torn_corner.png"
+          alt=""
+          className="absolute top-0 left-0 w-16 sm:w-22 lg:w-28 h-auto pointer-events-none z-10 opacity-95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
         />
-        <div 
-          className="absolute inset-0 pointer-events-none" 
-          style={{ 
-            background: theme === 'dark' 
-              ? 'linear-gradient(to right, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.4) 50%, transparent 85%)' 
-              : 'linear-gradient(to right, rgba(248,247,244,0.85) 0%, rgba(248,247,244,0.4) 50%, transparent 85%)' 
-          }} 
+
+        {/* 12. Purple Torn Corner with Scribble (Bottom Left) - Half Size (50%) */}
+        <img
+          src="/assets/12_purple_torn_corner.png"
+          alt=""
+          className="absolute bottom-0 left-0 w-28 sm:w-36 lg:w-48 h-auto pointer-events-none z-10 opacity-95 drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]"
         />
+        {/* 19. Grid Torn Corner Paper (Bottom Right) - Half Size (1/2) */}
+        <img
+          src="/assets/19_grid_torn_corner.png"
+          alt=""
+          className="absolute bottom-0 right-0 w-14 sm:w-18 lg:w-24 h-auto pointer-events-none z-10 opacity-95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
+        />
+
+        {/* Edge Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.88)_100%)]" />
       </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={introComplete ? "visible" : "hidden"}
-        className="relative z-10 flex flex-col justify-between h-full w-full pointer-events-none"
-      >
-        {/* UPPER SECTION: Intro Text & Right Positioning */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-4 sm:pt-8 pointer-events-none">
-          
-          {/* Upper Left: Small Intro Text */}
-          <motion.div variants={itemVariants} className="md:col-span-6 space-y-1 font-mono text-[11px] sm:text-xs text-[#8A8A8A] tracking-wider leading-relaxed max-w-sm">
-            <p className="text-white font-medium">UI/UX Designer.</p>
-            <p>I turn complex problems into simple,</p>
-            <p>meaningful digital experiences.</p>
-          </motion.div>
-
-          {/* Upper Right: Positioning Label & Coordinates */}
-          <motion.div variants={itemVariants} className="md:col-span-6 flex flex-col md:items-end justify-between space-y-2 text-right font-mono text-[10px] sm:text-[11px] text-[#8A8A8A] tracking-widest uppercase">
-            <div className="flex items-center gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-white font-medium">UI / UX DESIGNER</span>
-            </div>
-            <p className="text-neutral-400">Based in India — 20.5937° N, 78.9629° E</p>
-          </motion.div>
-
-        </div>
-
-        {/* LOWER SECTION: Main Editorial Headline & Scroll Explorer */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-4 pointer-events-none">
-          
-          {/* Lower Left: Large Editorial Headline */}
-          <motion.div variants={itemVariants} className="lg:col-span-9 pointer-events-auto">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[90px] font-extralight text-[#F5F5F5] tracking-tight leading-[0.95] max-w-4xl font-sans drop-shadow-2xl flex flex-wrap gap-x-[0.25em] gap-y-1">
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-                  className="inline-block cursor-default"
-                >
-                  Designing
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.22 }}
-                  className="inline-block cursor-default"
-                >
-                  digital
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                  className="font-serif italic font-normal text-[#EA5211] tracking-normal px-1 inline-block cursor-default" 
-                  style={{ fontFamily: '"Instrument Serif", "Alex Brush", serif' }}
-                >
-                  experiences
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.38 }}
-                  className="inline-block cursor-default"
-                >
-                  that
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.44 }}
-                  className="inline-block cursor-default"
-                >
-                  people
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                  className="inline-block cursor-default"
-                >
-                  actually
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.56 }}
-                  className="inline-block cursor-default"
-                >
-                  want
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.62 }}
-                  className="inline-block cursor-default"
-                >
-                  to
-                </motion.span>
-              </span>
-              <span className="overflow-hidden inline-block py-1">
-                <motion.span 
-                  initial={{ y: '100%', opacity: 0 }}
-                  animate={introComplete ? { y: '0%', opacity: 1 } : { y: '100%', opacity: 0 }}
-                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.68 }}
-                  className="font-serif italic font-normal text-[#EA5211] tracking-normal px-0.5 inline-block cursor-default" 
-                  style={{ fontFamily: '"Instrument Serif", "Alex Brush", serif' }}
-                >
-                  use.
-                </motion.span>
-              </span>
-            </h1>
-          </motion.div>
+      {/* ==========================================
+          MAIN HERO COLLAGE CONTENT (STATIC HTML/CSS)
+          ========================================== */}
+      <div className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-between">
+        {/* ==========================================
+            DESKTOP COLLAGE BOARD (MD & ABOVE)
+            ========================================== */}
+        <div className="hidden md:block relative w-full h-full">
 
 
 
         </div>
-      </motion.div>
 
-      {/* Fine Horizontal Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#FFFFFF1A] z-10 pointer-events-none" />
+        {/* ==========================================
+            DEDICATED RESPONSIVE MOBILE HERO (< 768px)
+            ========================================== */}
+        <div className="block md:hidden relative w-full h-full flex flex-col justify-between pt-2 pb-4 overflow-hidden">
+
+        </div>
+
+        {/* ==========================================
+            SCROLL INDICATOR & COORDINATES
+            ========================================== */}
+        <div className="relative z-30 w-full flex items-center justify-between pb-4 pt-2 border-t border-white/10 font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
+          {/* Left: Scroll Down Icon + Text */}
+          <div
+            className="flex items-center gap-2 cursor-pointer hover:text-white transition-colors"
+            onClick={() => {
+              window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+            }}
+          >
+            <img src="/assets/16_scroll_down_icon.png" alt="" className="w-4 h-5 object-contain" />
+            <span className="font-bold">SCROLL DOWN</span>
+          </div>
+
+          {/* Right: Coordinates & Crosshair */}
+          <div className="flex items-center gap-2 text-neutral-400">
+            <span>21.1458° N 79.0882° E</span>
+            <img src="/assets/17_coordinates_crosshair.png" alt="" className="w-4 h-4 object-contain opacity-80" />
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
-
