@@ -26,26 +26,6 @@ export default function CinematicHero() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-[#050505]/30" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-[#050505]/80" />
 
-        {/* 11. Green Crumpled Torn Corner (Top Left) - Half Size (1/2) */}
-        <img
-          src="/assets/11_green_torn_corner.png"
-          alt=""
-          className="absolute top-0 left-0 w-16 sm:w-22 lg:w-28 h-auto pointer-events-none z-10 opacity-95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
-        />
-
-        {/* 12. Purple Torn Corner with Scribble (Bottom Left) - Half Size (50%) */}
-        <img
-          src="/assets/12_purple_torn_corner.png"
-          alt=""
-          className="absolute bottom-0 left-0 w-28 sm:w-36 lg:w-48 h-auto pointer-events-none z-10 opacity-95 drop-shadow-[0_8px_20px_rgba(0,0,0,0.85)]"
-        />
-        {/* 19. Grid Torn Corner Paper (Bottom Right) - Half Size (1/2) */}
-        <img
-          src="/assets/19_grid_torn_corner.png"
-          alt=""
-          className="absolute bottom-0 right-0 w-14 sm:w-18 lg:w-24 h-auto pointer-events-none z-10 opacity-95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
-        />
-
         {/* Edge Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.88)_100%)]" />
       </div>
