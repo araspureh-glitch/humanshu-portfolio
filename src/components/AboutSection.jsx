@@ -78,21 +78,39 @@ export default function AboutSection() {
         {/* MAIN COMPOSITION: INTERACTIVE FLOATING TAG PORTRAIT */}
         <div className="relative w-full min-h-[580px] sm:min-h-[680px] flex items-center justify-center py-12">
           
-          {/* CENTER PAPER COLLAGE COMPOSITION IN ABOUT SECTION */}
-          <div className="relative w-[88vw] max-w-[580px] h-[520px] sm:h-[620px] pointer-events-auto z-20 flex items-center justify-center">
-            {/* 08. Yellow Handdrawn Star (Upper Left Accent) */}
-            <img
-              src="/assets/08_yellow_handdrawn_star.png"
-              alt="Star"
-              className="absolute -top-4 left-6 sm:left-10 w-8 sm:w-10 h-auto pointer-events-none z-15 opacity-90 animate-star-pulse"
-            />
-
-            {/* 02. Secondary Camera Portrait (BEHIND MAIN PORTRAIT Z-10) with SMILE :) Hover Bubble */}
-            <div
+          {/* CENTER PORTRAIT WRAPPER WITH ANIMATED DASHED SELECTION FRAME */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            animate={{
+              scale: activeHoveredTag ? 1.018 : 1,
+              rotate: activeHoveredTag ? (activeHoveredTag.includes('tag-1') ? -0.8 : 0.8) : 0,
+            }}
+            className="relative z-20 group cursor-pointer"
+          >
+            {/* Secondary Camera Portrait (02_secondary_portrait.png) - Half Size (50%) with SMILE :) Hover Bubble */}
+            <div 
               onMouseEnter={() => setIsAboutCameraHovered(true)}
               onMouseLeave={() => setIsAboutCameraHovered(false)}
-              className="group absolute top-[2%] right-[6%] sm:right-[10%] w-[42%] max-w-[210px] h-auto z-10 rotate-6 drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)] cursor-pointer transition-all duration-300 hover:rotate-12 hover:scale-105"
+              className="absolute -top-8 -right-8 sm:-top-10 sm:-right-10 w-24 sm:w-28 lg:w-32 h-auto z-30 rotate-6 drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)] cursor-pointer transition-all duration-300 hover:rotate-12 hover:scale-105"
             >
+              {/* SMILE :) speech bubble popup */}
+              <div 
+                className={`absolute -top-9 -left-2 w-16 sm:w-20 h-auto z-40 pointer-events-none transition-all duration-300 ease-out transform ${
+                  isAboutCameraHovered
+                    ? 'scale-100 opacity-100 -translate-y-2 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]'
+                    : 'scale-75 opacity-0 translate-y-2'
+                }`}
+              >
+                <img
+                  src="/assets/21_smile_speech_bubble.png"
+                  alt="SMILE :)"
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+
               <img
                 src="/assets/02_secondary_portrait.png"
                 alt="Camera Portrait"
@@ -100,67 +118,26 @@ export default function AboutSection() {
               />
             </div>
 
-            {/* 21. Pixel Speech Bubble "SMILE :)" (Appears ONLY on hover over camera portrait) */}
-            <div
-              className={`absolute -top-6 right-[12%] sm:right-[16%] w-24 sm:w-28 lg:w-32 h-auto pointer-events-none z-30 transition-all duration-300 ease-out transform ${
-                isAboutCameraHovered
-                  ? 'scale-100 opacity-100 -translate-y-2 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]'
-                  : 'scale-75 opacity-0 translate-y-2'
-              }`}
-            >
-              <img
-                src="/assets/21_smile_speech_bubble.png"
-                alt="SMILE :)"
-                className="w-full h-auto object-contain"
+            {/* Central Portrait Image */}
+            <div className="relative w-64 h-80 sm:w-80 sm:h-[420px] rounded-[32px] overflow-hidden border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.8)] bg-neutral-900">
+              <img 
+                src="/hero.jpg" 
+                alt="Humanshu Araspure - Portrait" 
+                className="w-full h-full object-cover grayscale contrast-125 brightness-95 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700 ease-out"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 pointer-events-none" />
+              
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end text-left pointer-events-none">
+                <div>
+                  <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">DESIGNER</span>
+                  <span className="font-sans text-sm text-white font-medium">Humanshu A.</span>
+                </div>
+                <span className="font-mono text-[10px] text-[#EA5211] bg-[#EA5211]/10 px-2 py-0.5 rounded border border-[#EA5211]/30">
+                  AVAILABLE 2026
+                </span>
+              </div>
             </div>
-
-            {/* 01. Main Torn Paper Portrait (Z-20 IN FRONT) */}
-            <div className="relative z-20 w-full h-full flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
-              <img
-                src="/assets/01_main_portrait.png"
-                alt="Humanshu Araspure - Main Portrait"
-                className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
-              />
-            </div>
-
-            {/* 14. Taped Handwritten Note + 20. White Loop Arrow */}
-            <div className="absolute top-[12%] -right-4 sm:-right-8 w-[38%] max-w-[170px] h-auto pointer-events-auto z-25 drop-shadow-[0_14px_30px_rgba(0,0,0,0.9)] animate-float-note">
-              <img
-                src="/assets/14_design_builds_better_experiences_note.png"
-                alt="Design Builds Better Experiences Note"
-                className="w-full h-auto object-contain"
-              />
-              <img
-                src="/assets/20_white_loop_arrow.png"
-                alt=""
-                className="absolute -bottom-16 left-1 w-12 sm:w-14 h-auto pointer-events-none opacity-95 drop-shadow-md animate-arrow-nudge"
-              />
-            </div>
-
-            {/* 03. Vinyl Circle (Bottom Left) */}
-            <div className="absolute bottom-4 left-0 sm:left-4 w-24 sm:w-32 h-24 sm:h-32 pointer-events-auto z-25 drop-shadow-[0_14px_28px_rgba(0,0,0,0.9)]">
-              <img
-                src="/assets/03_vinyl_circle.png"
-                alt="Vinyl Circle"
-                className="w-full h-full object-contain animate-vinyl-spin transition-transform duration-300 hover:scale-110 cursor-pointer"
-              />
-              <img
-                src="/assets/10_handdrawn_circle.png"
-                alt=""
-                className="absolute -bottom-2 -left-2 w-10 h-10 pointer-events-none opacity-80"
-              />
-            </div>
-
-            {/* 04. Megaphone Sticker (Bottom Right) */}
-            <div className="absolute bottom-6 right-2 sm:right-6 w-24 sm:w-30 h-auto pointer-events-auto z-25 drop-shadow-[0_16px_32px_rgba(0,0,0,0.9)] animate-sticker-wiggle transition-transform duration-300 hover:scale-110 cursor-pointer">
-              <img
-                src="/assets/04_megaphone_sticker.png"
-                alt="Megaphone Sticker"
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          </div>
+          </motion.div>
 
           {/* FLOATING DECORATIVE STICKERS / OBJECTS */}
           {decorativeObjects.map((obj, i) => {

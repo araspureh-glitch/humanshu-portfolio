@@ -1,7 +1,6 @@
 import CustomCursor from '../components/CustomCursor'
 import Navigation from '../components/Navigation'
 import AboutIntroSection from '../components/AboutIntroSection'
-import AboutSection from '../components/AboutSection'
 import FloatingHobbiesCloud from '../components/FloatingHobbiesCloud'
 import ExperienceSection from '../components/ExperienceSection'
 import SkillsSection from '../components/SkillsSection'
@@ -18,7 +17,6 @@ function About() {
       <Navigation />
       <main className="flex-1">
         <AboutIntroSection />
-        <AboutSection />
         <PhilosophySection />
         <ExperienceSection />
         <SkillsSection />
@@ -26,6 +24,7 @@ function About() {
       </main>
       <Footer />
     </div>
+
   )
 }
 
