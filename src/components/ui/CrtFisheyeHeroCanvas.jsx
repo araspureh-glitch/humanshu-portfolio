@@ -167,19 +167,19 @@ export default function CrtFisheyeHeroCanvas({
 
         // =======================================================
         // GLITCH EFFECT 2: RIGHT-SIDE VERTICAL SIGNAL CORRUPTION ONLY
-        // (Left side remains clean - NO left vertical glitch strip!)
+        // Reduced by 50% in width and intensity for subtle right-edge effect
         // =======================================================
-        if (sampleUv.x > 0.70 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
-          float stripX = floor(sampleUv.x * 48.0) / 48.0;
-          float blockY = floor(sampleUv.y * 28.0 + sin(stripX * 20.0 + u_time * 3.0)) / 28.0;
+        if (sampleUv.x > 0.85 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
+          float stripX = floor(sampleUv.x * 52.0) / 52.0;
+          float blockY = floor(sampleUv.y * 32.0 + sin(stripX * 20.0 + u_time * 3.0)) / 32.0;
           
           float blockNoise = rand(vec2(stripX, blockY + floor(u_time * 5.0)));
 
-          // Displace sampling UVs on right side using original image pixels
-          if (blockNoise > (0.30 - u_hoverFactor * 0.1)) {
-            float vDisplaceStrength = 0.25 + u_hoverFactor * 0.15;
+          // Displace sampling UVs on far right edge (50% reduced intensity and frequency)
+          if (blockNoise > (0.58 - u_hoverFactor * 0.1)) {
+            float vDisplaceStrength = 0.12 + u_hoverFactor * 0.08;
             float vShift = (rand(vec2(stripX * 1.5, blockY * 2.0 + floor(u_time * 6.0))) - 0.5) * vDisplaceStrength;
-            float hShift = (rand(vec2(blockY * 3.0, floor(u_time * 8.0))) - 0.5) * 0.04;
+            float hShift = (rand(vec2(blockY * 3.0, floor(u_time * 8.0))) - 0.5) * 0.02;
             
             sampleUv.y += vShift;
             sampleUv.x += hShift;
@@ -187,8 +187,8 @@ export default function CrtFisheyeHeroCanvas({
 
           // Fine vertical signal line jitter on right side
           float vLine = rand(vec2(floor(gl_FragCoord.x * 0.3), floor(u_time * 12.0)));
-          if (vLine > 0.90) {
-            sampleUv.y += (vLine - 0.95) * 0.5;
+          if (vLine > 0.94) {
+            sampleUv.y += (vLine - 0.97) * 0.25;
           }
         }
 
