@@ -14,17 +14,18 @@ export default function CinematicHero() {
         <CrtFisheyeHeroCanvas
           imageSrc="/camera-portrait.jpg"
           className="w-full h-full"
-          distortionStrength={0.0}
-          vignetteStrength={0.0}
-          grainOpacity={0.04}
-          scanlineOpacity={0.04}
-          chromaticAberration={0.1}
-          interactionStrength={0.015}
+          zoomScale={0.50}
+          distortionStrength={0.34}
+          vignetteStrength={0.75}
+          grainOpacity={0.07}
+          scanlineOpacity={0.12}
+          chromaticAberration={0.42}
+          interactionStrength={0.04}
           animationSpeed={1.0}
         />
 
-        {/* Subtle noise texture overlay */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.05] mix-blend-overlay pointer-events-none">
+        {/* Crushed paper noise filter overlay */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.10] mix-blend-overlay pointer-events-none">
           <filter id="crushedPaperNoise">
             <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" />
             <feColorMatrix type="saturate" values="0" />
@@ -32,8 +33,9 @@ export default function CinematicHero() {
           <rect width="100%" height="100%" filter="url(#crushedPaperNoise)" />
         </svg>
 
-        {/* Gentle bottom shadow overlay to ensure text contrast while leaving image fully clear */}
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent pointer-events-none" />
+        {/* Dark Gradient Overlay at Bottom for Perfect Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(5,5,5,0.75)_100%)] pointer-events-none" />
       </div>
 
       {/* ==========================================

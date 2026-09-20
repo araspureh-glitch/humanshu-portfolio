@@ -9,12 +9,13 @@ import React, { useEffect, useRef, useState } from 'react'
 export default function CrtFisheyeHeroCanvas({
   imageSrc = '/camera-portrait.jpg',
   className = '',
-  distortionStrength = 0.0,
-  vignetteStrength = 0.0,
-  grainOpacity = 0.04,
-  scanlineOpacity = 0.04,
-  chromaticAberration = 0.1,
-  interactionStrength = 0.015,
+  zoomScale = 0.50,
+  distortionStrength = 0.32,
+  vignetteStrength = 0.75,
+  grainOpacity = 0.07,
+  scanlineOpacity = 0.12,
+  chromaticAberration = 0.40,
+  interactionStrength = 0.04,
   animationSpeed = 1.0,
 }) {
   const canvasRef = useRef(null)
@@ -83,6 +84,7 @@ export default function CrtFisheyeHeroCanvas({
       uniform float u_time;
       uniform sampler2D u_image;
       uniform float u_distortionStrength;
+      uniform float u_zoomScale;
       uniform float u_vignetteStrength;
       uniform float u_grainOpacity;
       uniform float u_scanlineOpacity;
@@ -102,7 +104,7 @@ export default function CrtFisheyeHeroCanvas({
 
         // Interactive mouse shift & slow breathing optical float
         vec2 mouseOffset = (u_isReducedMotion > 0.5) ? vec2(0.0) : u_mouse * u_interactionStrength;
-        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 1.2) * 0.005;
+        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 1.2) * 0.015;
         
         st += mouseOffset;
 
@@ -110,8 +112,13 @@ export default function CrtFisheyeHeroCanvas({
         float r = length(st);
 
         // Barrel / Fisheye Distortion formula
+        // Center stays relatively flat; edges progressively curve outward
         float distFactor = 1.0 + (u_distortionStrength + breathing) * (r * r);
         vec2 distortedSt = st * distFactor;
+
+        // CRT Tube curved screen mask (soft rounded bezel corners)
+        vec2 absSt = abs(distortedSt);
+        float crtMask = 1.0 - smoothstep(0.92, 1.15, length(pow(absSt, vec2(3.5))));
 
         // Aspect fit cover math for background image
         float screenAspect = u_resolution.x / u_resolution.y;
@@ -123,36 +130,42 @@ export default function CrtFisheyeHeroCanvas({
           scale = vec2(screenAspect / imgAspect, 1.0);
         }
 
-        // Map back to [0, 1] UV space for image sampling
-        vec2 uv = distortedSt * (min(u_resolution.x, u_resolution.y) / u_resolution) * scale * 0.5 + 0.5;
+        // Map back to [0, 1] UV space for image sampling with 50% zoom scale
+        vec2 uv = (distortedSt * u_zoomScale) * (min(u_resolution.x, u_resolution.y) / u_resolution) * scale * 0.5 + 0.5;
 
-        vec3 color;
+        // Render dark bezel background if UV is out of bounds
         if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
-          // Render edge clamp with ambient darkening for out of bounds
-          vec2 clampedUv = clamp(uv, 0.0, 1.0);
-          color = texture2D(u_image, clampedUv).rgb * 0.35;
-        } else {
-          // Chromatic Aberration: RGB channel separation
-          float caAmount = 0.004 * u_chromaticAberration;
-          vec2 caOffsetR = (uv - 0.5) * (1.0 + caAmount) + 0.5 - uv;
-          vec2 caOffsetB = (uv - 0.5) * (1.0 - caAmount) + 0.5 - uv;
-
-          float colR = texture2D(u_image, uv + caOffsetR).r;
-          float colG = texture2D(u_image, uv).g;
-          float colB = texture2D(u_image, uv + caOffsetB).b;
-
-          color = vec3(colR, colG, colB);
+          gl_FragColor = vec4(0.03, 0.03, 0.04, 1.0);
+          return;
         }
+
+        // Chromatic Aberration: RGB channel separation near edges
+        float caAmount = 0.015 * u_chromaticAberration * (r * r + 0.05);
+        vec2 caOffsetR = (uv - 0.5) * (1.0 + caAmount) + 0.5 - uv;
+        vec2 caOffsetB = (uv - 0.5) * (1.0 - caAmount) + 0.5 - uv;
+
+        float colR = texture2D(u_image, uv + caOffsetR).r;
+        float colG = texture2D(u_image, uv).g;
+        float colB = texture2D(u_image, uv + caOffsetB).b;
+
+        vec3 color = vec3(colR, colG, colB);
 
         // Subtle CRT Horizontal Scanlines
         float scanline = sin(gl_FragCoord.y * 1.2 + u_time * 2.5) * 0.5 + 0.5;
-        scanline = mix(1.0, 0.88 + 0.12 * scanline, u_scanlineOpacity);
+        scanline = mix(1.0, 0.78 + 0.22 * scanline, u_scanlineOpacity);
         color *= scanline;
+
+        // Large Soft Cinematic Vignette
+        float vignette = smoothstep(1.3, 0.35, r * (0.85 + 0.15 * u_vignetteStrength));
+        color *= vignette;
 
         // Micro Film Grain / Sensor Noise
         float grainTime = (u_isReducedMotion > 0.5) ? 1.0 : u_time;
         float grain = (rand(uv * 600.0 + grainTime * 15.0) - 0.5) * u_grainOpacity;
         color += vec3(grain);
+
+        // Apply CRT screen edge shadow
+        color *= crtMask;
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -214,6 +227,7 @@ export default function CrtFisheyeHeroCanvas({
     const uTime = gl.getUniformLocation(program, 'u_time')
     const uImage = gl.getUniformLocation(program, 'u_image')
     const uDistortionStrength = gl.getUniformLocation(program, 'u_distortionStrength')
+    const uZoomScale = gl.getUniformLocation(program, 'u_zoomScale')
     const uVignetteStrength = gl.getUniformLocation(program, 'u_vignetteStrength')
     const uGrainOpacity = gl.getUniformLocation(program, 'u_grainOpacity')
     const uScanlineOpacity = gl.getUniformLocation(program, 'u_scanlineOpacity')
@@ -285,6 +299,7 @@ export default function CrtFisheyeHeroCanvas({
       const currentDistortion = isMobile ? distortionStrength * 0.65 : distortionStrength
 
       gl.uniform1f(uDistortionStrength, currentDistortion)
+      gl.uniform1f(uZoomScale, zoomScale)
       gl.uniform1f(uVignetteStrength, vignetteStrength)
       gl.uniform1f(uGrainOpacity, grainOpacity)
       gl.uniform1f(uScanlineOpacity, scanlineOpacity)
