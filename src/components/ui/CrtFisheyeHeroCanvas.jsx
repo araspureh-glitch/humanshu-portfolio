@@ -15,7 +15,7 @@ import React, { useEffect, useRef, useState } from 'react'
 export default function CrtFisheyeHeroCanvas({
   imageSrc = '/camera-portrait.jpg',
   className = '',
-  distortionStrength = 0.12,
+  distortionStrength = 0.18,
   vignetteStrength = 0.60,
   grainOpacity = 0.07,
   scanlineOpacity = 0.13,
@@ -129,10 +129,10 @@ export default function CrtFisheyeHeroCanvas({
         float screenAspect = u_resolution.x / u_resolution.y;
         float imgAspect = u_imageResolution.x / u_imageResolution.y;
 
-        // Subtle CRT screen curvature
+        // CRT Fisheye screen barrel curvature
         vec2 aspectSt = normPos * vec2(max(screenAspect, 1.0), max(1.0 / screenAspect, 1.0));
         float r = length(aspectSt);
-        float distFactor = 1.0 + (u_distortionStrength * 0.35 + breathing) * (r * r);
+        float distFactor = 1.0 + (u_distortionStrength * 0.45 + breathing) * (r * r);
         vec2 distortedNormPos = normPos * distFactor;
 
         // Map screen coordinates to UV space with exact aspect containment

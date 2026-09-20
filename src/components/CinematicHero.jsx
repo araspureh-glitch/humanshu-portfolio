@@ -14,8 +14,8 @@ export default function CinematicHero() {
         <CrtFisheyeHeroCanvas
           imageSrc="/camera-portrait.jpg"
           className="w-full h-full"
-          distortionStrength={0.15}
-          vignetteStrength={0.60}
+          distortionStrength={0.20}
+          vignetteStrength={0.62}
           grainOpacity={0.08}
           scanlineOpacity={0.14}
           interactionStrength={0.02}
