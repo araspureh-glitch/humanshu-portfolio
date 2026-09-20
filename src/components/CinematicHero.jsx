@@ -39,25 +39,33 @@ export default function CinematicHero() {
       {/* ==========================================
           2. HERO TYPOGRAPHY & METADATA CONTENT
           ========================================== */}
-      <div className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 flex flex-col justify-end pb-16 sm:pb-20 md:pb-24 lg:pb-28 pointer-events-none">
+      <div className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 flex flex-col justify-between pt-20 sm:pt-24 pb-16 sm:pb-20 md:pb-24 lg:pb-28 pointer-events-none">
         
-        {/* Role & Coordinates Status Badge */}
-        <div className="mb-5 sm:mb-6 pointer-events-auto space-y-1 font-mono text-xs sm:text-sm uppercase tracking-[0.16em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-          <div className="font-semibold text-white">
-            UI / UX DESIGNER
-          </div>
-          <div className="text-neutral-400 text-[11px] sm:text-xs tracking-widest">
-            BASED IN INDIA — 20.5937° N, 78.9629° E
-          </div>
+        {/* Upper Technical Numbers (Positioned under logo & Let's Talk button, scrolling with hero section) */}
+        <div className="w-full flex items-center justify-between font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-white/40 uppercase select-none">
+          <div>4B / 23:59:61</div>
+          <div className="hidden sm:block">ERR:4B / 23:59:61</div>
         </div>
 
-        {/* Main Headline */}
-        <div className="max-w-4xl pointer-events-auto">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white tracking-tight leading-[1.08] font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-            Designing digital<br />
-            experiences that people<br />
-            actually want to use.
-          </h1>
+        <div>
+          {/* Role & Coordinates Status Badge */}
+          <div className="mb-5 sm:mb-6 pointer-events-auto space-y-1 font-mono text-xs sm:text-sm uppercase tracking-[0.16em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            <div className="font-semibold text-white">
+              UI / UX DESIGNER
+            </div>
+            <div className="text-neutral-400 text-[11px] sm:text-xs tracking-widest">
+              BASED IN INDIA — 20.5937° N, 78.9629° E
+            </div>
+          </div>
+
+          {/* Main Headline */}
+          <div className="max-w-4xl pointer-events-auto">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white tracking-tight leading-[1.08] font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+              Designing digital<br />
+              experiences that people<br />
+              actually want to use.
+            </h1>
+          </div>
         </div>
 
       </div>
