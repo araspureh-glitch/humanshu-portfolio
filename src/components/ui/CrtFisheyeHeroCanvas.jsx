@@ -2,23 +2,30 @@ import React, { useEffect, useRef, useState } from 'react'
 
 /**
  * CrtFisheyeHeroCanvas
- * WebGL Canvas rendering a pure monochrome CRT old-TV treatment, VHS grain,
- * fine scanlines, subtle horizontal signal tearing, and right-side vertical signal corruption.
- * Preserves exact original image resolution, framing, subject positioning, and 1:1 aspect ratio without any cropping or zoom.
+ * Pure Monochrome CRT Old-TV / VHS Signal Visual Treatment.
+ * Features:
+ * - Pure Monochrome / Grayscale (Black, White, Gray ONLY - zero colors)
+ * - Subtle animated CRT scanlines & VHS grain
+ * - Controlled glitch timing: 92% stable state, 8% brief signal tears (80-200ms)
+ * - Right-side vertical signal corruption ONLY (left side clean, subject protected)
+ * - Interactive hover intensity boost
+ * - Tiny monospaced upper atmospheric camera diagnostic details (20-40% opacity)
+ * - Preserves exact original image resolution, framing, subject positioning, and 1:1 aspect ratio
  */
 export default function CrtFisheyeHeroCanvas({
   imageSrc = '/camera-portrait.jpg',
   className = '',
-  distortionStrength = 0.15,
+  distortionStrength = 0.12,
   vignetteStrength = 0.60,
-  grainOpacity = 0.08,
-  scanlineOpacity = 0.14,
+  grainOpacity = 0.07,
+  scanlineOpacity = 0.13,
   interactionStrength = 0.02,
   animationSpeed = 1.0,
 }) {
   const canvasRef = useRef(null)
   const animFrameIdRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 })
+  const hoverRef = useRef({ current: 0, target: 0 })
   const [reducedMotion, setReducedMotion] = useState(false)
 
   // Listen for prefers-reduced-motion
@@ -30,8 +37,10 @@ export default function CrtFisheyeHeroCanvas({
     return () => mediaQuery.removeEventListener('change', handler)
   }, [])
 
-  // Handle mouse / touch hover for micro perspective tilt
+  // Mouse move and hover listeners
   useEffect(() => {
+    const container = canvasRef.current ? canvasRef.current.parentElement : window
+
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window
       const nx = (e.clientX / innerWidth) * 2 - 1
@@ -40,16 +49,28 @@ export default function CrtFisheyeHeroCanvas({
       mouseRef.current.targetY = ny
     }
 
+    const handleMouseEnter = () => {
+      hoverRef.current.target = 1.0
+    }
+
     const handleMouseLeave = () => {
       mouseRef.current.targetX = 0
       mouseRef.current.targetY = 0
+      hoverRef.current.target = 0.0
     }
 
     window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseleave', handleMouseLeave)
+    if (container) {
+      container.addEventListener('mouseenter', handleMouseEnter)
+      container.addEventListener('mouseleave', handleMouseLeave)
+    }
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseleave', handleMouseLeave)
+      if (container) {
+        container.removeEventListener('mouseenter', handleMouseEnter)
+        container.removeEventListener('mouseleave', handleMouseLeave)
+      }
     }
   }, [])
 
@@ -60,11 +81,11 @@ export default function CrtFisheyeHeroCanvas({
 
     const gl = canvas.getContext('webgl', { alpha: false, antialias: true })
     if (!gl) {
-      console.warn('WebGL not supported for CRT Fisheye Hero Canvas')
+      console.warn('WebGL not supported for CRT Hero Canvas')
       return
     }
 
-    // --- Shaders Definition ---
+    // Vertex Shader
     const vsSource = `
       attribute vec2 a_position;
       void main() {
@@ -72,6 +93,7 @@ export default function CrtFisheyeHeroCanvas({
       }
     `
 
+    // Fragment Shader - Pure Monochrome CRT & Right-Side Corruption
     const fsSource = `
       precision highp float;
 
@@ -87,8 +109,9 @@ export default function CrtFisheyeHeroCanvas({
       uniform float u_interactionStrength;
       uniform float u_animationSpeed;
       uniform float u_isReducedMotion;
+      uniform float u_glitchBurst;
+      uniform float u_hoverFactor;
 
-      // Pseudo-random generator for noise & signal corruption
       float rand(vec2 co) {
         return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
       }
@@ -98,8 +121,8 @@ export default function CrtFisheyeHeroCanvas({
         vec2 normPos = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution;
 
         // Micro mouse hover offset
-        vec2 mouseOffset = (u_isReducedMotion > 0.5) ? vec2(0.0) : u_mouse * (u_interactionStrength * 0.2);
-        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 0.8) * 0.004;
+        vec2 mouseOffset = (u_isReducedMotion > 0.5) ? vec2(0.0) : u_mouse * (u_interactionStrength * 0.15);
+        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 0.8) * 0.003;
         normPos += mouseOffset;
 
         // Screen & image aspect ratio fit (1:1 contain - ZERO cropping, ZERO zoom, ZERO reframing)
@@ -109,7 +132,7 @@ export default function CrtFisheyeHeroCanvas({
         // Subtle CRT screen curvature
         vec2 aspectSt = normPos * vec2(max(screenAspect, 1.0), max(1.0 / screenAspect, 1.0));
         float r = length(aspectSt);
-        float distFactor = 1.0 + (u_distortionStrength * 0.4 + breathing) * (r * r);
+        float distFactor = 1.0 + (u_distortionStrength * 0.35 + breathing) * (r * r);
         vec2 distortedNormPos = normPos * distFactor;
 
         // Map screen coordinates to UV space with exact aspect containment
@@ -124,71 +147,87 @@ export default function CrtFisheyeHeroCanvas({
 
         vec2 sampleUv = uv;
 
-        // ==========================================
-        // GLITCH EFFECT 1: HORIZONTAL SIGNAL TEARING
-        // ==========================================
-        float lineId = floor(gl_FragCoord.y * 0.6);
-        float timeKey = floor(u_time * 10.0);
-        float lineRand = rand(vec2(lineId * 0.04, timeKey));
+        // Combined glitch intensity from burst timing and mouse hover
+        float effectiveGlitch = mix(0.04, 0.85, u_glitchBurst) + u_hoverFactor * 0.35;
 
-        if (lineRand > 0.89 && sampleUv.x >= 0.0 && sampleUv.x <= 1.0) {
-          float hShift = (rand(vec2(lineId, timeKey * 1.3)) - 0.5) * 0.03;
-          sampleUv.x += hShift;
+        // ==========================================
+        // GLITCH EFFECT 1: SUBTLE HORIZONTAL SIGNAL TEARING
+        // ==========================================
+        // Short, irregular, temporary horizontal line shift during glitch moments
+        if (effectiveGlitch > 0.15 && sampleUv.x >= 0.0 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
+          float lineId = floor(gl_FragCoord.y * 0.5);
+          float timeKey = floor(u_time * 14.0);
+          float lineRand = rand(vec2(lineId * 0.03, timeKey));
+
+          if (lineRand > (0.94 - effectiveGlitch * 0.08)) {
+            float hShift = (rand(vec2(lineId, timeKey * 1.7)) - 0.5) * 0.025 * effectiveGlitch;
+            sampleUv.x += hShift;
+          }
         }
 
         // =======================================================
-        // GLITCH EFFECT 2: LARGE VERTICAL CORRUPTION ON RIGHT SIDE
+        // GLITCH EFFECT 2: RIGHT-SIDE VERTICAL SIGNAL CORRUPTION ONLY
+        // (Left side remains clean - NO left vertical glitch strip!)
         // =======================================================
-        // Creates narrow vertical slices, broken blocks, and displaced strips of original image on right side
-        if (sampleUv.x > 0.68 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
-          float stripX = floor(sampleUv.x * 45.0) / 45.0;
-          float blockY = floor(sampleUv.y * 26.0 + sin(stripX * 25.0 + u_time * 3.5)) / 26.0;
+        if (sampleUv.x > 0.70 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
+          float stripX = floor(sampleUv.x * 48.0) / 48.0;
+          float blockY = floor(sampleUv.y * 28.0 + sin(stripX * 20.0 + u_time * 3.0)) / 28.0;
           
-          float blockNoise = rand(vec2(stripX, blockY + floor(u_time * 6.0)));
+          float blockNoise = rand(vec2(stripX, blockY + floor(u_time * 5.0)));
 
-          if (blockNoise > 0.32) {
-            float vShift = (rand(vec2(stripX * 1.8, blockY * 2.2 + floor(u_time * 7.0))) - 0.5) * 0.42;
-            float hShift = (rand(vec2(blockY * 3.5, floor(u_time * 9.0))) - 0.5) * 0.05;
+          // Displace sampling UVs on right side using original image pixels
+          if (blockNoise > (0.30 - u_hoverFactor * 0.1)) {
+            float vDisplaceStrength = 0.25 + u_hoverFactor * 0.15;
+            float vShift = (rand(vec2(stripX * 1.5, blockY * 2.0 + floor(u_time * 6.0))) - 0.5) * vDisplaceStrength;
+            float hShift = (rand(vec2(blockY * 3.0, floor(u_time * 8.0))) - 0.5) * 0.04;
             
             sampleUv.y += vShift;
             sampleUv.x += hShift;
           }
 
-          // Fine vertical signal line jitter
-          float vLine = rand(vec2(floor(gl_FragCoord.x * 0.35), floor(u_time * 14.0)));
-          if (vLine > 0.91) {
-            sampleUv.y += (vLine - 0.955) * 0.7;
+          // Fine vertical signal line jitter on right side
+          float vLine = rand(vec2(floor(gl_FragCoord.x * 0.3), floor(u_time * 12.0)));
+          if (vLine > 0.90) {
+            sampleUv.y += (vLine - 0.95) * 0.5;
           }
         }
 
         // Clamp UV for safe image sampling inside bounds
         vec2 clampedUv = clamp(sampleUv, 0.0, 1.0);
 
-        // Sample original image
+        // Sample original photograph
         vec4 rawColor = texture2D(u_image, clampedUv);
 
         // ==========================================
         // COLOR TREATMENT: PURE MONOCHROME (BLACK & WHITE)
         // ==========================================
-        // Standard NTSC Grayscale Conversion (R=G=B, 0 colors added)
+        // Standard NTSC Grayscale Conversion (R=G=B, ZERO color added, ZERO chromatic aberration)
         float gray = dot(rawColor.rgb, vec3(0.299, 0.587, 0.114));
 
-        // Subtle CRT Horizontal Scanlines
-        float scanline = sin(gl_FragCoord.y * 1.4 + u_time * 3.0) * 0.5 + 0.5;
-        scanline = mix(1.0, 0.84 + 0.16 * scanline, u_scanlineOpacity);
+        // Subtle CRT Horizontal Scanlines (thin, low opacity, slowly animated)
+        float currentScanlineOpacity = u_scanlineOpacity + u_hoverFactor * 0.06;
+        float scanline = sin(gl_FragCoord.y * 1.5 + u_time * 2.0) * 0.5 + 0.5;
+        scanline = mix(1.0, 0.86 + 0.14 * scanline, currentScanlineOpacity);
         gray *= scanline;
 
         // Analog VHS Grain & Static Noise
+        float currentGrainOpacity = u_grainOpacity + u_hoverFactor * 0.04;
         float grainTime = (u_isReducedMotion > 0.5) ? 1.0 : u_time;
-        float staticNoise = (rand(clampedUv * 750.0 + grainTime * 18.0) - 0.5) * u_grainOpacity * 1.1;
+        float staticNoise = (rand(clampedUv * 800.0 + grainTime * 16.0) - 0.5) * currentGrainOpacity;
         gray += staticNoise;
+
+        // Brief brightness instability / flicker during glitch burst
+        if (u_glitchBurst > 0.5) {
+          float flicker = (rand(vec2(floor(u_time * 15.0), 1.0)) - 0.5) * 0.06;
+          gray += flicker;
+        }
 
         // CRT Contrast Curve
         gray = clamp(gray, 0.0, 1.0);
-        gray = pow(gray, 1.05);
+        gray = pow(gray, 1.04);
 
         // Soft CRT Vignette
-        float vignette = smoothstep(1.35, 0.30, r * (0.85 + 0.15 * u_vignetteStrength));
+        float vignette = smoothstep(1.35, 0.32, r * (0.85 + 0.15 * u_vignetteStrength));
         gray *= vignette;
 
         vec3 finalColor = vec3(gray);
@@ -196,7 +235,7 @@ export default function CrtFisheyeHeroCanvas({
         // Dark bezel background outside active image bounds
         float inBounds = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
         if (inBounds < 0.5) {
-          finalColor = vec3(0.04);
+          finalColor = vec3(0.035);
         }
 
         // CRT Screen Bezel Shadow
@@ -208,7 +247,6 @@ export default function CrtFisheyeHeroCanvas({
       }
     `
 
-    // Compile Helper
     const createShader = (gl, type, source) => {
       const shader = gl.createShader(type)
       gl.shaderSource(shader, source)
@@ -237,7 +275,7 @@ export default function CrtFisheyeHeroCanvas({
 
     gl.useProgram(program)
 
-    // Setup full screen quad [-1, -1] to [1, 1]
+    // Full screen quad setup [-1, -1] to [1, 1]
     const positionBuffer = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
     gl.bufferData(
@@ -270,6 +308,8 @@ export default function CrtFisheyeHeroCanvas({
     const uInteractionStrength = gl.getUniformLocation(program, 'u_interactionStrength')
     const uAnimationSpeed = gl.getUniformLocation(program, 'u_animationSpeed')
     const uIsReducedMotion = gl.getUniformLocation(program, 'u_isReducedMotion')
+    const uGlitchBurst = gl.getUniformLocation(program, 'u_glitchBurst')
+    const uHoverFactor = gl.getUniformLocation(program, 'u_hoverFactor')
 
     // Texture Setup
     const texture = gl.createTexture()
@@ -308,17 +348,36 @@ export default function CrtFisheyeHeroCanvas({
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
-    // Render Animation Loop
+    // Render Animation Loop & Glitch Burst Controller
     const startTime = performance.now()
+    let lastGlitchEndTime = 0
+    let nextGlitchStartTime = performance.now() + 2000 + Math.random() * 2000
+    let isGlitching = false
 
     const render = () => {
       resizeCanvas()
 
+      // Smooth mouse lerp
       const m = mouseRef.current
       m.x += (m.targetX - m.x) * 0.05
       m.y += (m.targetY - m.y) * 0.05
 
-      const currentTime = (performance.now() - startTime) / 1000
+      // Smooth hover lerp
+      const h = hoverRef.current
+      h.current += (h.target - h.current) * 0.08
+
+      const now = performance.now()
+      const currentTime = (now - startTime) / 1000
+
+      // Glitch timing controller: 92% stable, 8% burst (80ms - 220ms)
+      if (!isGlitching && now >= nextGlitchStartTime) {
+        isGlitching = true
+        const duration = 80 + Math.random() * 140
+        lastGlitchEndTime = now + duration
+        nextGlitchStartTime = lastGlitchEndTime + 2200 + Math.random() * 3200
+      } else if (isGlitching && now >= lastGlitchEndTime) {
+        isGlitching = false
+      }
 
       gl.useProgram(program)
 
@@ -334,6 +393,8 @@ export default function CrtFisheyeHeroCanvas({
       gl.uniform1f(uInteractionStrength, interactionStrength)
       gl.uniform1f(uAnimationSpeed, animationSpeed)
       gl.uniform1f(uIsReducedMotion, reducedMotion ? 1.0 : 0.0)
+      gl.uniform1f(uGlitchBurst, isGlitching ? 1.0 : 0.0)
+      gl.uniform1f(uHoverFactor, h.current)
 
       gl.activeTexture(gl.TEXTURE0)
       gl.bindTexture(gl.TEXTURE_2D, texture)
@@ -344,7 +405,6 @@ export default function CrtFisheyeHeroCanvas({
       animFrameIdRef.current = requestAnimationFrame(render)
     }
 
-    // Use IntersectionObserver to pause rendering when hero is out of view
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
@@ -389,6 +449,34 @@ export default function CrtFisheyeHeroCanvas({
         ref={canvasRef}
         className="w-full h-full block pointer-events-none select-none"
       />
+
+      {/* =======================================================
+          TINY ATMOSPHERIC CAMERA & CRT DIAGNOSTIC DETAILS OVERLAY
+          ======================================================= */}
+      {/* 
+        Tiny (9px-10px), low opacity (20%-35%), monochrome technical numbers 
+        placed in upper area only (upper-left, upper-center, upper-right).
+        Does NOT compete with hero text or portrait.
+      */}
+      <div className="absolute top-4 sm:top-6 left-6 sm:left-12 right-6 sm:right-12 z-10 pointer-events-none select-none flex items-start justify-between font-mono text-[9px] sm:text-[10px] text-white/30 tracking-[0.2em] uppercase leading-none mix-blend-screen">
+        {/* Upper Left */}
+        <div className="space-y-1">
+          <div className="opacity-80">23:59:61</div>
+          <div className="text-[8px] text-white/20 tracking-widest">ERR:4B</div>
+        </div>
+
+        {/* Upper Center */}
+        <div className="hidden sm:block text-center space-y-1 opacity-70">
+          <div>CAM_04</div>
+          <div className="text-[8px] text-white/20 tracking-widest">FRAME_048</div>
+        </div>
+
+        {/* Upper Right */}
+        <div className="text-right space-y-1">
+          <div className="opacity-80">4B / 23:59:61</div>
+          <div className="text-[8px] text-white/20 tracking-widest">SIGNAL_OK</div>
+        </div>
+      </div>
     </div>
   )
 }
