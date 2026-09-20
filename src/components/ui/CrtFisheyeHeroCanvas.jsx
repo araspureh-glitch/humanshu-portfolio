@@ -9,12 +9,12 @@ import React, { useEffect, useRef, useState } from 'react'
 export default function CrtFisheyeHeroCanvas({
   imageSrc = '/camera-portrait.jpg',
   className = '',
-  distortionStrength = 0.32,
-  vignetteStrength = 0.75,
-  grainOpacity = 0.07,
-  scanlineOpacity = 0.12,
-  chromaticAberration = 0.40,
-  interactionStrength = 0.04,
+  distortionStrength = 0.0,
+  vignetteStrength = 0.0,
+  grainOpacity = 0.04,
+  scanlineOpacity = 0.04,
+  chromaticAberration = 0.1,
+  interactionStrength = 0.015,
   animationSpeed = 1.0,
 }) {
   const canvasRef = useRef(null)
@@ -102,7 +102,7 @@ export default function CrtFisheyeHeroCanvas({
 
         // Interactive mouse shift & slow breathing optical float
         vec2 mouseOffset = (u_isReducedMotion > 0.5) ? vec2(0.0) : u_mouse * u_interactionStrength;
-        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 1.2) * 0.015;
+        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 1.2) * 0.005;
         
         st += mouseOffset;
 
@@ -110,13 +110,8 @@ export default function CrtFisheyeHeroCanvas({
         float r = length(st);
 
         // Barrel / Fisheye Distortion formula
-        // Center stays relatively flat; edges progressively curve outward
         float distFactor = 1.0 + (u_distortionStrength + breathing) * (r * r);
         vec2 distortedSt = st * distFactor;
-
-        // CRT Tube curved screen mask (soft rounded bezel corners)
-        vec2 absSt = abs(distortedSt);
-        float crtMask = 1.0 - smoothstep(0.92, 1.15, length(pow(absSt, vec2(3.5))));
 
         // Aspect fit cover math for background image
         float screenAspect = u_resolution.x / u_resolution.y;
@@ -131,39 +126,33 @@ export default function CrtFisheyeHeroCanvas({
         // Map back to [0, 1] UV space for image sampling
         vec2 uv = distortedSt * (min(u_resolution.x, u_resolution.y) / u_resolution) * scale * 0.5 + 0.5;
 
-        // Render dark bezel background if UV is out of bounds
+        vec3 color;
         if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
-          gl_FragColor = vec4(0.03, 0.03, 0.04, 1.0);
-          return;
+          // Render edge clamp with ambient darkening for out of bounds
+          vec2 clampedUv = clamp(uv, 0.0, 1.0);
+          color = texture2D(u_image, clampedUv).rgb * 0.35;
+        } else {
+          // Chromatic Aberration: RGB channel separation
+          float caAmount = 0.004 * u_chromaticAberration;
+          vec2 caOffsetR = (uv - 0.5) * (1.0 + caAmount) + 0.5 - uv;
+          vec2 caOffsetB = (uv - 0.5) * (1.0 - caAmount) + 0.5 - uv;
+
+          float colR = texture2D(u_image, uv + caOffsetR).r;
+          float colG = texture2D(u_image, uv).g;
+          float colB = texture2D(u_image, uv + caOffsetB).b;
+
+          color = vec3(colR, colG, colB);
         }
-
-        // Chromatic Aberration: RGB channel separation near edges
-        float caAmount = 0.015 * u_chromaticAberration * (r * r + 0.05);
-        vec2 caOffsetR = (uv - 0.5) * (1.0 + caAmount) + 0.5 - uv;
-        vec2 caOffsetB = (uv - 0.5) * (1.0 - caAmount) + 0.5 - uv;
-
-        float colR = texture2D(u_image, uv + caOffsetR).r;
-        float colG = texture2D(u_image, uv).g;
-        float colB = texture2D(u_image, uv + caOffsetB).b;
-
-        vec3 color = vec3(colR, colG, colB);
 
         // Subtle CRT Horizontal Scanlines
         float scanline = sin(gl_FragCoord.y * 1.2 + u_time * 2.5) * 0.5 + 0.5;
-        scanline = mix(1.0, 0.78 + 0.22 * scanline, u_scanlineOpacity);
+        scanline = mix(1.0, 0.88 + 0.12 * scanline, u_scanlineOpacity);
         color *= scanline;
-
-        // Large Soft Cinematic Vignette
-        float vignette = smoothstep(1.3, 0.35, r * (0.85 + 0.15 * u_vignetteStrength));
-        color *= vignette;
 
         // Micro Film Grain / Sensor Noise
         float grainTime = (u_isReducedMotion > 0.5) ? 1.0 : u_time;
         float grain = (rand(uv * 600.0 + grainTime * 15.0) - 0.5) * u_grainOpacity;
         color += vec3(grain);
-
-        // Apply CRT screen edge shadow
-        color *= crtMask;
 
         gl_FragColor = vec4(color, 1.0);
       }
