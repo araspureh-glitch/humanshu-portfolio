@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 
 /**
  * CrtFisheyeHeroCanvas
- * High-performance WebGL Canvas rendering a retro fisheye barrel lens distortion,
- * curved CRT monitor screen, subtle chromatic aberration, fine scanlines, cinematic vignette, and film grain.
- * Displays the complete image contained inside the viewport while maintaining full fisheye distortion.
+ * Strictly monochrome WebGL Canvas rendering a high-contrast black-and-white portrait,
+ * retro fisheye barrel distortion, right-side vertical signal corruption,
+ * monochrome channel displacement, subtle horizontal scanlines, cinematic vignette, and film grain.
+ * 100% Monochrome (Black, White, Grayscale only).
  */
 export default function CrtFisheyeHeroCanvas({
   imageSrc = '/camera-portrait.jpg',
@@ -17,10 +18,12 @@ export default function CrtFisheyeHeroCanvas({
   interactionStrength = 0.04,
   animationSpeed = 1.0,
   imageZoom = 1.0,
+  isHovered = false,
 }) {
   const canvasRef = useRef(null)
   const animFrameIdRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 })
+  const hoverRef = useRef(0)
   const [reducedMotion, setReducedMotion] = useState(false)
 
   // Listen for prefers-reduced-motion
@@ -36,7 +39,6 @@ export default function CrtFisheyeHeroCanvas({
   useEffect(() => {
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window
-      // Normalize mouse to [-1, 1]
       const nx = (e.clientX / innerWidth) * 2 - 1
       const ny = -((e.clientY / innerHeight) * 2 - 1)
       mouseRef.current.targetX = nx
@@ -92,8 +94,9 @@ export default function CrtFisheyeHeroCanvas({
       uniform float u_animationSpeed;
       uniform float u_isReducedMotion;
       uniform float u_imageZoom;
+      uniform float u_hoverState;
 
-      // Pseudo-random generator for film grain
+      // Pseudo-random generator for film grain & glitch
       float rand(vec2 co) {
         return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
       }
@@ -102,36 +105,61 @@ export default function CrtFisheyeHeroCanvas({
         // Normalized screen coords from center [-0.5, 0.5]
         vec2 normPos = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution;
 
-        // Interactive mouse shift & slow breathing optical float
-        vec2 mouseOffset = (u_isReducedMotion > 0.5) ? vec2(0.0) : u_mouse * (u_interactionStrength * 0.5);
-        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 1.2) * 0.012;
+        // Interactive mouse shift
+        vec2 mouseOffset = (u_isReducedMotion > 0.5) ? vec2(0.0) : u_mouse * (u_interactionStrength * 0.4);
+        float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 1.2) * 0.01;
         
         normPos += mouseOffset;
 
-        // Aspect ratio correction for uniform fisheye circular distortion
+        // Aspect ratio correction for uniform fisheye distortion
         float screenAspect = u_resolution.x / u_resolution.y;
         vec2 aspectSt = normPos * vec2(max(screenAspect, 1.0), max(1.0 / screenAspect, 1.0));
         float r = length(aspectSt);
 
         // Fisheye Barrel Distortion formula
-        float distFactor = 1.0 + (u_distortionStrength + breathing) * (r * r);
+        float distFactor = 1.0 + (u_distortionStrength + breathing + u_hoverState * 0.03) * (r * r);
         
-        // Distorted normalized position scaled by zoom factor to ensure complete photo visibility
+        // Distorted normalized position scaled by zoom factor
         vec2 distortedNormPos = normPos * distFactor * u_imageZoom;
 
         // CRT Screen bezel curve mask
         vec2 absSt = abs(distortedNormPos * vec2(min(screenAspect, 1.5), 1.0));
         float crtMask = 1.0 - smoothstep(0.92, 1.22, length(pow(absSt, vec2(3.2))));
 
+        // Intermittent 80-250ms burst glitch timing calculation (5-10% of time)
+        float glitchTime = floor(u_time * 7.5);
+        float burstRandom = rand(vec2(glitchTime, 91.27));
+        float isGlitchActive = step(0.91, burstRandom) * (1.0 - u_isReducedMotion);
+        
+        // Occasional horizontal jitter band during glitch burst
+        float bandY = floor(gl_FragCoord.y / 10.0);
+        float bandShift = (rand(vec2(bandY, glitchTime)) - 0.5) * 0.02 * isGlitchActive;
+
         // Map distorted screen position to Image UV space with aspect containment
         float imgAspect = u_imageResolution.x / u_imageResolution.y;
         vec2 uv = vec2(0.5);
         if (screenAspect > imgAspect) {
-          uv.x = distortedNormPos.x * (screenAspect / imgAspect) + 0.5;
+          uv.x = distortedNormPos.x * (screenAspect / imgAspect) + 0.5 + bandShift;
           uv.y = distortedNormPos.y + 0.5;
         } else {
-          uv.x = distortedNormPos.x + 0.5;
+          uv.x = distortedNormPos.x + 0.5 + bandShift;
           uv.y = distortedNormPos.y * (imgAspect / screenAspect) + 0.5;
+        }
+
+        // --- VERTICAL SIGNAL CORRUPTION AREA (Right side of portrait) ---
+        float rightZone = smoothstep(0.58, 0.78, uv.x);
+        if (rightZone > 0.01) {
+          // Narrow vertical strips displacement
+          float stripId = floor(uv.x * 55.0);
+          float stripOffset = (rand(vec2(stripId, floor(u_time * 4.0))) - 0.5) * 0.05 * rightZone;
+          
+          // Rectangular displaced block slices
+          float blockY = floor(uv.y * 22.0);
+          float blockNoise = step(0.68, rand(vec2(stripId, blockY + floor(u_time * 3.0))));
+          float blockOffset = (rand(vec2(blockY, floor(u_time * 5.0))) - 0.5) * 0.07 * blockNoise * rightZone;
+
+          uv.y += (stripOffset + blockOffset) * (0.6 + 0.4 * isGlitchActive);
+          uv.x += (stripOffset * 0.25) * (0.6 + 0.4 * isGlitchActive);
         }
 
         // Active image bounds check
@@ -140,40 +168,69 @@ export default function CrtFisheyeHeroCanvas({
         // Clamp UV for smooth edge sampling
         vec2 clampedUv = clamp(uv, 0.0, 1.0);
 
-        // Chromatic Aberration near edges
-        float caAmount = 0.012 * u_chromaticAberration * (r * r + 0.05);
-        vec2 caOffsetR = (clampedUv - 0.5) * (1.0 + caAmount) + 0.5 - clampedUv;
-        vec2 caOffsetB = (clampedUv - 0.5) * (1.0 - caAmount) + 0.5 - clampedUv;
+        // --- MONOCHROME GRAYSCALE CHANNEL DISPLACEMENT (NO RGB CHROMATIC ABERRATION) ---
+        float edgeDisplacement = (0.007 + 0.010 * u_hoverState + 0.015 * isGlitchActive) * (r * r + 0.05);
+        vec2 shiftUv1 = clampedUv + vec2(edgeDisplacement, -edgeDisplacement * 0.5);
+        vec2 shiftUv2 = clampedUv - vec2(edgeDisplacement * 0.7, edgeDisplacement * 0.4);
 
-        float colR = texture2D(u_image, clampedUv + caOffsetR).r;
-        float colG = texture2D(u_image, clampedUv).g;
-        float colB = texture2D(u_image, clampedUv + caOffsetB).b;
+        // Sample grayscale texture at primary and shifted UV positions
+        vec4 baseTex = texture2D(u_image, clampedUv);
+        vec4 shiftTex1 = texture2D(u_image, clamp(shiftUv1, 0.0, 1.0));
+        vec4 shiftTex2 = texture2D(u_image, clamp(shiftUv2, 0.0, 1.0));
 
-        vec3 color = vec3(colR, colG, colB);
+        // Convert to pure monochrome luminance
+        float grayBase = dot(baseTex.rgb, vec3(0.299, 0.587, 0.114));
+        float grayShift1 = dot(shiftTex1.rgb, vec3(0.299, 0.587, 0.114));
+        float grayShift2 = dot(shiftTex2.rgb, vec3(0.299, 0.587, 0.114));
+
+        // High contrast grayscale tone mapping (crushed blacks, crisp whites)
+        grayBase = pow(smoothstep(0.03, 0.95, grayBase), 1.15);
+        grayShift1 = pow(smoothstep(0.03, 0.95, grayShift1), 1.15);
+        grayShift2 = pow(smoothstep(0.03, 0.95, grayShift2), 1.15);
+
+        // Combine monochrome edge offsets
+        float finalGray = grayBase;
+        finalGray = mix(finalGray, grayShift1, 0.22);
+        finalGray = mix(finalGray, grayShift2, 0.15);
+
+        // Brief contrast/brightness flash during glitch burst
+        float burstFlash = isGlitchActive * (rand(vec2(glitchTime, 4.3)) - 0.5) * 0.12;
+        finalGray = clamp(finalGray + burstFlash, 0.0, 1.0);
+
+        vec3 color = vec3(finalGray);
 
         // Soft ambient glow transition for screen edges outside bounds
         if (inBounds < 0.5) {
-          color *= 0.20;
+          color *= 0.15;
         }
 
-        // Subtle CRT Horizontal Scanlines
-        float scanline = sin(gl_FragCoord.y * 1.2 + u_time * 2.5) * 0.5 + 0.5;
-        scanline = mix(1.0, 0.82 + 0.18 * scanline, u_scanlineOpacity);
+        // --- SUBTLE CRT HORIZONTAL SCANLINES ---
+        float currentScanlineOpacity = u_scanlineOpacity + u_hoverState * 0.05 + isGlitchActive * 0.08;
+        float scanline = sin(gl_FragCoord.y * 1.25 + u_time * 2.5) * 0.5 + 0.5;
+        scanline = mix(1.0, 0.80 + 0.20 * scanline, currentScanlineOpacity);
         color *= scanline;
+
+        // Vertical signal lines in corrupted right area
+        if (rightZone > 0.1) {
+          float vLines = sin(gl_FragCoord.x * 2.0 + u_time * 5.0) * 0.5 + 0.5;
+          color *= mix(1.0, 0.75 + 0.25 * vLines, 0.25 * rightZone);
+        }
 
         // Large Soft Cinematic Vignette
         float vignette = smoothstep(1.35, 0.30, r * (0.85 + 0.15 * u_vignetteStrength));
         color *= vignette;
 
-        // Micro Film Grain / Sensor Noise
+        // --- MICRO FILM GRAIN / SENSOR NOISE ---
+        float currentGrainOpacity = u_grainOpacity + u_hoverState * 0.04 + isGlitchActive * 0.06;
         float grainTime = (u_isReducedMotion > 0.5) ? 1.0 : u_time;
-        float grain = (rand(clampedUv * 600.0 + grainTime * 15.0) - 0.5) * u_grainOpacity;
+        float grain = (rand(clampedUv * 600.0 + grainTime * 15.0) - 0.5) * currentGrainOpacity;
         color += vec3(grain);
 
-        // Apply CRT screen edge shadow
+        // Apply CRT screen edge shadow mask
         color *= crtMask;
 
-        gl_FragColor = vec4(color, 1.0);
+        // GUARANTEE STRICT MONOCHROME (R=G=B)
+        gl_FragColor = vec4(vec3(color.r), 1.0);
       }
     `
 
@@ -241,15 +298,16 @@ export default function CrtFisheyeHeroCanvas({
     const uAnimationSpeed = gl.getUniformLocation(program, 'u_animationSpeed')
     const uIsReducedMotion = gl.getUniformLocation(program, 'u_isReducedMotion')
     const uImageZoom = gl.getUniformLocation(program, 'u_imageZoom')
+    const uHoverState = gl.getUniformLocation(program, 'u_hoverState')
 
     // Texture Setup
     const texture = gl.createTexture()
     gl.bindTexture(gl.TEXTURE_2D, texture)
     // Placeholder 1x1 pixel while loading
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 10, 15, 255]))
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 10, 10, 255]))
 
-    let imgWidth = 1024
-    let imgHeight = 679
+    let imgWidth = 746
+    let imgHeight = 439
 
     const img = new Image()
     img.crossOrigin = 'anonymous'
@@ -291,6 +349,10 @@ export default function CrtFisheyeHeroCanvas({
       m.x += (m.targetX - m.x) * 0.05
       m.y += (m.targetY - m.y) * 0.05
 
+      // Smooth hover state lerp
+      const targetHover = isHovered ? 1.0 : 0.0
+      hoverRef.current += (targetHover - hoverRef.current) * 0.08
+
       const currentTime = (performance.now() - startTime) / 1000
 
       gl.useProgram(program)
@@ -300,7 +362,7 @@ export default function CrtFisheyeHeroCanvas({
       gl.uniform2f(uMouse, m.x, m.y)
       gl.uniform1f(uTime, currentTime)
 
-      // Responsive adjustments: soften distortion slightly on small mobile screens
+      // Responsive adjustments
       const isMobile = canvas.width < 640
       const currentDistortion = isMobile ? distortionStrength * 0.7 : distortionStrength
 
@@ -312,7 +374,8 @@ export default function CrtFisheyeHeroCanvas({
       gl.uniform1f(uInteractionStrength, interactionStrength)
       gl.uniform1f(uAnimationSpeed, animationSpeed)
       gl.uniform1f(uIsReducedMotion, reducedMotion ? 1.0 : 0.0)
-      gl.uniform1f(uImageZoom, isMobile ? imageZoom * 1.05 : imageZoom)
+      gl.uniform1f(uImageZoom, imageZoom)
+      gl.uniform1f(uHoverState, hoverRef.current)
 
       gl.activeTexture(gl.TEXTURE0)
       gl.bindTexture(gl.TEXTURE_2D, texture)
@@ -361,6 +424,7 @@ export default function CrtFisheyeHeroCanvas({
     interactionStrength,
     animationSpeed,
     imageZoom,
+    isHovered,
     reducedMotion,
   ])
 
@@ -368,9 +432,8 @@ export default function CrtFisheyeHeroCanvas({
     <div className={`relative w-full h-full overflow-hidden ${className}`}>
       <canvas
         ref={canvasRef}
-        className="w-full h-full block pointer-events-none select-none"
+        className="w-full h-full block pointer-events-none select-none grayscale"
       />
     </div>
   )
 }
-
