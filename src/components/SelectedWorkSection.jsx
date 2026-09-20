@@ -36,8 +36,8 @@ function TiltWorkCard({ project, onClick }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={handleMouseLeave}
-      style={{ transform, transition: 'transform 0.15s ease-out', borderColor: 'var(--border-nav)', background: 'var(--bg-card)' }}
-      className="group cursor-pointer flex flex-col justify-between p-4 sm:p-5 rounded-2xl border shadow-xl relative overflow-hidden will-change-transform h-full"
+      style={{ transform, transition: 'transform 0.15s ease-out', background: 'var(--bg-card)' }}
+      className="group cursor-pointer flex flex-col justify-between p-4 sm:p-5 rounded-2xl shadow-xl relative overflow-hidden will-change-transform h-full"
     >
       {/* Interactive Cursor Radial Spotlight */}
       <div
@@ -50,7 +50,7 @@ function TiltWorkCard({ project, onClick }) {
 
       <div className="space-y-3 relative z-10">
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b pb-2.5" style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }}>
+        <div className="flex items-center justify-between font-sans text-xs font-medium tracking-wider border-b pb-2.5" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'var(--text-secondary)' }}>
           <div className="flex items-center gap-2">
             <span className="text-base font-bold font-sans" style={{ color: 'var(--text-primary)' }}>{project.id}</span>
             <span>//</span>
@@ -60,7 +60,7 @@ function TiltWorkCard({ project, onClick }) {
         </div>
 
         {/* Adjusted Image Preview */}
-        <div className="relative rounded-xl overflow-hidden border transition-all duration-300 aspect-[16/10] w-full" style={{ borderColor: 'var(--border-primary)', background: 'var(--bg-secondary)' }}>
+        <div className="relative rounded-xl overflow-hidden transition-all duration-300 aspect-[16/10] w-full" style={{ background: 'var(--bg-secondary)' }}>
           {project.coverImage ? (
             <img
               src={project.coverImage}
@@ -69,7 +69,7 @@ function TiltWorkCard({ project, onClick }) {
             />
           ) : (
             <div className={`w-full h-full bg-gradient-to-br ${project.imageBg} p-4 flex flex-col justify-center items-center text-center space-y-2`}>
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-lg font-bold text-white">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-lg font-bold text-white">
                 {project.name.charAt(0)}
               </div>
               <div>
@@ -97,11 +97,11 @@ function TiltWorkCard({ project, onClick }) {
       </div>
 
       {/* Bottom Simplified Action Footer */}
-      <div className="pt-3 border-t flex items-center justify-between relative z-10 mt-3" style={{ borderColor: 'var(--border-primary)' }}>
+      <div className="pt-3 border-t flex items-center justify-between relative z-10 mt-3" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         <span className="text-[11px] font-sans tracking-[0.14em] uppercase transition-colors" style={{ color: 'var(--text-secondary)' }}>
           {project.behanceUrl ? 'View Behance Case Study ↗' : 'View Case Study →'}
         </span>
-        <div className="w-7 h-7 rounded-full border flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-300 flex-shrink-0" style={{ background: 'var(--toggle-bg)', borderColor: 'var(--border-nav)', color: 'var(--text-primary)' }}>
+        <div className="w-7 h-7 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-300 flex-shrink-0" style={{ background: 'var(--toggle-bg)', color: 'var(--text-primary)' }}>
           <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>

@@ -1,31 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { playCrtGlitchSound } from '../../utils/crtGlitchSound'
 
 /**
  * CrtFisheyeHeroCanvas
  * Pure Monochrome CRT Old-TV / VHS Signal Visual Treatment.
- * Features:
- * - Pure Monochrome / Grayscale (Black, White, Gray ONLY - zero colors)
- * - Subtle animated CRT scanlines & VHS grain
- * - Controlled glitch timing: 92% stable state, 8% brief signal tears (80-200ms)
- * - Right-side vertical signal corruption ONLY (left side clean, subject protected)
- * - Interactive hover intensity boost
- * - Tiny monospaced upper atmospheric camera diagnostic details (20-40% opacity)
- * - Preserves exact original image resolution, framing, subject positioning, and 1:1 aspect ratio
  */
 export default function CrtFisheyeHeroCanvas({
   imageSrc = '/camera-portrait.jpg',
   className = '',
-  distortionStrength = 0.18,
+  distortionStrength = 0.25,
   vignetteStrength = 0.60,
   grainOpacity = 0.07,
   scanlineOpacity = 0.13,
   interactionStrength = 0.02,
   animationSpeed = 1.0,
+  imageZoom = 0.90,
+  enableGlitchAudio = true,
 }) {
   const canvasRef = useRef(null)
   const animFrameIdRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 })
   const hoverRef = useRef({ current: 0, target: 0 })
+  const isHeroVisibleRef = useRef(true)
   const [reducedMotion, setReducedMotion] = useState(false)
 
   // Listen for prefers-reduced-motion
@@ -51,6 +47,9 @@ export default function CrtFisheyeHeroCanvas({
 
     const handleMouseEnter = () => {
       hoverRef.current.target = 1.0
+      if (enableGlitchAudio && !reducedMotion && isHeroVisibleRef.current) {
+        playCrtGlitchSound({ intensity: 0.20, duration: 0.10 })
+      }
     }
 
     const handleMouseLeave = () => {
@@ -111,6 +110,7 @@ export default function CrtFisheyeHeroCanvas({
       uniform float u_isReducedMotion;
       uniform float u_glitchBurst;
       uniform float u_hoverFactor;
+      uniform float u_imageZoom;
 
       float rand(vec2 co) {
         return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
@@ -125,15 +125,15 @@ export default function CrtFisheyeHeroCanvas({
         float breathing = (u_isReducedMotion > 0.5) ? 0.0 : sin(u_time * u_animationSpeed * 0.8) * 0.003;
         normPos += mouseOffset;
 
-        // Screen & image aspect ratio fit (1:1 contain - ZERO cropping, ZERO zoom, ZERO reframing)
+        // Screen & image aspect ratio fit
         float screenAspect = u_resolution.x / u_resolution.y;
         float imgAspect = u_imageResolution.x / u_imageResolution.y;
 
-        // CRT Fisheye screen barrel curvature
+        // CRT Fisheye screen barrel curvature with adjustable zoom
         vec2 aspectSt = normPos * vec2(max(screenAspect, 1.0), max(1.0 / screenAspect, 1.0));
         float r = length(aspectSt);
-        float distFactor = 1.0 + (u_distortionStrength * 0.45 + breathing) * (r * r);
-        vec2 distortedNormPos = normPos * distFactor;
+        float distFactor = 1.0 + (u_distortionStrength * 0.95 + breathing) * (r * r);
+        vec2 distortedNormPos = normPos * distFactor * u_imageZoom;
 
         // Map screen coordinates to UV space with exact aspect containment
         vec2 uv = vec2(0.5);
@@ -153,7 +153,6 @@ export default function CrtFisheyeHeroCanvas({
         // ==========================================
         // GLITCH EFFECT 1: SUBTLE HORIZONTAL SIGNAL TEARING
         // ==========================================
-        // Short, irregular, temporary horizontal line shift during glitch moments
         if (effectiveGlitch > 0.15 && sampleUv.x >= 0.0 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
           float lineId = floor(gl_FragCoord.y * 0.5);
           float timeKey = floor(u_time * 14.0);
@@ -167,7 +166,6 @@ export default function CrtFisheyeHeroCanvas({
 
         // =======================================================
         // GLITCH EFFECT 2: RIGHT-SIDE VERTICAL SIGNAL CORRUPTION ONLY
-        // Reduced by 50% in width and intensity for subtle right-edge effect
         // =======================================================
         if (sampleUv.x > 0.85 && sampleUv.x <= 1.0 && sampleUv.y >= 0.0 && sampleUv.y <= 1.0) {
           float stripX = floor(sampleUv.x * 52.0) / 52.0;
@@ -175,7 +173,6 @@ export default function CrtFisheyeHeroCanvas({
           
           float blockNoise = rand(vec2(stripX, blockY + floor(u_time * 5.0)));
 
-          // Displace sampling UVs on far right edge (50% reduced intensity and frequency)
           if (blockNoise > (0.58 - u_hoverFactor * 0.1)) {
             float vDisplaceStrength = 0.12 + u_hoverFactor * 0.08;
             float vShift = (rand(vec2(stripX * 1.5, blockY * 2.0 + floor(u_time * 6.0))) - 0.5) * vDisplaceStrength;
@@ -185,7 +182,6 @@ export default function CrtFisheyeHeroCanvas({
             sampleUv.x += hShift;
           }
 
-          // Fine vertical signal line jitter on right side
           float vLine = rand(vec2(floor(gl_FragCoord.x * 0.3), floor(u_time * 12.0)));
           if (vLine > 0.94) {
             sampleUv.y += (vLine - 0.97) * 0.25;
@@ -201,13 +197,12 @@ export default function CrtFisheyeHeroCanvas({
         // ==========================================
         // COLOR TREATMENT: PURE MONOCHROME (BLACK & WHITE)
         // ==========================================
-        // Standard NTSC Grayscale Conversion (R=G=B, ZERO color added, ZERO chromatic aberration)
         float gray = dot(rawColor.rgb, vec3(0.299, 0.587, 0.114));
 
         // Subtle CRT Horizontal Scanlines (thin, low opacity, slowly animated)
         float currentScanlineOpacity = u_scanlineOpacity + u_hoverFactor * 0.06;
         float scanline = sin(gl_FragCoord.y * 1.5 + u_time * 2.0) * 0.5 + 0.5;
-        scanline = mix(1.0, 0.86 + 0.14 * scanline, currentScanlineOpacity);
+        scanline = mix(1.0, 0.84 + 0.16 * scanline, currentScanlineOpacity);
         gray *= scanline;
 
         // Analog VHS Grain & Static Noise
@@ -226,22 +221,35 @@ export default function CrtFisheyeHeroCanvas({
         gray = clamp(gray, 0.0, 1.0);
         gray = pow(gray, 1.04);
 
-        // Soft CRT Vignette
-        float vignette = smoothstep(1.35, 0.32, r * (0.85 + 0.15 * u_vignetteStrength));
+        // Soft CRT Lens Vignette
+        float vignette = smoothstep(1.35, 0.28, r * (0.82 + 0.18 * u_vignetteStrength));
         gray *= vignette;
+
+        // Smooth image edge feathering gradient to eliminate hard borders
+        float imgEdgeX = smoothstep(0.0, 0.08, uv.x) * (1.0 - smoothstep(0.92, 1.0, uv.x));
+        float imgEdgeY = smoothstep(0.0, 0.08, uv.y) * (1.0 - smoothstep(0.92, 1.0, uv.y));
+        float imgEdgeMask = imgEdgeX * imgEdgeY;
+        gray *= imgEdgeMask;
 
         vec3 finalColor = vec3(gray);
 
-        // Dark bezel background outside active image bounds
+        // Pure black background outside active image bounds
         float inBounds = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
         if (inBounds < 0.5) {
-          finalColor = vec3(0.035);
+          finalColor = vec3(0.0);
         }
 
-        // CRT Screen Bezel Shadow
+        // CRT Curved Tube Screen Bezel Shadow & Smooth Edge Border Gradient
         vec2 absSt = abs(distortedNormPos * vec2(min(screenAspect, 1.5), 1.0));
-        float crtMask = 1.0 - smoothstep(0.94, 1.22, length(pow(absSt, vec2(3.2))));
-        finalColor *= crtMask;
+        float crtMask = 1.0 - smoothstep(0.85, 1.15, length(pow(absSt, vec2(3.2))));
+        
+        // Screen edge black gradient fade (top, bottom, left, right borders)
+        vec2 screenUv = gl_FragCoord.xy / u_resolution;
+        float screenEdgeX = smoothstep(0.0, 0.10, screenUv.x) * (1.0 - smoothstep(0.90, 1.0, screenUv.x));
+        float screenEdgeY = smoothstep(0.0, 0.10, screenUv.y) * (1.0 - smoothstep(0.90, 1.0, screenUv.y));
+        float borderFade = screenEdgeX * screenEdgeY;
+
+        finalColor *= crtMask * borderFade;
 
         gl_FragColor = vec4(finalColor, 1.0);
       }
@@ -310,6 +318,7 @@ export default function CrtFisheyeHeroCanvas({
     const uIsReducedMotion = gl.getUniformLocation(program, 'u_isReducedMotion')
     const uGlitchBurst = gl.getUniformLocation(program, 'u_glitchBurst')
     const uHoverFactor = gl.getUniformLocation(program, 'u_hoverFactor')
+    const uImageZoom = gl.getUniformLocation(program, 'u_imageZoom')
 
     // Texture Setup
     const texture = gl.createTexture()
@@ -375,6 +384,11 @@ export default function CrtFisheyeHeroCanvas({
         const duration = 80 + Math.random() * 140
         lastGlitchEndTime = now + duration
         nextGlitchStartTime = lastGlitchEndTime + 2200 + Math.random() * 3200
+
+        // Play CRT signal glitch sound ONLY when Hero section is visible
+        if (enableGlitchAudio && !reducedMotion && isHeroVisibleRef.current) {
+          playCrtGlitchSound({ intensity: 0.35, duration: duration / 1000 })
+        }
       } else if (isGlitching && now >= lastGlitchEndTime) {
         isGlitching = false
       }
@@ -395,6 +409,7 @@ export default function CrtFisheyeHeroCanvas({
       gl.uniform1f(uIsReducedMotion, reducedMotion ? 1.0 : 0.0)
       gl.uniform1f(uGlitchBurst, isGlitching ? 1.0 : 0.0)
       gl.uniform1f(uHoverFactor, h.current)
+      gl.uniform1f(uImageZoom, imageZoom)
 
       gl.activeTexture(gl.TEXTURE0)
       gl.bindTexture(gl.TEXTURE_2D, texture)
@@ -408,6 +423,7 @@ export default function CrtFisheyeHeroCanvas({
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
+        isHeroVisibleRef.current = entry.isIntersecting
         if (entry.isIntersecting) {
           if (!animFrameIdRef.current) {
             animFrameIdRef.current = requestAnimationFrame(render)
@@ -441,6 +457,7 @@ export default function CrtFisheyeHeroCanvas({
     interactionStrength,
     animationSpeed,
     reducedMotion,
+    imageZoom,
   ])
 
   return (

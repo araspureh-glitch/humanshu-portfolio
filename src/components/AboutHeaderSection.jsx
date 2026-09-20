@@ -6,14 +6,13 @@ export default function AboutHeaderSection() {
   const [activeTab, setActiveTab] = useState('detailed') // 'corporate' | 'detailed'
 
   const portraits = [
-    { src: "/camera-portrait.jpg", alt: "Humanshu Camera Portrait" },
-    { src: "/assets/01_main_portrait.png", alt: "Humanshu Portrait 1" },
-    { src: "/hero.jpg", alt: "Humanshu Portrait 2" },
-    { src: "/blur-portrait.png", alt: "Humanshu Blur Portrait" },
-    { src: "/skater-portrait.png", alt: "Humanshu Portrait 3" },
-    { src: "/assets/02_secondary_portrait.png", alt: "Humanshu Portrait 4" },
-    { src: "/hobbies/lifestyle.jpg", alt: "Humanshu Portrait 5" },
-    { src: "/footer-collage.png", alt: "Humanshu Collage" },
+    { src: "/kid-portrait.png", alt: "Humanshu Kid Vintage Portrait 1" },
+    { src: "/kid-portrait-2.png", alt: "Humanshu Kid Birthday Hat" },
+    { src: "/kid-portrait-3.png", alt: "Humanshu Young School Child" },
+    { src: "/kid-portrait-4.png", alt: "Humanshu School Boy" },
+    { src: "/kid-portrait-5.png", alt: "Humanshu Traditional Outfit" },
+    { src: "/glasses-portrait.png", alt: "Humanshu Smiling Glasses Portrait" },
+    { src: "/toy-camera-portrait.jpg", alt: "Humanshu Camera Portrait" },
   ]
 
   // Duplicate list to create a seamless infinite loop
@@ -33,19 +32,19 @@ export default function AboutHeaderSection() {
                 href="https://linkedin.com/in/humanshu-araspure"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-white hover:text-white transition-colors duration-200 group cursor-pointer"
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors duration-200 group cursor-pointer"
               >
-                <span className="text-neutral-400 group-hover:text-white transition-colors">[</span>
-                <Download className="w-3.5 h-3.5 text-white group-hover:translate-y-0.5 transition-transform" />
+                <span className="text-neutral-500 group-hover:text-neutral-300 transition-colors">[</span>
+                <Download className="w-3.5 h-3.5 text-neutral-300 group-hover:text-white group-hover:translate-y-0.5 transition-all" />
                 <span>DOWNLOAD RESUME</span>
-                <span className="text-neutral-400 group-hover:text-white transition-colors">]</span>
+                <span className="text-neutral-500 group-hover:text-neutral-300 transition-colors">]</span>
               </a>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight leading-tight font-sans text-white max-w-sm sm:max-w-lg">
-              Do you really want to<br />
-              know more about me than<br />
-              my work?
+            <h1 className="text-2xl sm:text-3xl md:text-4xl tracking-tight leading-tight font-sans max-w-sm sm:max-w-lg">
+              <span className="text-neutral-400 font-light">Do you really want to</span><br />
+              <span className="text-white font-semibold">know more about me</span><br />
+              <span className="text-neutral-400 font-light">than my work?</span>
             </h1>
           </div>
 
@@ -92,10 +91,11 @@ export default function AboutHeaderSection() {
             <div className="flex flex-row items-center justify-between gap-8 sm:gap-12 lg:gap-16 font-sans text-xs sm:text-sm">
               <button
                 onClick={() => setActiveTab('corporate')}
-                className={`text-left font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                onMouseEnter={() => setActiveTab('corporate')}
+                className={`text-left font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                   activeTab === 'corporate'
-                    ? 'text-white font-bold'
-                    : 'text-neutral-400 hover:text-neutral-200'
+                    ? 'text-neutral-100 font-semibold'
+                    : 'text-neutral-500 hover:text-neutral-300'
                 }`}
               >
                 [NOPE, KEEP IT SHORT AND CORPORATE]
@@ -103,10 +103,11 @@ export default function AboutHeaderSection() {
 
               <button
                 onClick={() => setActiveTab('detailed')}
-                className={`text-right font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                onMouseEnter={() => setActiveTab('detailed')}
+                className={`text-right font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                   activeTab === 'detailed'
-                    ? 'text-white font-bold'
-                    : 'text-neutral-400 hover:text-neutral-200'
+                    ? 'text-neutral-100 font-semibold'
+                    : 'text-neutral-500 hover:text-neutral-300'
                 }`}
               >
                 [YES, THATS WHY I CLICKED THE 'ABOUT ME' SECTION]
@@ -123,12 +124,12 @@ export default function AboutHeaderSection() {
                   className="space-y-3 flex flex-col items-start max-w-md mr-auto"
                 >
                   {/* Left Question Bubble */}
-                  <div className="self-start max-w-[85%] bg-white text-black font-sans font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-2xl rounded-tl-sm shadow-md">
+                  <div className="self-start max-w-[85%] bg-[#27272a] text-neutral-200 font-sans font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-2xl rounded-tl-sm shadow-xl">
                     What's your quick corporate summary?
                   </div>
 
                   {/* Right Answer Bubble */}
-                  <div className="self-end max-w-[90%] bg-white text-black font-sans font-medium text-xs sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tr-sm shadow-md">
+                  <div className="self-end max-w-[90%] bg-[#18181b] text-neutral-300 font-sans font-medium text-xs sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tr-sm shadow-xl">
                     UI/UX Architect & Product Designer specializing in scalable design systems, intuitive user journeys, and high-fidelity React apps.
                   </div>
                 </motion.div>
@@ -140,12 +141,12 @@ export default function AboutHeaderSection() {
                   className="space-y-3 flex flex-col items-end max-w-md ml-auto"
                 >
                   {/* Question Bubble */}
-                  <div className="self-start max-w-[85%] bg-white text-black font-sans font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-2xl rounded-tl-sm shadow-md">
+                  <div className="self-start max-w-[85%] bg-[#27272a] text-neutral-200 font-sans font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-2xl rounded-tl-sm shadow-xl">
                     How did you get into design?
                   </div>
 
                   {/* Answer Bubble */}
-                  <div className="self-end max-w-[95%] bg-white text-black font-sans font-medium text-xs sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tr-sm shadow-md">
+                  <div className="self-end max-w-[95%] bg-[#18181b] text-neutral-300 font-sans font-medium text-xs sm:text-sm leading-relaxed px-4 py-3 rounded-2xl rounded-tr-sm shadow-xl">
                     Design has always been part of my life. My dad is a graphic designer, so I grew up surrounded by creativity. I spent a lot of time playing with Photoshop, Dreamweaver, Flash and After Effects as a kid.
                   </div>
                 </motion.div>
@@ -163,7 +164,7 @@ export default function AboutHeaderSection() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  src="/camera-portrait.jpg"
+                  src="/toy-camera-portrait.jpg"
                   alt="Featured Humanshu Portrait"
                   className="w-full h-auto object-contain rounded-none"
                 />

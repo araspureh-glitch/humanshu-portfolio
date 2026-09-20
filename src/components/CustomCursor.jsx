@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 export default function CustomCursor() {
-  const cursorDotRef = useRef(null)
   const cursorRingRef = useRef(null)
 
   const mousePos = useRef({ x: -100, y: -100 })
@@ -22,11 +21,6 @@ export default function CustomCursor() {
       const x = e.clientX
       const y = e.clientY
       mousePos.current = { x, y }
-
-      // Update dot position immediately for zero lag
-      if (cursorDotRef.current) {
-        cursorDotRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
-      }
     }
 
     // Detect interactive elements hover (buttons, links, inputs)
@@ -77,23 +71,13 @@ export default function CustomCursor() {
   if (isTouch) return null
 
   return (
-    <>
-      {/* Center Precision Cursor Dot */}
-      <div
-        ref={cursorDotRef}
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference transition-transform duration-75 ease-out"
-        style={{ willChange: 'transform' }}
-      />
-
-      {/* Trailing Outer Cursor Ring */}
-      <div
-        ref={cursorRingRef}
-        className={`fixed top-0 left-0 w-8 h-8 rounded-full border border-white/70 pointer-events-none z-[9998] mix-blend-difference transition-all duration-300 ease-out ${
-          isHovered ? 'bg-white/15 border-white' : ''
-        }`}
-        style={{ willChange: 'transform' }}
-      />
-    </>
+    <div
+      ref={cursorRingRef}
+      className={`fixed top-0 left-0 w-8 h-8 rounded-full border border-white/70 pointer-events-none z-[9998] mix-blend-difference transition-all duration-300 ease-out ${
+        isHovered ? 'bg-white/15 border-white' : ''
+      }`}
+      style={{ willChange: 'transform' }}
+    />
   )
 }
 

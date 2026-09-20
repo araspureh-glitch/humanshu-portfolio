@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CrtFisheyeHeroCanvas from './ui/CrtFisheyeHeroCanvas'
+import { setHeroGlitchMuted } from '../utils/crtGlitchSound'
 
 export default function CinematicHero() {
+  const [sfxMuted, setSfxMuted] = useState(false)
+
+  const toggleSfx = () => {
+    const nextState = !sfxMuted
+    setSfxMuted(nextState)
+    setHeroGlitchMuted(nextState)
+  }
+
   return (
     <section
       id="hero"
@@ -14,12 +23,14 @@ export default function CinematicHero() {
         <CrtFisheyeHeroCanvas
           imageSrc="/camera-portrait.jpg"
           className="w-full h-full"
-          distortionStrength={0.20}
-          vignetteStrength={0.62}
-          grainOpacity={0.08}
-          scanlineOpacity={0.14}
-          interactionStrength={0.02}
+          distortionStrength={0.35}
+          vignetteStrength={0.75}
+          grainOpacity={0.10}
+          scanlineOpacity={0.18}
+          interactionStrength={0.03}
           animationSpeed={1.0}
+          imageZoom={0.90}
+          enableGlitchAudio={!sfxMuted}
         />
 
         {/* Crushed paper noise filter overlay */}
@@ -31,9 +42,12 @@ export default function CinematicHero() {
           <rect width="100%" height="100%" filter="url(#crushedPaperNoise)" />
         </svg>
 
-        {/* Dark Gradient Overlay at Bottom for Perfect Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(5,5,5,0.75)_100%)] pointer-events-none" />
+        {/* Perimeter Black Gradient Overlay for Seamless Border Blending */}
+        <div className="absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-[#050505] via-[#050505]/60 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-x-0 top-0 h-24 sm:h-36 bg-gradient-to-b from-[#050505] via-[#050505]/60 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-44 sm:h-64 bg-gradient-to-t from-[#050505] via-[#050505]/85 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(5,5,5,0.65)_75%,#050505_100%)] pointer-events-none z-10" />
       </div>
 
       {/* ==========================================
@@ -41,9 +55,19 @@ export default function CinematicHero() {
           ========================================== */}
       <div className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 flex flex-col justify-between pt-20 sm:pt-24 pb-16 sm:pb-20 md:pb-24 lg:pb-28 pointer-events-none">
         
-        {/* Upper Technical Numbers (Positioned under logo & Let's Talk button, scrolling with hero section) */}
+        {/* Upper Technical Numbers & Hero SFX Mute Toggle */}
         <div className="w-full flex items-center justify-between font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-white/40 uppercase select-none">
-          <div>4B / 23:59:61</div>
+          <div className="flex items-center gap-3">
+            <span>4B / 23:59:61</span>
+            <button
+              onClick={toggleSfx}
+              className="pointer-events-auto text-white/50 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-1.5"
+              title="Toggle Hero CRT Glitch Sound"
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${sfxMuted ? 'bg-neutral-600' : 'bg-emerald-400 animate-pulse'}`} />
+              <span>SFX: {sfxMuted ? 'OFF' : 'ON'}</span>
+            </button>
+          </div>
           <div className="hidden sm:block">ERR:4B / 23:59:61</div>
         </div>
 
