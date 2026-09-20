@@ -449,34 +449,6 @@ export default function CrtFisheyeHeroCanvas({
         ref={canvasRef}
         className="w-full h-full block pointer-events-none select-none"
       />
-
-      {/* =======================================================
-          TINY ATMOSPHERIC CAMERA & CRT DIAGNOSTIC DETAILS OVERLAY
-          ======================================================= */}
-      {/* 
-        Tiny (9px-10px), low opacity (20%-35%), monochrome technical numbers 
-        placed in upper area only (upper-left, upper-center, upper-right).
-        Does NOT compete with hero text or portrait.
-      */}
-      <div className="absolute top-4 sm:top-6 left-6 sm:left-12 right-6 sm:right-12 z-10 pointer-events-none select-none flex items-start justify-between font-mono text-[9px] sm:text-[10px] text-white/30 tracking-[0.2em] uppercase leading-none mix-blend-screen">
-        {/* Upper Left */}
-        <div className="space-y-1">
-          <div className="opacity-80">23:59:61</div>
-          <div className="text-[8px] text-white/20 tracking-widest">ERR:4B</div>
-        </div>
-
-        {/* Upper Center */}
-        <div className="hidden sm:block text-center space-y-1 opacity-70">
-          <div>CAM_04</div>
-          <div className="text-[8px] text-white/20 tracking-widest">FRAME_048</div>
-        </div>
-
-        {/* Upper Right */}
-        <div className="text-right space-y-1">
-          <div className="opacity-80">4B / 23:59:61</div>
-          <div className="text-[8px] text-white/20 tracking-widest">SIGNAL_OK</div>
-        </div>
-      </div>
     </div>
   )
 }

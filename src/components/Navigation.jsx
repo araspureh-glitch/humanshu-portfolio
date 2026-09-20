@@ -48,18 +48,23 @@ export default function Navigation({ introComplete = true, activeSection: active
     >
       <div className="relative max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between font-mono uppercase" style={{ color: 'var(--text-nav)' }}>
         
-        {/* Left: Signature HA. Monogram Logo */}
-        <Link 
-          to="/" 
-          onClick={() => setMobileMenuOpen(false)}
-          className="group flex items-center tracking-tight hover:opacity-90 transition-opacity"
-        >
-          <img
-            src="/assets/ha_signature_logo.png"
-            alt="HA. Logo"
-            className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
-          />
-        </Link>
+        {/* Left: Signature HA. Monogram Logo + Technical Number Tag Below */}
+        <div className="flex flex-col items-start gap-1">
+          <Link 
+            to="/" 
+            onClick={() => setMobileMenuOpen(false)}
+            className="group flex items-center tracking-tight hover:opacity-90 transition-opacity"
+          >
+            <img
+              src="/assets/ha_signature_logo.png"
+              alt="HA. Logo"
+              className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+            />
+          </Link>
+          <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-white/40 select-none pointer-events-none">
+            4B / 23:59:61
+          </span>
+        </div>
 
         {/* Center Desktop Nav - Absolutely Centered */}
         <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[13px]" style={{ color: 'var(--text-nav)' }}>
@@ -91,43 +96,49 @@ export default function Navigation({ introComplete = true, activeSection: active
           })}
         </nav>
 
-        {/* Right Desktop CTA + Theme Toggle + Mobile Toggle */}
-        <div className="flex items-center gap-3">
-          <Link 
-            to="/contact"
-            className="hidden sm:flex px-5 py-2 rounded-full transition-all duration-200 items-center gap-2 text-[11px] font-mono tracking-widest uppercase cursor-pointer"
-            style={{
-              border: '1px solid var(--border-nav)',
-              color: 'var(--text-primary)',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = 'var(--text-primary)'
-              e.currentTarget.style.color = 'var(--bg-primary)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = 'transparent'
-              e.currentTarget.style.color = 'var(--text-primary)'
-            }}
-          >
-            <span>Let's talk</span>
-            <span>→</span>
-          </Link>
+        {/* Right Desktop CTA + Technical Number Tag Below + Music Toggle */}
+        <div className="flex flex-col items-end gap-1">
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/contact"
+              className="hidden sm:flex px-5 py-2 rounded-full transition-all duration-200 items-center gap-2 text-[11px] font-mono tracking-widest uppercase cursor-pointer"
+              style={{
+                border: '1px solid var(--border-nav)',
+                color: 'var(--text-primary)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'var(--text-primary)'
+                e.currentTarget.style.color = 'var(--bg-primary)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'transparent'
+                e.currentTarget.style.color = 'var(--text-primary)'
+              }}
+            >
+              <span>Let's talk</span>
+              <span>→</span>
+            </Link>
 
-          {/* Music Audio Toggle */}
-          <MusicToggle />
+            {/* Music Audio Toggle */}
+            <MusicToggle />
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider flex items-center gap-1.5"
-            style={{
-              border: '1px solid var(--border-nav)',
-              background: 'var(--toggle-bg)',
-              color: 'var(--text-primary)',
-            }}
-          >
-            <span>{mobileMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}</span>
-          </button>
+            {/* Mobile Menu Toggle Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider flex items-center gap-1.5"
+              style={{
+                border: '1px solid var(--border-nav)',
+                background: 'var(--toggle-bg)',
+                color: 'var(--text-primary)',
+              }}
+            >
+              <span>{mobileMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}</span>
+            </button>
+          </div>
+
+          <span className="hidden sm:block font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-white/40 select-none pointer-events-none pr-1">
+            ERR:4B / 23:59:61
+          </span>
         </div>
 
       </div>
