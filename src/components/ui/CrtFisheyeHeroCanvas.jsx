@@ -16,7 +16,7 @@ export default function CrtFisheyeHeroCanvas({
   chromaticAberration = 0.35,
   interactionStrength = 0.04,
   animationSpeed = 1.0,
-  imageZoom = 0.92,
+  imageZoom = 0.83,
 }) {
   const canvasRef = useRef(null)
   const animFrameIdRef = useRef(null)

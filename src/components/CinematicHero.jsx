@@ -21,6 +21,7 @@ export default function CinematicHero() {
           chromaticAberration={0.42}
           interactionStrength={0.04}
           animationSpeed={1.0}
+          imageZoom={0.83}
         />
 
         {/* Crushed paper noise filter overlay */}
