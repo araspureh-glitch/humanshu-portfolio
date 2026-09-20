@@ -137,8 +137,8 @@ function InteractiveBio() {
   }, [])
 
   return (
-    <div className="relative">
-      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] sm:leading-[1.35] tracking-tight font-sans max-w-5xl" style={{ color: 'var(--text-primary)' }}>
+    <div className="relative flex flex-col items-center justify-center text-center">
+      <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] sm:leading-[1.35] tracking-tight font-sans max-w-5xl mx-auto text-center" style={{ color: 'var(--text-primary)' }}>
         I am Humanshu Araspure, a{" "}
         <HoverLink
           previewKey="architect"
@@ -184,149 +184,15 @@ function InteractiveBio() {
   )
 }
 
-function DisciplineAccordionRow({ item, index, isOpen, onToggle, onHover }) {
-  return (
-    <motion.div
-      layout="position"
-      onMouseEnter={onHover}
-      onClick={onToggle}
-      className={`border-b group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] py-4 sm:py-5 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl cursor-pointer`}
-      style={{ borderColor: 'var(--border-primary)' }}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-12 items-start gap-3 md:gap-6">
-        {/* Left Column: Number & Sub-label */}
-        <div className="md:col-span-3 sm:col-span-4 space-y-0.5 pt-0.5">
-          <span
-            className={`block font-sans text-xs tracking-tight transition-colors duration-400 ease-out ${
-              isOpen ? 'text-[#EA5211] font-medium' : 'font-light'
-            }`}
-            style={{ color: isOpen ? '#EA5211' : 'var(--text-muted)' }}
-          >
-            {item.num}
-          </span>
-          <span
-            className={`block font-sans text-xs transition-colors duration-400 ease-out`}
-            style={{ color: isOpen ? 'var(--text-primary)' : 'var(--text-secondary)' }}
-          >
-            {item.sublabel}
-          </span>
-        </div>
-
-        {/* Right Column: Statement Headline & Expandable Description */}
-        <div className="md:col-span-9 sm:col-span-8 space-y-2">
-          <h3 
-            className={`text-base sm:text-lg lg:text-xl font-sans tracking-tight leading-snug transition-colors duration-400 ease-out`}
-            style={{ color: isOpen ? 'var(--text-primary)' : 'var(--text-secondary)' }}
-          >
-            {item.title}
-          </h3>
-
-          <AnimatePresence initial={false}>
-            {isOpen && (
-              <motion.div
-                key="content"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ 
-                  height: 'auto', 
-                  opacity: 1,
-                  transition: {
-                    height: { duration: 0.45, ease: [0.25, 1, 0.5, 1] },
-                    opacity: { duration: 0.35, delay: 0.05, ease: 'easeOut' }
-                  }
-                }}
-                exit={{ 
-                  height: 0, 
-                  opacity: 0,
-                  transition: {
-                    height: { duration: 0.35, ease: [0.25, 1, 0.5, 1] },
-                    opacity: { duration: 0.2, ease: 'easeIn' }
-                  }
-                }}
-                className="overflow-hidden"
-              >
-                <motion.p 
-                  initial={{ y: -6, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -4, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                  className="text-xs sm:text-sm font-sans font-light leading-relaxed max-w-2xl pt-1 pb-1"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  {item.desc}
-                </motion.p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
 export default function AboutIntroSection() {
-  const [openRow, setOpenRow] = useState(0)
-
-  const disciplines = [
-    {
-      num: '0.1',
-      sublabel: 'Our Mission',
-      title: 'Smarter, human-centered research tools',
-      desc: 'Decoding user behaviors, mapping intuitive user journeys, and removing cognitive friction before placing a single pixel on screen.'
-    },
-    {
-      num: '0.2',
-      sublabel: 'Our Vision',
-      title: 'Lead the future of Scalable Design Systems',
-      desc: 'Structuring scalable Figma token systems, modular UI component libraries, and developer-ready handoff specs.'
-    },
-    {
-      num: '0.3',
-      sublabel: 'Our Ambition',
-      title: 'Simplify fluid motion & micro-interactions',
-      desc: 'Infusing digital interfaces with purposeful micro-interactions, responsive physics, and fluid motion design.'
-    }
-  ]
-
   return (
     <section className="w-full py-12 sm:py-20 px-6 sm:px-12 lg:px-16 relative overflow-hidden" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
 
-      <div className="max-w-7xl mx-auto space-y-14 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-14 relative z-10 flex justify-center text-center">
 
         {/* Interactive Bio with Hover Image Preview Popups */}
-        <div>
+        <div className="w-full flex justify-center">
           <InteractiveBio />
-        </div>
-
-        {/* Sleek Minimalist Core Disciplines Layout */}
-        <div className="space-y-4 pt-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b" style={{ borderColor: 'var(--border-primary)' }}>
-            <div className="space-y-0.5">
-              <p className="text-xs sm:text-sm font-sans font-medium tracking-tight" style={{ color: 'var(--text-primary)' }}>
-                At Humanshu Studio
-              </p>
-              <p className="text-xs sm:text-sm font-sans font-medium text-[#EA5211] tracking-tight">
-                We make digital experiences better
-              </p>
-            </div>
-            <span className="font-sans text-[11px] uppercase tracking-[0.2em] font-medium" style={{ color: 'var(--text-secondary)' }}>
-              CORE DISCIPLINES
-            </span>
-          </div>
-
-          <div>
-            {disciplines.map((item, index) => (
-              <DisciplineAccordionRow
-                key={item.num}
-                item={item}
-                index={index}
-                isOpen={openRow === index}
-                onToggle={() => setOpenRow(openRow === index ? null : index)}
-                onHover={() => {
-                  if (openRow !== index) setOpenRow(index)
-                }}
-              />
-            ))}
-          </div>
         </div>
 
       </div>

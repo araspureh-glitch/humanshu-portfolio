@@ -4,7 +4,9 @@ import Navigation from '../components/Navigation'
 import { useAudio } from '../components/BackgroundAudio'
 import HelloIntro from '../components/HelloIntro'
 import CinematicHero from '../components/CinematicHero'
+import AboutIntroSection from '../components/AboutIntroSection'
 import ContactSection from '../components/ContactSection'
+import PhilosophySection from '../components/PhilosophySection'
 import Footer from '../components/Footer'
 import { InteractiveHoverLinks } from '../components/ui/interactive-hover-links'
 
@@ -27,13 +29,15 @@ function Home() {
       <CustomCursor />
       <Navigation introComplete={introComplete} />
 
-      <main className="flex-1">
+      <main className="flex-1 space-y-12 sm:space-y-20">
         <CinematicHero 
           introComplete={introComplete} 
           onAudioToggle={toggleAudio}
           isPlaying={isPlaying}
         />
+        <AboutIntroSection />
         <InteractiveHoverLinks />
+        <PhilosophySection />
         <ContactSection />
       </main>
 

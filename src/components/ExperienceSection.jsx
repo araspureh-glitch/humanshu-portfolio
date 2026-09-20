@@ -1,6 +1,4 @@
-import { motion } from 'framer-motion'
 import Timeline_02 from './ui/timeline-02'
-import { DisplayCards } from './ui/display-cards'
 
 export default function ExperienceSection() {
   const experiences = [
@@ -81,80 +79,12 @@ export default function ExperienceSection() {
     }
   ]
 
-  const certifications = [
-    {
-      title: 'Google UX Design Professional Certificate',
-      issuer: 'Coursera / Google (LinkedIn Verified)',
-      year: '2025',
-      credentialUrl: 'https://www.linkedin.com/in/humanshu-araspure/details/certifications/'
-    },
-    {
-      title: 'Foundations of User Experience (UX) Design',
-      issuer: 'Google (LinkedIn Verified)',
-      year: '2025',
-      credentialUrl: 'https://www.linkedin.com/in/humanshu-araspure/details/certifications/'
-    },
-    {
-      title: 'Start the UX Design Process: Empathize, Define, and Ideate',
-      issuer: 'Google / Coursera',
-      year: '2025',
-      credentialUrl: 'https://www.linkedin.com/in/humanshu-araspure/details/certifications/'
-    },
-    {
-      title: 'Build Wireframes and Low-Fidelity Prototypes',
-      issuer: 'Google / Coursera',
-      year: '2025',
-      credentialUrl: 'https://www.linkedin.com/in/humanshu-araspure/details/certifications/'
-    },
-    {
-      title: 'Figma Advanced UI/UX & Motion Design Systems',
-      issuer: 'Design Academy (LinkedIn Verified)',
-      year: '2025',
-      credentialUrl: 'https://www.linkedin.com/in/humanshu-araspure/details/certifications/'
-    },
-    {
-      title: 'Conduct UX Research and Test Early Concepts',
-      issuer: 'Google / Coursera',
-      year: '2025',
-      credentialUrl: 'https://www.linkedin.com/in/humanshu-araspure/details/certifications/'
-    }
-  ]
-
   return (
-    <section id="experience" className="w-full bg-[#050505] text-[#F5F5F5] py-24 px-6 sm:px-12 lg:px-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto space-y-20">
+    <section id="experience" className="w-full bg-[#050505] text-[#F5F5F5] py-24 px-6 sm:px-12 lg:px-16">
+      <div className="max-w-7xl mx-auto">
         
         {/* Interactive Sticky Timeline Component */}
         <Timeline_02 data={experiences} />
-
-        {/* Certifications Block */}
-        <div className="pt-20 border-t border-white/10 space-y-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-          >
-            <div>
-              <h3 className="text-2xl font-light text-white font-sans tracking-tight">
-                Verified Certifications
-              </h3>
-              <p className="text-xs font-mono text-neutral-400 mt-1">Credentials in Google UX, Research & Figma Systems</p>
-            </div>
-            <a 
-              href="https://www.linkedin.com/in/humanshu-araspure/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs font-mono tracking-widest uppercase text-neutral-300 hover:text-white transition-colors flex items-center gap-1.5 group self-start sm:self-auto"
-            >
-              <span>View LinkedIn Profile</span>
-              <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
-            </a>
-          </motion.div>
-
-          <DisplayCards cards={certifications} />
-        </div>
 
       </div>
     </section>

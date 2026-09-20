@@ -29,11 +29,11 @@ export default function SkillsSection() {
   const tabs = ['ALL', 'UX', 'UI', 'GRAPHIC', 'TOOLS']
 
   return (
-    <section id="skills" className="w-full bg-[#050505] text-[#F5F5F5] py-28 px-6 sm:px-12 lg:px-16 border-t border-white/10">
+    <section id="skills" className="w-full bg-[#050505] text-[#F5F5F5] py-28 px-6 sm:px-12 lg:px-16">
       <div className="max-w-7xl mx-auto space-y-16">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-12 border-b border-white/10 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 gap-6">
           <div>
             <div className="flex items-center gap-2.5 font-sans text-[11px] font-medium text-neutral-400 uppercase tracking-[0.2em]">
               <span className="w-1.5 h-1.5 rounded-full bg-white/80"></span>

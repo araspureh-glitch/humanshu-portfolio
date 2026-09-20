@@ -119,7 +119,7 @@ export default function Footer() {
 
           {/* Email — large, high contrast, hover effect */}
           <a
-            href="mailto:humanshu.araspure@gmail.com"
+            href="mailto:araspurehumanshu@gmail.com"
             className="group block w-fit"
           >
             <div className="relative overflow-hidden">
@@ -127,13 +127,13 @@ export default function Footer() {
                 className="block font-sans text-lg sm:text-xl font-normal tracking-tight leading-tight transition-colors duration-300 group-hover:opacity-70"
                 style={{ color: 'var(--text-primary)' }}
               >
-                humanshu.araspure@gmail.com
+                araspurehumanshu@gmail.com
               </span>
               {/* Animated underline */}
               <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" style={{ background: 'var(--text-primary)' }} />
             </div>
             <span className="mt-1.5 block font-sans font-medium text-[10px] tracking-[0.2em] uppercase transition-colors duration-300" style={{ color: 'var(--text-secondary)' }}>
-              Open to work ↗
+              Open to work
             </span>
           </a>
 

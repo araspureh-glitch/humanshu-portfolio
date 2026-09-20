@@ -7,7 +7,7 @@ const AudioContext = createContext({
 
 export const useAudio = () => useContext(AudioContext)
 
-export function AudioProvider({ children, videoId = 'rVD-zV6ctoM' }) {
+export function AudioProvider({ children, videoId = 'fHI8X4OXluQ' }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const playerRef = useRef(null)
 
@@ -45,6 +45,6 @@ export function AudioProvider({ children, videoId = 'rVD-zV6ctoM' }) {
   )
 }
 
-export default function BackgroundAudio({ videoId = 'rVD-zV6ctoM' }) {
+export default function BackgroundAudio({ videoId = 'fHI8X4OXluQ' }) {
   return null
 }

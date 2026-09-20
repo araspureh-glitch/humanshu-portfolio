@@ -75,15 +75,48 @@ export default function AsciiPortraitCanvas({
   imageSrc = "/assets/ascii_source_photo.jpg",
   config = defaultConfig,
   className = "",
-  width = 600,
-  height = 700,
+  width,
+  height,
+  autoSize = true,
   onLoaded = () => {},
 }) {
+  const containerRef = useRef(null)
   const canvasRef = useRef(null)
   const animFrameRef = useRef(null)
   const imgRef = useRef(null)
   const offscreenCanvasRef = useRef(null)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [dimensions, setDimensions] = useState({ width: width || 600, height: height || 700 })
+
+  // Auto-resize observer
+  useEffect(() => {
+    if (!autoSize && width && height) {
+      setDimensions({ width, height })
+      return
+    }
+
+    const container = containerRef.current
+    if (!container) return
+
+    const updateSize = () => {
+      const rect = container.getBoundingClientRect()
+      if (rect.width > 0 && rect.height > 0) {
+        setDimensions({
+          width: Math.round(rect.width),
+          height: Math.round(rect.height)
+        })
+      }
+    }
+
+    updateSize()
+    const observer = new ResizeObserver(updateSize)
+    observer.observe(container)
+
+    return () => observer.disconnect()
+  }, [width, height, autoSize])
+
+  const renderWidth = dimensions.width
+  const renderHeight = dimensions.height
 
   // Merge provided config with defaults
   const settings = {
@@ -108,48 +141,48 @@ export default function AsciiPortraitCanvas({
 
   // Main Render Animation Loop
   useEffect(() => {
-    if (!imageLoaded || !imgRef.current || !canvasRef.current) return
+    if (!imageLoaded || !imgRef.current || !canvasRef.current || renderWidth <= 0 || renderHeight <= 0) return
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d', { willReadFrequently: true })
     if (!ctx) return
 
     // Set canvas dimensions
-    canvas.width = width
-    canvas.height = height
+    canvas.width = renderWidth
+    canvas.height = renderHeight
 
     // Create offscreen canvas for sampling pixel luminance
     if (!offscreenCanvasRef.current) {
       offscreenCanvasRef.current = document.createElement('canvas')
     }
     const offscreen = offscreenCanvasRef.current
-    offscreen.width = width
-    offscreen.height = height
+    offscreen.width = renderWidth
+    offscreen.height = renderHeight
     const offCtx = offscreen.getContext('2d', { willReadFrequently: true })
     if (!offCtx) return
 
     // Draw image onto offscreen canvas preserving cover aspect ratio
     const img = imgRef.current
     const imgAspect = img.width / img.height
-    const canvasAspect = width / height
-    let renderW = width
-    let renderH = height
+    const canvasAspect = renderWidth / renderHeight
+    let drawW = renderWidth
+    let drawH = renderHeight
     let offsetX = 0
     let offsetY = 0
 
     if (imgAspect > canvasAspect) {
-      renderW = height * imgAspect
-      offsetX = (width - renderW) / 2
+      drawW = renderHeight * imgAspect
+      offsetX = (renderWidth - drawW) / 2
     } else {
-      renderH = width / imgAspect
-      offsetY = (height - renderH) / 2
+      drawH = renderWidth / imgAspect
+      offsetY = (renderHeight - drawH) / 2
     }
 
-    offCtx.clearRect(0, 0, width, height)
-    offCtx.drawImage(img, offsetX, offsetY, renderW, renderH)
+    offCtx.clearRect(0, 0, renderWidth, renderHeight)
+    offCtx.drawImage(img, offsetX, offsetY, drawW, drawH)
 
     // Apply basic pixel adjustments (Brightness, Contrast, Saturation, Grayscale)
-    const imgData = offCtx.getImageData(0, 0, width, height)
+    const imgData = offCtx.getImageData(0, 0, renderWidth, renderHeight)
     const pixels = imgData.data
 
     const contrast = settings.contrast
@@ -209,12 +242,12 @@ export default function AsciiPortraitCanvas({
       const animTime = (elapsed * 0.002) * speedVal
 
       // Clear main canvas
-      ctx.clearRect(0, 0, width, height)
+      ctx.clearRect(0, 0, renderWidth, renderHeight)
 
       // Background mode
       if (settings.bgMode === "solid") {
         ctx.fillStyle = "#050505"
-        ctx.fillRect(0, 0, width, height)
+        ctx.fillRect(0, 0, renderWidth, renderHeight)
       } else if (settings.bgMode === "photo") {
         ctx.save()
         ctx.globalAlpha = (settings.bgOpacity / 100)
@@ -224,8 +257,8 @@ export default function AsciiPortraitCanvas({
 
       // Grid Sampling Parameters
       const cellSize = Math.max(2, settings.cellSize)
-      const cols = Math.floor(width / cellSize)
-      const rows = Math.floor(height / cellSize)
+      const cols = Math.floor(renderWidth / cellSize)
+      const rows = Math.floor(renderHeight / cellSize)
 
       const charsStr = settings.customChars || CHAR_SETS[settings.charSet] || CHAR_SETS.standard
       const charLen = charsStr.length
@@ -235,7 +268,7 @@ export default function AsciiPortraitCanvas({
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
 
-      const processedData = offCtx.getImageData(0, 0, width, height).data
+      const processedData = offCtx.getImageData(0, 0, renderWidth, renderHeight).data
 
       // Iterate through cell grid
       for (let r = 0; r < rows; r++) {
@@ -249,9 +282,9 @@ export default function AsciiPortraitCanvas({
 
           for (let dy = -cellSize / 2; dy < cellSize / 2; dy += sampleStep) {
             for (let dx = -cellSize / 2; dx < cellSize / 2; dx += sampleStep) {
-              const px = Math.min(width - 1, Math.max(0, Math.floor(cx + dx)))
-              const py = Math.min(height - 1, Math.max(0, Math.floor(cy + dy)))
-              const idx = (py * width + px) * 4
+              const px = Math.min(renderWidth - 1, Math.max(0, Math.floor(cx + dx)))
+              const py = Math.min(renderHeight - 1, Math.max(0, Math.floor(cy + dy)))
+              const idx = (py * renderWidth + px) * 4
 
               sumR += processedData[idx]
               sumG += processedData[idx + 1]
@@ -373,15 +406,15 @@ export default function AsciiPortraitCanvas({
       // Scanlines effect
       if (pfx.scanLines && pfx.scanLines.enabled) {
         ctx.fillStyle = `rgba(0, 0, 0, ${(pfx.scanLines.intensity / 100) * 0.35})`
-        for (let y = 0; y < height; y += 4) {
-          ctx.fillRect(0, y, width, 1.5)
+        for (let y = 0; y < renderHeight; y += 4) {
+          ctx.fillRect(0, y, renderWidth, 1.5)
         }
       }
 
       // Film Grain effect
       if (pfx.filmGrain && pfx.filmGrain.enabled) {
         const grainIntensity = (pfx.filmGrain.intensity / 100) * 0.15
-        const grainData = ctx.getImageData(0, 0, width, height)
+        const grainData = ctx.getImageData(0, 0, renderWidth, renderHeight)
         const gPixels = grainData.data
         for (let i = 0; i < gPixels.length; i += 16) {
           const noise = (Math.random() - 0.5) * 255 * grainIntensity
@@ -395,14 +428,14 @@ export default function AsciiPortraitCanvas({
       // Vignette effect
       if (pfx.vignette && pfx.vignette.enabled) {
         const grad = ctx.createRadialGradient(
-          width / 2, height / 2, width * 0.25,
-          width / 2, height / 2, width * 0.7
+          renderWidth / 2, renderHeight / 2, renderWidth * 0.25,
+          renderWidth / 2, renderHeight / 2, renderWidth * 0.7
         )
         const vIntensity = (pfx.vignette.intensity / 100)
         grad.addColorStop(0, "rgba(0,0,0,0)")
         grad.addColorStop(1, `rgba(0,0,0,${vIntensity * 0.85})`)
         ctx.fillStyle = grad
-        ctx.fillRect(0, 0, width, height)
+        ctx.fillRect(0, 0, renderWidth, renderHeight)
       }
 
       if (settings.animated) {
@@ -417,10 +450,10 @@ export default function AsciiPortraitCanvas({
         cancelAnimationFrame(animFrameRef.current)
       }
     }
-  }, [imageLoaded, width, height, JSON.stringify(settings)])
+  }, [imageLoaded, renderWidth, renderHeight, JSON.stringify(settings)])
 
   return (
-    <div className={`relative flex items-center justify-center overflow-hidden rounded-2xl bg-[#050505] ${className}`}>
+    <div ref={containerRef} className={`relative flex items-center justify-center overflow-hidden bg-[#050505] ${className}`}>
       {!imageLoaded && (
         <div className="absolute inset-0 flex items-center justify-center text-xs font-mono text-neutral-500 animate-pulse">
           Loading ASCII Raster Engine...
@@ -428,7 +461,7 @@ export default function AsciiPortraitCanvas({
       )}
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain pointer-events-none"
+        className="w-full h-full object-cover pointer-events-none"
       />
     </div>
   )

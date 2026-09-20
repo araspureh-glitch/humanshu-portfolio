@@ -5,7 +5,7 @@ export default function FloatingHobbiesCloud() {
   return (
     <section 
       id="hobbies"
-      className="relative w-full bg-[#050505] text-[#F5F5F5] overflow-hidden py-24 sm:py-32 px-6 sm:px-12 flex flex-col justify-center items-center border-t border-b border-[#262626] select-none"
+      className="relative w-full bg-[#050505] text-[#F5F5F5] overflow-hidden py-24 sm:py-32 px-6 sm:px-12 flex flex-col justify-center items-center select-none"
     >
       {/* Background Spatial Glow Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -22,7 +22,7 @@ export default function FloatingHobbiesCloud() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full pb-10 border-b border-white/10"
+          className="w-full pb-10"
         >
           <div>
             <div className="flex items-center gap-2.5 font-sans text-[11px] font-medium text-neutral-400 uppercase tracking-[0.2em]">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import ThemeToggle from './ui/ThemeToggle'
+import MusicToggle from './ui/MusicToggle'
 import { useTheme } from '../context/ThemeContext'
 
 export default function Navigation({ introComplete = true, activeSection: activeSectionProp = 'home' }) {
@@ -46,7 +46,7 @@ export default function Navigation({ introComplete = true, activeSection: active
             : 'linear-gradient(to bottom, rgba(248,247,244,0.95), rgba(248,247,244,0.60), transparent)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between font-mono uppercase" style={{ color: 'var(--text-nav)' }}>
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between font-mono uppercase" style={{ color: 'var(--text-nav)' }}>
         
         {/* Left: Signature HA. Monogram Logo */}
         <Link 
@@ -61,8 +61,8 @@ export default function Navigation({ introComplete = true, activeSection: active
           />
         </Link>
 
-        {/* Center Desktop Nav with Optimized Minimal Font Size */}
-        <nav className="hidden md:flex items-center gap-8 text-[13px]" style={{ color: 'var(--text-nav)' }}>
+        {/* Center Desktop Nav - Absolutely Centered */}
+        <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[13px]" style={{ color: 'var(--text-nav)' }}>
           {navItems.map((item) => {
             const isActive = location.pathname === item.path
 
@@ -113,8 +113,8 @@ export default function Navigation({ introComplete = true, activeSection: active
             <span>→</span>
           </Link>
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
+          {/* Music Audio Toggle */}
+          <MusicToggle />
 
           {/* Mobile Menu Toggle Button */}
           <button

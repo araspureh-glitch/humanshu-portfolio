@@ -36,7 +36,7 @@ export default function ContactSection() {
 
           <div className="pt-6 flex flex-wrap items-center gap-4">
             <a 
-              href="mailto:humanshu.araspure@gmail.com" 
+              href="mailto:araspurehumanshu@gmail.com" 
               style={{ border: '1px solid var(--border-nav)', color: 'var(--text-primary)' }}
               onMouseEnter={e => {
                 e.currentTarget.style.background = 'var(--text-primary)'
