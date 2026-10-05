@@ -57,7 +57,7 @@ export default function Navigation({ introComplete = true, activeSection: active
           <img
             src="/assets/ha_logo.png"
             alt="Humanshu Araspure logo"
-            className={`h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 ${theme === 'dark' ? '' : 'invert'}`}
+            className={`h-[18px] sm:h-5 w-auto object-contain transition-transform group-hover:scale-105 ${theme === 'dark' ? '' : 'invert'}`}
           />
         </Link>
 
