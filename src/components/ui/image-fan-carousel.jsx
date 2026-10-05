@@ -217,16 +217,7 @@ export const Carousel360 = ({ activeTab = "ALL" }) => {
                   }`}
               />
 
-              {/* Bottom Vignette & Title Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-left">
-                <span className="font-mono text-[10px] text-[#EA5211] font-semibold tracking-[0.2em] uppercase mb-1 flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-[#EA5211]" />
-                  <span>{activeItem.tag}</span>
-                </span>
-                <h3 className="text-base sm:text-xl font-light text-white font-sans tracking-tight">
-                  {activeItem.title}
-                </h3>
-              </div>
+
             </motion.div>
           </AnimatePresence>
         </div>
