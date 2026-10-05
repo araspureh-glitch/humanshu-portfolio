@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const hobbyImages = [
   { src: "/hobbies/puppy.jpg", title: "Golden Retriever Companion", category: "PETS", tag: "PETS & COMPANIONSHIP" },
@@ -211,36 +210,6 @@ export const Carousel360 = ({ activeTab = "ALL" }) => {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* Navigation Buttons (Left & Right Sides) */}
-        <button
-          type="button"
-          aria-label="Previous image"
-          onClick={() => rotateCarousel("left")}
-          className={`absolute left-0 sm:-left-6 top-1/2 -translate-y-1/2 z-30 group relative flex items-center justify-center ${BUTTON_SIZE_CLASSES} rounded-full overflow-hidden
-                     shadow-lg shadow-black/60 opacity-80 hover:opacity-100
-                     transition-all duration-200 active:scale-90 cursor-pointer border border-[#262626] hover:border-[#EA5211]/60 bg-[#09090b]/80 backdrop-blur-md`}
-        >
-          <FaArrowLeft className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-[#EA5211] transition-colors duration-200" />
-        </button>
-
-        <button
-          type="button"
-          aria-label="Next image"
-          onClick={() => rotateCarousel("right")}
-          className={`absolute right-0 sm:-right-6 top-1/2 -translate-y-1/2 z-30 group relative flex items-center justify-center ${BUTTON_SIZE_CLASSES} rounded-full overflow-hidden
-                     shadow-lg shadow-black/60 opacity-80 hover:opacity-100
-                     transition-all duration-200 active:scale-90 cursor-pointer border border-[#262626] hover:border-[#EA5211]/60 bg-[#09090b]/80 backdrop-blur-md`}
-        >
-          <FaArrowRight className="relative z-10 h-3 w-3 text-neutral-400 group-hover:text-[#EA5211] transition-colors duration-200" />
-        </button>
-      </div>
-
-      {/* Centered Index Counter */}
-      <div className="mt-6 z-30 flex items-center gap-2">
-        <span className="font-mono font-medium text-[11px] text-neutral-400 uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-[#262626] bg-[#09090b]/80">
-          <span className="text-[#EA5211]">{centerIndex + 1}</span> / {numImages}
-        </span>
       </div>
     </div>
   );
