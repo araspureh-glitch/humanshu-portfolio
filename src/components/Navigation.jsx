@@ -55,9 +55,9 @@ export default function Navigation({ introComplete = true, activeSection: active
           className="group flex items-center tracking-tight hover:opacity-90 transition-opacity"
         >
           <img
-            src="/assets/ha_signature_logo.png"
-            alt="HA. Logo"
-            className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+            src="/assets/ha_logo.png"
+            alt="Humanshu Araspure logo"
+            className={`h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 ${theme === 'dark' ? '' : 'invert'}`}
           />
         </Link>
 
