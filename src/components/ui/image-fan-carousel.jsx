@@ -13,7 +13,6 @@ export const hobbyImages = [
   { src: "/hobbies/nature.jpg", title: "Forest Trail & Hiking", category: "TRAVEL", tag: "NATURE & MINDFULNESS" },
   { src: "/hobbies/fitness.jpg", title: "Fitness & Arms Workout", category: "FITNESS", tag: "DISCIPLINE" },
   { src: "/hobbies/lifestyle.jpg", title: "Outdoor Garden & Architecture", category: "DESIGN", tag: "LIFESTYLE & DESIGN" },
-  { src: "/hobbies/design.png", title: "UI/UX Interface Design", category: "DESIGN", tag: "DIGITAL CRAFT" },
 ];
 
 const AUTOPLAY_INTERVAL_MS = 2800;
@@ -42,11 +41,7 @@ const CENTER_SIZE_CLASSES =
 
 const BUTTON_SIZE_CLASSES = "w-10 h-10 sm:w-11 sm:h-11";
 
-const ImageLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-md">
-    <div className="w-6 h-6 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
-  </div>
-);
+
 
 export const Carousel360 = ({ activeTab = "ALL" }) => {
   const containerRef = useRef(null);
@@ -179,13 +174,11 @@ export const Carousel360 = ({ activeTab = "ALL" }) => {
                   transition={springTransition}
                   onClick={() => setRotation(-angleStep * index)}
                 >
-                  {!loadedThumbs[index] && <ImageLoader />}
                   <img
                     src={item.src}
                     alt={item.title}
                     onLoad={() => markThumbLoaded(index)}
-                    className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 ${loadedThumbs[index] ? "opacity-85 hover:opacity-100 hover:scale-105" : "opacity-0"
-                      }`}
+                    className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 opacity-85 hover:opacity-100 hover:scale-105`}
                   />
                 </motion.div>
               </motion.div>
@@ -207,14 +200,11 @@ export const Carousel360 = ({ activeTab = "ALL" }) => {
               }}
               className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(234,82,17,0.15)] bg-[#09090c] pointer-events-auto group transition-colors"
             >
-              {!centerLoaded && <ImageLoader />}
               <img
                 src={activeItem.src}
                 alt={activeItem.title}
-                loading="lazy"
                 onLoad={() => setCenterLoaded(true)}
-                className={`object-cover ${CENTER_SIZE_CLASSES} transition-opacity duration-300 ${centerLoaded ? "opacity-100" : "opacity-0"
-                  }`}
+                className={`object-cover ${CENTER_SIZE_CLASSES}`}
               />
 
 

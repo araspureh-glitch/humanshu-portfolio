@@ -13,7 +13,6 @@ export const hobbyImages = [
   { src: "/hobbies/nature.jpg", title: "Forest Trail & Hiking", tag: "NATURE & MINDFULNESS" },
   { src: "/hobbies/fitness.jpg", title: "Fitness & Arms Workout", tag: "DISCIPLINE" },
   { src: "/hobbies/lifestyle.jpg", title: "Outdoor Garden & Architecture", tag: "LIFESTYLE & DESIGN" },
-  { src: "/hobbies/design.png", title: "UI/UX Interface Design", tag: "DIGITAL CRAFT" },
 ];
 
 const AUTOPLAY_INTERVAL_MS = 2800;
@@ -138,14 +137,11 @@ export const Carousel360: React.FC = () => {
                   transition={springTransition}
                   onClick={() => setRotation(-angleStep * index)}
                 >
-                  {!loadedThumbs[index] && <ImageLoader />}
                   <img
                     src={item.src}
                     alt={item.title}
                     onLoad={() => markThumbLoaded(index)}
-                    className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 ${
-                      loadedThumbs[index] ? "opacity-90 hover:opacity-100 hover:scale-105" : "opacity-0"
-                    }`}
+                    className={`object-cover ${THUMB_SIZE_CLASSES} transition-all duration-300 opacity-90 hover:opacity-100 hover:scale-105`}
                   />
                 </motion.div>
               </motion.div>
@@ -167,15 +163,10 @@ export const Carousel360: React.FC = () => {
               }}
               className="relative rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-white/30 bg-neutral-950 pointer-events-auto group"
             >
-              {!centerLoaded && <ImageLoader />}
               <img
                 src={activeItem.src}
                 alt={activeItem.title}
-                loading="lazy"
-                onLoad={() => setCenterLoaded(true)}
-                className={`object-cover ${CENTER_SIZE_CLASSES} transition-opacity duration-300 ${
-                  centerLoaded ? "opacity-100" : "opacity-0"
-                }`}
+                className={`object-cover ${CENTER_SIZE_CLASSES}`}
               />
 
 
